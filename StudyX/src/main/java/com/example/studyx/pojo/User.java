@@ -25,8 +25,7 @@ public class User {
     @GeneratedValue(generator = "id-generator")
     @Column(name = "id")
     int id;
-
     String username;
-
     String password;
+    String salt;
 }

@@ -158,23 +158,26 @@
         </transition>
       </div>
     </div>
+    <Recommand></Recommand>
   </div>
+
 </template>
   
   <script>
 import Sentbutton from "@/components/SentButton";
 import Loadingbutton from "@/components/LoadingButton";
+import Recommand from "@/pages/Recommand";
 import "animate.css";
 // eslint-disable-next-line no-unused-vars
 export default {
   name: "Login",
-  components: {Sentbutton, Loadingbutton },
+  components: {Sentbutton, Loadingbutton,Recommand },
   data() {
     return {
       //看看用不用转成用户对象
       loginUser: {
-        username: 'admin',
-        password: '123'
+        username: "",
+        password: ""
       },
       regUser: {
         regUsername: "",
@@ -235,39 +238,41 @@ export default {
           }
         });
     },
-    // //用户注册
-    // userRegister() {
-    //   if (this.regUser.regUsername === "") {
-    //     this.$message.error("用户名不能为空！");
-    //     return false;
-    //   } else if (this.regUser.regPwd != this.regUser.regRePwd) {
-    //     this.$message.error("两次密码输入不同，请检查后重新注册！");
-    //     return false;
-    //   } else {
-    //     let user = {};
-    //     user.name = this.regUser.regUsername;
-    //     user.password = this.regUser.regPwd;
-    //     user.auditor = this.regUser.selectValue;
-    //     this.request
-    //       .post("http://localhost:9090/user/register", user)
-    //       .then((res) => {
-    //         if (res.code === "200") {
-    //           this.$message.success("申请成功，请耐心等待管理员审核！");
-    //           this.regUser = {
-    //             regUsername: "",
-    //             regRePwd: "",
-    //             regPwd: "",
-    //             selectValue: "",
-    //           };
-    //           this.changeToLogin();
-    //         }
-    //         if (res.code === "400") {
-    //           this.$message.error(res.msg);
-    //           return;
-    //         }
-    //       });
-    //   }
-    // },
+    //用户注册
+    userRegister() {
+      if (this.regUser.regUsername === "") {
+        this.$message.error("用户名不能为空！");
+        return false;
+      } else if (this.regUser.regPwd != this.regUser.regRePwd) {
+        this.$message.error("两次密码输入不同，请检查后重新注册！");
+        return false;
+      } else {
+        let user = {};
+        user.username = this.regUser.regUsername;
+        user.password = this.regUser.regPwd;
+        this.$axios
+          .post("/register", {
+          username: user.username,
+          password: user.password,
+        })
+          .then((res) => {
+            // console.log(res.data.code)
+            if (res.data.code == "200") {
+              this.$message.success("注册成功");
+              this.regUser = {
+                regUsername: "",
+                regRePwd: "",
+                regPwd: "",
+              };
+              this.changeToLogin();
+            } else if (res.data.code == "400") {
+              console.log(res.data.message)
+              this.$message.error(res.data.message);
+              return;
+            }
+          });
+      }
+    },
   },
 };
 </script>
@@ -300,21 +305,24 @@ input {
 }
 
 .base {
-  width: 100%;
-  height: 100%; /**宽高100%是为了图片铺满屏幕 */
-  z-index: -1;
-  position: fixed;
-  top: 0px; /*这里是设置与顶部的距离*/
-  left: 0px; /*这里是设置与左边的距离*/
-  bottom: 0px;
-  right: 0px;
-  display: flex;
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+  position: relative;  
+
+  display: flex;/*重要*/
+	flex-wrap: wrap;/*重要*/    /*--让弹性盒元素在必要的时候拆行：*/
+	align-content: space-between;/*重要*/
   justify-content: center;
-  align-items: center;
+  /*align-items: center;*/
   background-image: url("../assets/background.png");
+  background-repeat: no-repeat;
   background-size: 100%;
 }
 .loginAndRegist {
+  margin-top:220px;
+  margin-bottom: 230px;
   position: relative;
   display: flex;
   justify-content: center;

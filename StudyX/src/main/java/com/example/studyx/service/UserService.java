@@ -46,9 +46,10 @@ public class UserService {
         if (exist) {
             return 2;
         }
-        // 默认生成 16 位盐
+        // 默认生成 16 位盐，干扰数据
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         int times = 2;
+        user.setSalt(salt);
         String encodedPassword = new SimpleHash("md5", password, salt, times).toString();
         user.setPassword(encodedPassword);
         userDAO.save(user);

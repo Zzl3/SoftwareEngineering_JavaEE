@@ -8,6 +8,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +27,20 @@ public class LoginController {
 
     @CrossOrigin
     @PostMapping(value = "/api/login")
-    @ResponseBody
     public Result login(@RequestBody User requestUser, HttpSession session) {
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
 
-        User user = userService.get(username, requestUser.getPassword());
+        //先得到salt加密的值
+        User user=userService.getByName(username);
+        if (null == user) {
+            return ResultFactory.buildFailResult("账号不存在");
+        }
+        String salt=user.getSalt();
+
+        //加密密码，和原来的做对比
+        String password= new SimpleHash("md5",requestUser.getPassword() , salt, 2).toString();;
+        user = userService.get(username, password);
         if (null == user) {
             return ResultFactory.buildFailResult("账号不存在");
         } else {
@@ -40,42 +49,18 @@ public class LoginController {
         }
     }
 
-//    @Autowired
-//    UserService userService;
-//
-//    @CrossOrigin
-//    @PostMapping("/api/login")
-//    public Result login(@RequestBody User requestUser) {
-//        String username = requestUser.getUsername();
-//        username = HtmlUtils.htmlEscape(username);
-//
-//        Subject subject = SecurityUtils.getSubject();
-////        subject.getSession().setTimeout(10000);
-//        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, requestUser.getPassword());
-//        usernamePasswordToken.setRememberMe(true);
-//        try {
-//            subject.login(usernamePasswordToken);
-//            User user = userService.findByUsername(username);
-//            return ResultFactory.buildSuccessResult(username);
-//        } catch (IncorrectCredentialsException e) {
-//            return ResultFactory.buildFailResult("密码错误");
-//        } catch (UnknownAccountException e) {
-//            return ResultFactory.buildFailResult("账号不存在");
-//        }
-//    }
-//
-//    @CrossOrigin
-//    @PostMapping("/api/register")
-//    public Result register(@RequestBody User user) {
-//        int status = userService.register(user);
-//        switch (status) {
-//            case 0:
-//                return ResultFactory.buildFailResult("用户名和密码不能为空");
-//            case 1:
-//                return ResultFactory.buildSuccessResult("注册成功");
-//            case 2:
-//                return ResultFactory.buildFailResult("用户已存在");
-//        }
-//        return ResultFactory.buildFailResult("未知错误");
-//    }
+    @CrossOrigin
+    @PostMapping("/api/register")
+    public Result register(@RequestBody User user) {
+        int status = userService.register(user);
+        switch (status) {
+            case 0:
+                return ResultFactory.buildFailResult("用户名和密码不能为空");
+            case 1:
+                return ResultFactory.buildSuccessResult("注册成功");
+            case 2:
+                return ResultFactory.buildFailResult("用户已存在");
+        }
+        return ResultFactory.buildFailResult("未知错误");
+    }
 }
