@@ -1,5 +1,6 @@
 package com.example.studyx.interceptor;
 
+import com.example.studyx.pojo.Admin;
 import com.example.studyx.pojo.User;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -8,21 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginInterceptor  implements HandlerInterceptor{
+//拦截器
+public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
-        String contextPath=session.getServletContext().getContextPath();
+        String contextPath = session.getServletContext().getContextPath();
         String[] requireAuthPages = new String[]{
-                "index",
+                "index"
         };
         String uri = httpServletRequest.getRequestURI();
-        uri = StringUtils.remove(uri, contextPath+"/");
+        uri = StringUtils.remove(uri, contextPath + "/");
         String page = uri;
-        if(begingWith(page, requireAuthPages)){
+        if (begingWith(page, requireAuthPages)) {
             User user = (User) session.getAttribute("user");
-            if(user==null) {//不存在
+            Admin admin = (Admin) session.getAttribute("admin");
+            if (user == null && admin == null) {//不存在
                 httpServletResponse.sendRedirect("login");
                 return false;
             }
@@ -33,7 +36,7 @@ public class LoginInterceptor  implements HandlerInterceptor{
     private boolean begingWith(String page, String[] requiredAuthPages) {
         boolean result = false;
         for (String requiredAuthPage : requiredAuthPages) {
-            if(StringUtils.startsWith(page, requiredAuthPage)) {
+            if (StringUtils.startsWith(page, requiredAuthPage)) {
                 result = true;
                 break;
             }

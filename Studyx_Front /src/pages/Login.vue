@@ -1,166 +1,193 @@
 <template>
-  <div class="base">
-    <!-- 注册登录界面 -->
-    <div class="loginAndRegist">
-      <!--登录表单-->
-      <div class="loginArea">
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <!-- 标语 -->
-          <div v-show="isShow" class="title">SIGN IN</div>
-        </transition>
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <!-- 密码框和用户名框 -->
-          <div v-show="isShow" class="sign-in-container">
-            <input type="text" placeholder="Name" v-model="loginUser.username" />
-            <input
-              type="password"
-              placeholder="Password"
-              v-model="loginUser.password"
-            />
-          </div>
-        </transition>
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <Sentbutton
-            v-show="isShow"
-            infor="confirm"
-            @click.native="UserLogin"
-          ></Sentbutton>
-        </transition>
-      </div>
-      <!-- 注册表单 -->
-      <div class="registArea">
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <!-- 注册表头-->
-          <div v-show="!isShow" class="rigestTitle">SIGN UP</div>
-        </transition>
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <!-- 注册表单-->
-          <div v-show="!isShow" class="sign-up-container">
-            <input
-              type="text"
-              placeholder="Name"
-              v-model="regUser.regUsername"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              v-model="regUser.regPwd"
-            />
-            <input
-              type="password"
-              placeholder="Re-enter Password"
-              v-model="regUser.regRePwd"
-            />
-          </div>
-        </transition>
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <Sentbutton
-            v-show="!isShow"
-            infor="confirm"
-            @click.native="userRegister"
-          ></Sentbutton>
-        </transition>
-      </div>
-      <!-- 信息展示界面 -->
-      <div
-        id="aaa"
-        class="showInfo"
-        :style="{
-          borderTopRightRadius: styleObj.bordertoprightradius,
-          borderBottomRightRadius: styleObj.borderbottomrightradius,
-          borderTopLeftRadius: styleObj.bordertopleftradius,
-          borderBottomLeftRadius: styleObj.borderbottomleftradius,
-          right: styleObj.rightDis,
-        }"
-        ref="showInfoView"
-      >
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <!-- 没有用户输入用户名或者找不到用户名的时候 -->
-          <div
-            v-show="isShow"
-            style="
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              width: 100%;
-              height: 100%;
-            "
+  <div>
+    <div class="base">
+      <!-- 注册登录界面 -->
+      <div class="loginAndRegist">
+        <!--登录表单-->
+        <div class="loginArea">
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
           >
-            <div style="flex: 2">
-              <Loadingbutton
-                infor="to register"
-                @click.native="changeToRegiest"
-              ></Loadingbutton>
+            <div v-show="isShow" class="title">
+              <span
+                style="
+                  display: inline-block;
+                  margin: 0px;
+                  padding: 0px;
+                  margin-top: 30px;
+                "
+                >SIGN IN</span
+              >
+              <br />
+              <el-link
+                type="info"
+                @click="changerole()"
+                style="margin: 0px; padding: 0px"
+                >{{ nowrole }}</el-link
+              >
+              <!-- <h6
+              style="margin-bottom: 0px; padding: 0px"
+              onclick="changerole()"
+            >
+              {{ nowrole }}
+            </h6> -->
             </div>
-          </div>
-        </transition>
-        <transition
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInUp"
-          leave-active-class="animate__zoomOut"
-          appear
-        >
-          <!-- 用户注册的时候展示信息 -->
-          <div
-            v-show="!isShow"
-            style="
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              width: 100%;
-              height: 100%;
-            "
+          </transition>
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
           >
-            <div style="flex: 2">
-              <Loadingbutton
-                infor="to login"
-                @click.native="changeToLogin"
-              ></Loadingbutton>
+            <!-- 密码框和用户名框 -->
+            <div v-show="isShow" class="sign-in-container">
+              <input
+                type="text"
+                placeholder="Name"
+                v-model="loginUser.username"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                v-model="loginUser.password"
+              />
             </div>
-          </div>
-        </transition>
+          </transition>
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
+          >
+            <Sentbutton
+              v-show="isShow"
+              infor="confirm"
+              @click.native="Login"
+            ></Sentbutton>
+          </transition>
+        </div>
+        <!-- 注册表单 -->
+        <div class="registArea">
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
+          >
+            <!-- 注册表头-->
+            <div v-show="!isShow" class="rigestTitle">SIGN UP</div>
+          </transition>
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
+          >
+            <!-- 注册表单-->
+            <div v-show="!isShow" class="sign-up-container">
+              <input
+                type="text"
+                placeholder="Name"
+                v-model="regUser.regUsername"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                v-model="regUser.regPwd"
+              />
+              <input
+                type="password"
+                placeholder="Re-enter Password"
+                v-model="regUser.regRePwd"
+              />
+            </div>
+          </transition>
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
+          >
+            <Sentbutton
+              v-show="!isShow"
+              infor="confirm"
+              @click.native="userRegister"
+            ></Sentbutton>
+          </transition>
+        </div>
+        <!-- 信息展示界面 -->
+        <div
+          id="aaa"
+          class="showInfo"
+          :style="{
+            borderTopRightRadius: styleObj.bordertoprightradius,
+            borderBottomRightRadius: styleObj.borderbottomrightradius,
+            borderTopLeftRadius: styleObj.bordertopleftradius,
+            borderBottomLeftRadius: styleObj.borderbottomleftradius,
+            right: styleObj.rightDis,
+          }"
+          ref="showInfoView"
+        >
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
+          >
+            <!-- 没有用户输入用户名或者找不到用户名的时候 -->
+            <div
+              v-show="isShow"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+              "
+            >
+              <div style="flex: 2">
+                <Loadingbutton
+                  infor="to register"
+                  @click.native="changeToRegiest"
+                ></Loadingbutton>
+              </div>
+            </div>
+          </transition>
+          <transition
+            name="animate__animated animate__bounce"
+            enter-active-class="animate__fadeInUp"
+            leave-active-class="animate__zoomOut"
+            appear
+          >
+            <!-- 用户注册的时候展示信息 -->
+            <div
+              v-show="!isShow"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+              "
+            >
+              <div style="flex: 2">
+                <Loadingbutton
+                  infor="to login"
+                  @click.native="changeToLogin"
+                ></Loadingbutton>
+              </div>
+            </div>
+          </transition>
+        </div>
       </div>
     </div>
     <Recommand></Recommand>
   </div>
-
 </template>
   
   <script>
@@ -171,13 +198,14 @@ import "animate.css";
 // eslint-disable-next-line no-unused-vars
 export default {
   name: "Login",
-  components: {Sentbutton, Loadingbutton,Recommand },
+  components: { Sentbutton, Loadingbutton, Recommand },
   data() {
     return {
       //看看用不用转成用户对象
+      nowrole: "USER NOW", //当前是用户还是管理员
       loginUser: {
         username: "",
-        password: ""
+        password: "",
       },
       regUser: {
         regUsername: "",
@@ -215,29 +243,57 @@ export default {
       this.styleObj.rightDis = "0px";
       this.isShow = !this.isShow;
     },
-    //用户登录
-    UserLogin() {
-      var _this = this
-      this.$axios
-        .post("/login", {
-          username: this.loginUser.username,
-          password: this.loginUser.password,
-        })
-        .then((res) => {
-          // console.log(res.data)
-          if (res.data.code == "200") {
-            this.$message.success("登陆成功！");
-            //传递登录信息
-            _this.$store.commit('login', _this.loginUser)
-            var path = this.$route.query.redirect;
-            this.$router.replace({
-              path: path === "/" || path === undefined ? "/index" : path,
-            });
-          } else {
-            this.$message.error("用户名或密码错误！");
-          }
-        });
+    //用户登录，或者管理员登录
+    Login() {
+      var _this = this;
+      if (this.nowrole == "USER NOW") {
+        this.$axios
+          .post("/login", {
+            username: this.loginUser.username,
+            password: this.loginUser.password,
+          })
+          .then((res) => {
+            // console.log(res.data)
+            if (res.data.code == "200") {
+              this.$message.success({
+                message: "登陆成功！",
+                duration: "500",
+              });
+              _this.$store.commit("login", _this.loginUser);
+              var path = this.$route.query.redirect;
+              this.$router.replace({
+                path: path === "/" || path === undefined ? "/index" : path,
+              });
+            } else {
+              this.$message.error("用户名或密码错误！");
+            }
+          });
+      } else if (this.nowrole == "ADMINISTRATOR NOW") {
+        this.$axios
+          .post("/login/admin", {
+            adminname: this.loginUser.username,
+            password: this.loginUser.password,
+          })
+          .then((res) => {
+            // console.log(res.data)
+            if (res.data.code == "200") {
+              this.$message.success({
+                message: "登陆成功！",
+                duration: "500",
+              });
+              _this.$store.commit("adminlogin", _this.loginUser);
+              var path = this.$route.query.redirect;
+              this.$router.replace({
+                path:
+                  path === "/" || path === undefined ? "/admin/index" : path,
+              });
+            } else {
+              this.$message.error("用户名或密码错误！");
+            }
+          });
+      }
     },
+
     //用户注册
     userRegister() {
       if (this.regUser.regUsername === "") {
@@ -252,9 +308,9 @@ export default {
         user.password = this.regUser.regPwd;
         this.$axios
           .post("/register", {
-          username: user.username,
-          password: user.password,
-        })
+            username: user.username,
+            password: user.password,
+          })
           .then((res) => {
             // console.log(res.data.code)
             if (res.data.code == "200") {
@@ -266,18 +322,30 @@ export default {
               };
               this.changeToLogin();
             } else if (res.data.code == "400") {
-              console.log(res.data.message)
+              console.log(res.data.message);
               this.$message.error(res.data.message);
               return;
             }
           });
       }
     },
+    changerole() {
+      if (this.nowrole == "USER NOW") {
+        this.nowrole = "ADMINISTRATOR NOW";
+      } else {
+        this.nowrole = "USER NOW";
+      }
+    },
   },
 };
 </script>
   
-<style>
+<style scoped>
+span {
+  padding: 10px 0;
+  transition: 1s;
+}
+
 input {
   background-color: #eee;
   border: none;
@@ -307,21 +375,22 @@ input {
 .base {
   top: 0;
   left: 0;
-  width:100%;
-  height:100%;
-  position: relative;  
-
-  display: flex;/*重要*/
-	flex-wrap: wrap;/*重要*/    /*--让弹性盒元素在必要的时候拆行：*/
-	align-content: space-between;/*重要*/
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex; /*重要*/
+  flex-wrap: wrap; /*重要*/ /*--让弹性盒元素在必要的时候拆行：*/
+  align-content: space-between; /*重要*/
   justify-content: center;
   /*align-items: center;*/
+  background-size: 100%;
   background-image: url("../assets/background.png");
   background-repeat: no-repeat;
-  background-size: 100%;
 }
 .loginAndRegist {
-  margin-top:220px;
+  width: 50%;
+  height: 100%;
+  margin-top: 220px;
   margin-bottom: 230px;
   position: relative;
   display: flex;
@@ -371,14 +440,13 @@ input {
 }
 .title {
   width: 70%;
-  flex: 1;
+  /*flex: 1;*/
   border-bottom: 3px solid #6b9184;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
   color: #83bc93;
   font-weight: bold;
   font-size: 24px;
-  display: flex;
   justify-content: center;
 }
 #aaa {

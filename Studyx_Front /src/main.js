@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import axios from "axios";
 import ElementUI from 'element-ui'
-import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -13,7 +13,7 @@ Vue.use(ElementUI)
 Vue.prototype.$axios = axios
 axios.defaults.baseURL = 'http://localhost:8443/api'
 
-//每个路由有此拦截器
+
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (store.state.user.username) {
@@ -36,7 +36,7 @@ new Vue({
   el: '#app',
   render: h => h(App),
   router,
-  store, // 注意这里
+  store,
   components: {
     App
   },

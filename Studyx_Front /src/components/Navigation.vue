@@ -1,22 +1,57 @@
 <template>
-  <div>
-    <el-menu
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-    >
-      <el-menu-item index="1">自习教室</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">组队招募</template>
-        <el-menu-item index="2-1">组队项目</el-menu-item>
-        <el-menu-item index="2-2">我要组队</el-menu-item>  <!--我要组队包括新建和修改-->
-      </el-submenu>
-      <el-menu-item index="3">资料分享</el-menu-item>
-      <el-menu-item index="4">按时打卡</el-menu-item>
-    </el-menu>
+  <div class="home">
+    <body class="news">
+      <header>
+        <div class="nav">
+          <ul>
+            <a
+              href="/index"
+              style="
+                display: inline-block;
+                float: left;
+                top: 50px;
+                margin-top: 10px;
+                padding: 0px;
+                margin-left: 20px;
+              "
+            >
+              <i class="el-icon-s-home" style="font-size: 30px"></i
+            ></a>
+            <!-- 这里就是导航栏跳转,需要子页面就在下面加上li -->
+            <li class="classroom"><a href="#">教室板块</a></li>
+            <li class="project">
+              <a href="#">组队板块</a>
+              <ul>
+                <li><a href="/project/allproject">全部组队</a></li>
+                <li><a href="/project/myproject">我的组队</a></li>
+                <li><a href="/project/addproject">新建组队</a></li>
+              </ul>
+            </li>
+            <li class="material"><a href="#">资料板块</a></li>
+            <li class="punch"><a href="#">打卡板块</a></li>
+            <el-dropdown
+              style="
+                border-bottom: none;
+                top: 13px;
+                display: inline-block;
+                right: 40px;
+                position: fixed;
+              "
+            >
+              <el-avatar> user </el-avatar>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="el-icon-s-fold" @click.native="logout"
+                  >退出登录</el-dropdown-item
+                >
+                <el-dropdown-item icon="el-icon-s-home" @click.native="mypage"
+                  >我的页面</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
+          </ul>
+        </div>
+      </header>
+    </body>
   </div>
 </template>
 
@@ -30,6 +65,112 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
+    logout() {
+      // user = {
+      //   username: "",
+      //   password: "",
+      // };
+      // this.$store.commit("login", user);
+      this.$router.push({
+        path: "/login",
+      });
+    },
+    mypage() {
+      this.$router.push({
+        path: "/mypage",
+      });
+    },
   },
 };
 </script>
+<style scoped>
+.home {
+  width: 100%;
+  position: flex;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: #ccc;
+}
+
+.nav ul {
+  list-style: none;
+  background-color: #444;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li {
+  font-size: 1.2em;
+  line-height: 40px;
+  text-align: left;
+  font-family: "Ek Mukta";
+  font-weight: bolder;
+  /*font-family: Georgia, 'Times New Roman', Times, serif*/
+}
+
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  padding-left: 15px;
+  border-bottom: 1px solid #888;
+  transition: 0.3s background-color;
+}
+
+.nav a:hover {
+  background-color: #638d8d;
+}
+
+.nav a.active {
+  background-color: #aaa;
+  color: #444;
+  cursor: default;
+}
+
+/* Sub Menus */
+.nav li li {
+  font-size: 0.8em;
+}
+
+@media screen and (min-width: 650px) {
+  .nav li {
+    width: 130px;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.3em;
+    display: inline-block;
+    margin-right: -4px;
+  }
+
+  .nav a {
+    border-bottom: none;
+  }
+
+  .nav > ul > li {
+    text-align: center;
+  }
+
+  .nav > ul > li > a {
+    padding-left: 0;
+  }
+
+  /* Sub Menus */
+  .nav li ul {
+    position: absolute;
+    display: none;
+    width: inherit;
+  }
+
+  .nav li:hover ul {
+    display: block;
+  }
+
+  .nav li ul li {
+    display: block;
+  }
+}
+</style>

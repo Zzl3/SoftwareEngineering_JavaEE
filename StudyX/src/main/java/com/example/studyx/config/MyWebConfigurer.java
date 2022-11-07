@@ -16,6 +16,6 @@ public class MyWebConfigurer implements WebMvcConfigurer {
     //对所有路径应用，除了/index.html
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(getLoginIntercepter()).addPathPatterns("/**").excludePathPatterns("/index.html");
+        registry.addInterceptor(getLoginIntercepter()).addPathPatterns("/**").excludePathPatterns("/login.html");
     }
 }
