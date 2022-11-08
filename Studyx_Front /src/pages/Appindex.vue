@@ -10,12 +10,12 @@
           </a>
         </div>
         <!-- <ul class="navv">
-          <li><a @click.native="goToAnchor('#')">功能背景</a></li>
-          <li><a @click.native="goToAnchor('#profile')">精彩介绍</a></li>
-          <li><a href="#honor">如何使用</a></li>
-          <li><a href="#picture">照片墙</a></li>
-          <li><a href="#time">时间</a></li>
-        </ul> -->
+                <li><a @click.native="goToAnchor('#')">功能背景</a></li>
+                <li><a @click.native="goToAnchor('#profile')">精彩介绍</a></li>
+                <li><a href="#honor">如何使用</a></li>
+                <li><a href="#picture">照片墙</a></li>
+                <li><a href="#time">时间</a></li>
+              </ul> -->
       </div>
       <!-- 轮播图 -->
       <slide-show id="bott"></slide-show>
@@ -63,6 +63,7 @@ import Profile from "@/components/IndexCom/Profile.vue";
 import Introduction from "@/components/IndexCom/Introduction.vue";
 import PictureWall from "@/components/IndexCom/PictureWall.vue";
 import Navigation from "@/components/Navigation";
+// import Sidebar from "@/components/Sidebar";
 export default {
   name: "AppIndex",
   components: { Navigation, SlideShow, Profile, Introduction, PictureWall },
@@ -97,7 +98,7 @@ export default {
 #toptop {
   z-index: 9999;
 }
-#bott{
+#bott {
   z-index: -1;
 }
 /* fotter */

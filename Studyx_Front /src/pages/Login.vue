@@ -28,12 +28,6 @@
                 style="margin: 0px; padding: 0px"
                 >{{ nowrole }}</el-link
               >
-              <!-- <h6
-              style="margin-bottom: 0px; padding: 0px"
-              onclick="changerole()"
-            >
-              {{ nowrole }}
-            </h6> -->
             </div>
           </transition>
           <transition
@@ -44,7 +38,48 @@
           >
             <!-- 密码框和用户名框 -->
             <div v-show="isShow" class="sign-in-container">
-              <input
+              <el-form :model="loginForm" :rules="rules" ref="loginForm">
+                <el-form-item prop="userName">
+                  <el-input
+                    v-model="loginForm.userName"
+                    style="width: 230px"
+                    placeholder="Name"
+                    size="meddle"
+                    autocomplete="off"
+                  ></el-input>
+                </el-form-item>
+
+                <el-form-item prop="password">
+                  <el-input
+                    show-password
+                    v-model="loginForm.password"
+                    style="width: 230px"
+                    placeholder="Password"
+                    autocomplete="off"
+                  ></el-input>
+                </el-form-item>
+
+                <el-form-item required>
+                  <el-col :span="18">
+                    <el-form-item prop="validCode">
+                      <el-input
+                        v-model="loginForm.validCode"
+                        style="width: 150px"
+                        placeholder="captCHA"
+                      ></el-input>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="5" style="margin-left:-52px;">
+                    <validCode
+                      v-model="validCode"
+                      ref="refresh"
+                      @sendData="getCode"
+                    ></validCode>
+                  </el-col>
+                </el-form-item>
+              </el-form>
+              <!-- <input
                 type="text"
                 placeholder="Name"
                 v-model="loginUser.username"
@@ -53,7 +88,7 @@
                 type="password"
                 placeholder="Password"
                 v-model="loginUser.password"
-              />
+              /> -->
             </div>
           </transition>
           <transition
@@ -191,6 +226,7 @@
 </template>
   
   <script>
+import validCode from "@/components/VerificationCode";
 import Sentbutton from "@/components/SentButton";
 import Loadingbutton from "@/components/LoadingButton";
 import Recommand from "@/pages/Recommand";
@@ -198,15 +234,48 @@ import "animate.css";
 // eslint-disable-next-line no-unused-vars
 export default {
   name: "Login",
-  components: { Sentbutton, Loadingbutton, Recommand },
+  components: { Sentbutton, Loadingbutton, Recommand, validCode },
   data() {
+    let validUserName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("用户名不能为空"));
+      } else {
+        callback();
+      }
+    };
+
+    let validPassword = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("密码不能为空"));
+      } else {
+        callback();
+      }
+    };
+
+    const checkValidCode = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入验证码"));
+      } else if (value.toUpperCase() !== this.validCode.toUpperCase()) {
+        callback(new Error("验证码不正确"));
+      } else {
+        callback();
+      }
+    };
+
     return {
-      //看看用不用转成用户对象
-      nowrole: "USER NOW", //当前是用户还是管理员
-      loginUser: {
-        username: "",
+      validCode: "",
+
+      loginForm: {
+        userName: "",
         password: "",
       },
+      rules: {
+        userName: [{ validator: validUserName, trigger: "blur" }],
+        password: [{ validator: validPassword, trigger: "blur" }],
+        validCode: [{ validator: checkValidCode, trigger: "blur" }],
+      },
+      //看看用不用转成用户对象
+      nowrole: "USER NOW", //当前是用户还是管理员
       regUser: {
         regUsername: "",
         regRePwd: "",
@@ -227,6 +296,11 @@ export default {
     this.loadInfoOfAdmin();
   },
   methods: {
+    //从子组件获取验证码，并将验证码返回到页面
+    getCode(data) {
+      // console.log(data)
+      this.validCode = data;
+    },
     changeToRegiest() {
       this.styleObj.bordertoprightradius = "0px";
       this.styleObj.borderbottomrightradius = "0px";
@@ -249,8 +323,8 @@ export default {
       if (this.nowrole == "USER NOW") {
         this.$axios
           .post("/login", {
-            username: this.loginUser.username,
-            password: this.loginUser.password,
+            username: this.loginForm.username,
+            password: this.loginForm.password,
           })
           .then((res) => {
             // console.log(res.data)
@@ -271,8 +345,8 @@ export default {
       } else if (this.nowrole == "ADMINISTRATOR NOW") {
         this.$axios
           .post("/login/admin", {
-            adminname: this.loginUser.username,
-            password: this.loginUser.password,
+            adminname: this.loginForm.username,
+            password: this.loginForm.password,
           })
           .then((res) => {
             // console.log(res.data)
@@ -356,8 +430,8 @@ input {
 
 .sign-in-container {
   padding-top: 0px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 0px;
   left: 0;
   width: 100%;
   z-index: 2;

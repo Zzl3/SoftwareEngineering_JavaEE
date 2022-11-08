@@ -26,49 +26,34 @@ export default new Router({
       path: '/index',
       name: 'AppIndex',
       component: AppIndex,
-      meta: {
-        requireAuth: true
-      }
     },
     {
       path: '/admin/index',
       name: 'AdminIndex',
       component: AdminIndex,
-      meta: {
-        requireAuth: true
-      }
     },
     {
       path: '/mypage',
       name: 'MyPage',
       component: MyPage,
-      meta: {
-        requireAuth: true
-      }
     },
     {
       path: '/project/allproject',
       name: 'ProjectAll',
       component: ProjectAll,
-      meta: {
-        requireAuth: true //需要被拦截,只有登录后才能访问
-      }
     },
     {
       path: '/project/myproject',
       name: 'ProjectMy',
       component: ProjectMy,
-      meta: {
-        requireAuth: true
-      }
     },
     {
       path: '/project/addproject',
       name: 'ProjectAdd',
       component: ProjectAdd,
-      meta: {
-        requireAuth: true
-      }
+      // meta: {
+      //   requireAuth: true
+      // }
     },
   ]
 })

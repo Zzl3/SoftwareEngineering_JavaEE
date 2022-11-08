@@ -17,7 +17,6 @@
             >
               <i class="el-icon-s-home" style="font-size: 30px"></i
             ></a>
-            <!-- 这里就是导航栏跳转,需要子页面就在下面加上li -->
             <li class="classroom"><a href="#">教室板块</a></li>
             <li class="project">
               <a href="#">组队板块</a>
