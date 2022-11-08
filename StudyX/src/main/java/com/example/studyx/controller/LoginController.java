@@ -8,10 +8,7 @@ import com.example.studyx.service.AdminService;
 import com.example.studyx.service.UserService;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
@@ -63,8 +60,21 @@ public class LoginController {
         return ResultFactory.buildFailResult("未知错误");
     }
 
+    //注销登录
+    @CrossOrigin
+    @RequestMapping("/api/logout")
+    public void logout(HttpSession session) {
+        System.out.println("logout");
+        //session失效
+        if (session.getAttribute("user") != null)
+            session.removeAttribute("user");
+        if (session.getAttribute("admin") != null)
+            session.removeAttribute("admin");
+    }
+
     @Autowired
     AdminService AdminService;
+
     //管理员登录
     @CrossOrigin
     @PostMapping(value = "/api/login/admin")

@@ -100,11 +100,7 @@ export default {
       console.log(key, keyPath);
     },
     logout() {
-      // user = {
-      //   username: "",
-      //   password: "",
-      // };
-      // this.$store.commit("login", user);
+      this.$axios.post("logout");
       this.$router.push({
         path: "/login",
       });

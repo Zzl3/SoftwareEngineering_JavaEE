@@ -228,7 +228,6 @@ export default {
   data() {
     return {
       validCode: "",
-
       loginForm: {
         userName: "",
         password: "",
@@ -278,37 +277,35 @@ export default {
     },
     //用户登录，或者管理员登录
     Login() {
+      var _this = this;
       if (this.loginForm.validCode != this.validCode) {
-        this.$message.error("验证码错误！");
+        _this.$message.error("验证码错误！");
       } else {
-        var _this = this;
         if (this.nowrole == "USER NOW") {
-          this.$axios
+          _this.$axios
             .post("/login", {
-              username: this.loginForm.username,
-              password: this.loginForm.password,
+              username: _this.loginForm.userName,
+              password: _this.loginForm.password,
             })
             .then((res) => {
               // console.log(res.data)
               if (res.data.code == "200") {
-                this.$message.success({
+                _this.$message.success({
                   message: "登陆成功！",
                   duration: "500",
                 });
-                _this.$store.commit("login", _this.loginUser);
-                var path = this.$route.query.redirect;
-                this.$router.replace({
-                  path: path === "/" || path === undefined ? "/index" : path,
+                this.$router.push({
+                  path: "/index",
                 });
               } else {
                 this.$message.error("用户名或密码错误！");
               }
             });
         } else if (this.nowrole == "ADMINISTRATOR NOW") {
-          this.$axios
+          _this.$axios
             .post("/login/admin", {
-              adminname: this.loginForm.username,
-              password: this.loginForm.password,
+              username: _this.loginForm.userName,
+              password: _this.loginForm.password,
             })
             .then((res) => {
               // console.log(res.data)
@@ -317,11 +314,8 @@ export default {
                   message: "登陆成功！",
                   duration: "500",
                 });
-                _this.$store.commit("adminlogin", _this.loginUser);
-                var path = this.$route.query.redirect;
-                this.$router.replace({
-                  path:
-                    path === "/" || path === undefined ? "/admin" : path,
+                this.$router.push({
+                  path: "/admin/index",
                 });
               } else {
                 this.$message.error("用户名或密码错误！");
