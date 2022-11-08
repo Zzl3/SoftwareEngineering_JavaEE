@@ -267,7 +267,7 @@ export default {
   },
 };
 </script>
-  <style>
+  <style scoped>
 .containerFlex {
   display: flex;
   flex-direction: row; /*容器内成员的排列方式为从左到右*/

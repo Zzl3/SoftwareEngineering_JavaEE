@@ -22,8 +22,8 @@
       <!-- 主体 -->
       <div class="main-area">
         <!-- 简介 -->
-        <profile id="profile"></profile>
-        <!-- 荣誉 -->
+        <profile></profile>
+        <!-- 介绍 -->
         <Introduction></Introduction>
         <!-- 视频 -->
         <my-video></my-video>
@@ -62,7 +62,7 @@ import SlideShow from "@/components/IndexCom/SlideShow.vue";
 import Profile from "@/components/IndexCom/Profile.vue";
 import Introduction from "@/components/IndexCom/Introduction.vue";
 import PictureWall from "@/components/IndexCom/PictureWall.vue";
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigaCom/Navigation";
 // import Sidebar from "@/components/Sidebar";
 export default {
   name: "AppIndex",
@@ -182,7 +182,7 @@ ul {
   padding: 10px 150px;
   background-color: #585a57;
   height: 300px;
-  background-image: url("../assets/3.png");
+  background-image: url("../../assets/3.png");
   background-repeat: no-repeat;
   background-attachment: fixed; /*让图片固定住而不是随网页和div移动*/
   background-size: 100%; /*这个属性是让图片大小填充div的关键*/

@@ -11,18 +11,20 @@
     </RecommandCard>
 
     <!--热门组队-->
-    <RecommandCard
+    <ProjectCard
       CardTitle="热门组队"
-      CardDescription="热门组队，就差你一个"
-      :cardType="2"
+      CardDescription="热门组队，等你来组队"
+      projectname="组队名称"
+      projectdetail="组队细则"
+      otherdetail="其他要求"
       style="margin-top: 5%"
     >
-    </RecommandCard>
+    </ProjectCard>
 
     <!--热门资料-->
     <RecommandCard
       CardTitle="热门资料"
-      CardDescription="你想要的学习资料都在这里"
+      CardDescription="你想要的资料都在这里"
       :cardType="3"
       style="margin-top: 5%"
     >
@@ -54,22 +56,22 @@
 
 
 <script>
-import RecommandCard from "@/components/RecommandCard";
+import ProjectCard from "@/components/LoginCom/ProjectCard";
+import RecommandCard from "@/components/LoginCom/RecommandCard";
 export default {
   name: "Recommond",
-  components: { RecommandCard },
+  components: { RecommandCard, ProjectCard },
   created() {
     this.changeTags(0, 5);
   },
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>
 
 <style>
-.recommand{
-    width: 100%;
+.recommand {
+  width: 100%;
 }
 </style>

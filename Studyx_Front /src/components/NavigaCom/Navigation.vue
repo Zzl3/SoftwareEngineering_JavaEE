@@ -17,6 +17,33 @@
             >
               <i class="el-icon-s-home" style="font-size: 30px"></i
             ></a>
+            <a
+              style="
+                display: inline-block;
+                float: left;
+                top: 50px;
+                margin-top: 10px;
+                padding: 0px;
+                margin-left: 20px;
+              "
+            >
+              <i
+                class="el-icon-help"
+                style="font-size: 30px"
+                @click="drawer = true"
+              ></i
+            ></a>
+            <el-drawer
+              title="这里是有关积分的介绍"
+              :visible.sync="drawer"
+              :direction="direction"
+              :before-close="handleClose"
+            >
+              <!-- 这里就是积分的介绍RankDetail组件 -->
+              <span>
+                <RankDetail> </RankDetail>
+              </span>
+            </el-drawer>
             <li class="classroom"><a href="#">教室板块</a></li>
             <li class="project">
               <a href="#">组队板块</a>
@@ -55,12 +82,20 @@
 </template>
 
 <script>
+import RankDetail from "@/components/NavigaCom/RankDetail.vue";
 export default {
   name: "Navigation",
+  components: { RankDetail },
   data() {
-    return {};
+    return {
+      drawer: false,
+      direction: "rtl",
+    };
   },
   methods: {
+    handleClose(done) {
+      done();
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -76,13 +111,16 @@ export default {
     },
     mypage() {
       this.$router.push({
-        path: "/mypage",
+        path: "/user",
       });
     },
   },
 };
 </script>
 <style scoped>
+.drawer {
+  background: linear-gradient(200deg, #517fa4, #243949);
+}
 .home {
   width: 100%;
   position: flex;
@@ -95,7 +133,7 @@ body {
 
 .nav ul {
   list-style: none;
-  background-color: #444;
+  background-color: rgb(59, 62, 59);
   text-align: center;
   padding: 0;
   margin: 0;
@@ -120,7 +158,7 @@ body {
 }
 
 .nav a:hover {
-  background-color: #638d8d;
+  background-color: #939e96;
 }
 
 .nav a.active {

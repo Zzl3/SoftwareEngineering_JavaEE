@@ -65,12 +65,12 @@
                       <el-input
                         v-model="loginForm.validCode"
                         style="width: 150px"
-                        placeholder="captCHA"
+                        placeholder="Verification code"
                       ></el-input>
                     </el-form-item>
                   </el-col>
 
-                  <el-col :span="5" style="margin-left:-52px;">
+                  <el-col :span="5" style="margin-left: -52px">
                     <validCode
                       v-model="validCode"
                       ref="refresh"
@@ -79,16 +79,6 @@
                   </el-col>
                 </el-form-item>
               </el-form>
-              <!-- <input
-                type="text"
-                placeholder="Name"
-                v-model="loginUser.username"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                v-model="loginUser.password"
-              /> -->
             </div>
           </transition>
           <transition
@@ -226,53 +216,22 @@
 </template>
   
   <script>
-import validCode from "@/components/VerificationCode";
-import Sentbutton from "@/components/SentButton";
-import Loadingbutton from "@/components/LoadingButton";
-import Recommand from "@/pages/Recommand";
+import validCode from "@/components/LoginCom/VerificationCode";
+import Sentbutton from "@/components/LoginCom/SentButton";
+import Loadingbutton from "@/components/LoginCom/LoadingButton";
+import Recommand from "./Recommand";
 import "animate.css";
 // eslint-disable-next-line no-unused-vars
 export default {
   name: "Login",
   components: { Sentbutton, Loadingbutton, Recommand, validCode },
   data() {
-    let validUserName = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("用户名不能为空"));
-      } else {
-        callback();
-      }
-    };
-
-    let validPassword = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("密码不能为空"));
-      } else {
-        callback();
-      }
-    };
-
-    const checkValidCode = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("请输入验证码"));
-      } else if (value.toUpperCase() !== this.validCode.toUpperCase()) {
-        callback(new Error("验证码不正确"));
-      } else {
-        callback();
-      }
-    };
-
     return {
       validCode: "",
 
       loginForm: {
         userName: "",
         password: "",
-      },
-      rules: {
-        userName: [{ validator: validUserName, trigger: "blur" }],
-        password: [{ validator: validPassword, trigger: "blur" }],
-        validCode: [{ validator: checkValidCode, trigger: "blur" }],
       },
       //看看用不用转成用户对象
       nowrole: "USER NOW", //当前是用户还是管理员
@@ -319,52 +278,56 @@ export default {
     },
     //用户登录，或者管理员登录
     Login() {
-      var _this = this;
-      if (this.nowrole == "USER NOW") {
-        this.$axios
-          .post("/login", {
-            username: this.loginForm.username,
-            password: this.loginForm.password,
-          })
-          .then((res) => {
-            // console.log(res.data)
-            if (res.data.code == "200") {
-              this.$message.success({
-                message: "登陆成功！",
-                duration: "500",
-              });
-              _this.$store.commit("login", _this.loginUser);
-              var path = this.$route.query.redirect;
-              this.$router.replace({
-                path: path === "/" || path === undefined ? "/index" : path,
-              });
-            } else {
-              this.$message.error("用户名或密码错误！");
-            }
-          });
-      } else if (this.nowrole == "ADMINISTRATOR NOW") {
-        this.$axios
-          .post("/login/admin", {
-            adminname: this.loginForm.username,
-            password: this.loginForm.password,
-          })
-          .then((res) => {
-            // console.log(res.data)
-            if (res.data.code == "200") {
-              this.$message.success({
-                message: "登陆成功！",
-                duration: "500",
-              });
-              _this.$store.commit("adminlogin", _this.loginUser);
-              var path = this.$route.query.redirect;
-              this.$router.replace({
-                path:
-                  path === "/" || path === undefined ? "/admin/index" : path,
-              });
-            } else {
-              this.$message.error("用户名或密码错误！");
-            }
-          });
+      if (this.loginForm.validCode != this.validCode) {
+        this.$message.error("验证码错误！");
+      } else {
+        var _this = this;
+        if (this.nowrole == "USER NOW") {
+          this.$axios
+            .post("/login", {
+              username: this.loginForm.username,
+              password: this.loginForm.password,
+            })
+            .then((res) => {
+              // console.log(res.data)
+              if (res.data.code == "200") {
+                this.$message.success({
+                  message: "登陆成功！",
+                  duration: "500",
+                });
+                _this.$store.commit("login", _this.loginUser);
+                var path = this.$route.query.redirect;
+                this.$router.replace({
+                  path: path === "/" || path === undefined ? "/index" : path,
+                });
+              } else {
+                this.$message.error("用户名或密码错误！");
+              }
+            });
+        } else if (this.nowrole == "ADMINISTRATOR NOW") {
+          this.$axios
+            .post("/login/admin", {
+              adminname: this.loginForm.username,
+              password: this.loginForm.password,
+            })
+            .then((res) => {
+              // console.log(res.data)
+              if (res.data.code == "200") {
+                this.$message.success({
+                  message: "登陆成功！",
+                  duration: "500",
+                });
+                _this.$store.commit("adminlogin", _this.loginUser);
+                var path = this.$route.query.redirect;
+                this.$router.replace({
+                  path:
+                    path === "/" || path === undefined ? "/admin" : path,
+                });
+              } else {
+                this.$message.error("用户名或密码错误！");
+              }
+            });
+        }
       }
     },
 
@@ -458,7 +421,7 @@ input {
   justify-content: center;
   /*align-items: center;*/
   background-size: 100%;
-  background-image: url("../assets/background.png");
+  background-image: url("../../assets/background.png");
   background-repeat: no-repeat;
 }
 .loginAndRegist {
@@ -505,7 +468,7 @@ input {
   z-index: 2;
   top: 0;
   right: 0;
-  background-image: url("../assets/welcome.png");
+  background-image: url("../../assets/welcome.png");
   background-size: 90%;
 }
 .showInfo:hover {
