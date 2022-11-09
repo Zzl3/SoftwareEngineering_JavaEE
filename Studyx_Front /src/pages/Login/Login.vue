@@ -231,6 +231,7 @@ export default {
       loginForm: {
         userName: "",
         password: "",
+        validCode: "",
       },
       //看看用不用转成用户对象
       nowrole: "USER NOW", //当前是用户还是管理员

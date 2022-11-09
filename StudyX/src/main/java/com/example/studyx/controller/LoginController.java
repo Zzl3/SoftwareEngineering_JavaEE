@@ -87,7 +87,6 @@ public class LoginController {
             return ResultFactory.buildFailResult("账号不存在");
         }
         String salt = admin.getSalt();
-
         //加密密码，和原来的做对比
         String password = new SimpleHash("md5", requestAdmin.getPassword(), salt, 2).toString();
         ;
