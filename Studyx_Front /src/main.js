@@ -12,8 +12,8 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 //设置端口
 Vue.prototype.$axios = axios
-axios.defaults.baseURL ='http://localhost:8443/api'
-
+axios.defaults.baseURL ='http://1.15.177.18:8443/api'
+//axios.defaults.baseURL ='http://localhost:8443/api'
 
 //这些是路由拦截， 有后端就不用前端了
 // router.beforeEach((to, from, next) => {
