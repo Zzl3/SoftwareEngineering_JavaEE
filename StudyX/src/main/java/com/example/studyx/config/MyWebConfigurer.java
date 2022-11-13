@@ -25,4 +25,10 @@ public class MyWebConfigurer implements WebMvcConfigurer {
 //                "/**/*.css"                  //css静态资源
 //        );
     }
+
+    //这里是上传文件的路径，需要更改
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/api/file/**").addResourceLocations("file:" + "/Users/zhouzilei/Documents/GitHub/SoftwareEngineering-JavaEE/StudyX/img/");
+    }
 }

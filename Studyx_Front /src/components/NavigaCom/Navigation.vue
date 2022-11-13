@@ -64,7 +64,15 @@
                 position: fixed;
               "
             >
-              <el-avatar> user </el-avatar>
+              <el-avatar
+                :src="
+                  require('/Users/zhouzilei/Documents/GitHub/SoftwareEngineering-JavaEE/StudyX/img/avator/' +
+                    url +
+                    '.jpg')
+                "
+              >
+                user
+              </el-avatar>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item icon="el-icon-s-fold" @click.native="logout"
                   >退出登录</el-dropdown-item
@@ -88,11 +96,31 @@ export default {
   components: { RankDetail },
   data() {
     return {
+      url: "d8rjcw",
       drawer: false,
       direction: "rtl",
     };
   },
+  created() {
+    this.getimg();
+  },
+  // mounted() {
+  //   this.getimg();
+  // },
   methods: {
+    getimg() {
+      var _this = this;
+      this.$axios({
+        url: "/user/getImg",
+        method: "post",
+        data: _this.$myglobal.nowuserid,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      }).then((res) => {
+        this.url = res.data;
+      });
+    },
     handleClose(done) {
       done();
     },

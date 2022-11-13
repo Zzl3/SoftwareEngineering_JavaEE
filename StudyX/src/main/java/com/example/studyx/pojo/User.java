@@ -26,4 +26,11 @@ public class User {
     String username;
     String password;
     String salt;
+    String phone;
+    String mail;
+    String gender;
+    String detail;
+    String school;
+    int age;
+    String url;
 }

@@ -295,6 +295,7 @@ export default {
                   message: "登陆成功！",
                   duration: "500",
                 });
+                this.$myglobal.setnowuserid(_this.loginForm.userName),//改变全局nowusername
                 this.$router.push({
                   path: "/index",
                 });

@@ -2,34 +2,18 @@
   <div>
     <el-col :span="4">
       <div class="shell">
-        <a href="#" class="box">
-          <span><i class="el-icon-edit"></i></span>
-          <span>list</span>
+        <a href="/user/myinfo" class="box">
+          <span><i class="el-icon-edit"></i></span><span>个人信息</span>
         </a>
-        <a href="#" class="box">
-          <span><i class="el-icon-share"></i></span><span> Warehouse</span></a
+        <a href="/user/mycollection" class="box">
+          <span><i class="el-icon-share"></i></span><span>我的收藏</span></a
         >
-        <a href="#" class="box">
-          <span><i class="el-icon-user"></i></span><span>theme</span></a
+        <a href="/user/myborrow" class="box">
+          <span><i class="el-icon-user"></i></span><span>我的借阅</span></a
         >
-        <a href="#" class="box">
+        <a href="/user/mydonation" class="box">
           <span><i class="el-icon-remove-outline"></i></span
-          ><span>wallet</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-picture-outline"></i></span
-          ><span>picture</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-camera"></i></span><span>QR code</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-s-marketing"></i></span
-          ><span>authentication</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-d-caret"></i></span
-          ><span>cancellation</span></a
+          ><span>我的捐赠</span></a
         >
       </div>
     </el-col>

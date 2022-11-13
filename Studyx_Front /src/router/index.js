@@ -11,7 +11,11 @@ import Login from '@/pages/Login/Login'
 import AdminPage from '@/pages/Admin/Adminpage'
 
 //这里是用户模块
-import MyPage from '@/pages/Mypage/Mypage'
+import Mypage from '@/pages/Mypage/Mypage'
+import Myborrow from '@/pages/Mypage/Myborrow'
+import Mydonation from '@/pages/Mypage/Mydonation'
+import Mycollection from '@/pages/Mypage/Mycollection'
+import Myinfo from '@/pages/Mypage/Myinfo'
 
 //这里是项目模块
 import Project from '@/pages/Project/Project'
@@ -37,7 +41,6 @@ export default new Router({
       path: '/index',
       component: UserIndex,
     },
-
     //管理员中心界面
     {
       path: '/admin',
@@ -47,18 +50,30 @@ export default new Router({
       ],
       props: true
     },
-
     //个人中心界面
     {
       path: '/user',
-      component: MyPage,
-      chileren: [
+      component: Mypage,
+      children: [{
+          path: '/user/myinfo',
+          component: Myinfo,
+      },
+      {
+        path: '/user/myborrow',
+        component: Myborrow,
+      },
+      {
+        path: '/user/mydonation',
+        component: Mydonation,
+      },
+      {
+        path: '/user/mycollection',
+        component: Mycollection,
+      },
 
       ],
       props: true
     },
-
-
     //下面开始分成4个模块
     //项目界面
     {

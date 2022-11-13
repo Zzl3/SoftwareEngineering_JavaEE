@@ -8,10 +8,7 @@
       <!-- 这里是侧边栏 -->
       <Sidebar></Sidebar>
       <!-- 这里是中间部分 -->
-      <div id="main">
-        这里是我的页面
-        <router-view></router-view>
-      </div>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -20,7 +17,7 @@
 import Navigation from "@/components/NavigaCom/Navigation";
 import Sidebar from "@/components/MypageCom/Sidebar";
 export default {
-  name: "MyPage",
+  name: "Mypage",
   components: { Navigation, Sidebar },
 };
 </script>
