@@ -54,7 +54,7 @@ export default {
 <style scoped>
 #card {
   position: absolute;
-  top: 150px;
+  top: 200px;
   left: 200px;
 }
 * {

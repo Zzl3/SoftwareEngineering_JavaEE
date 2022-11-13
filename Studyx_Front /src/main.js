@@ -8,8 +8,10 @@ import axios from "axios";
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import global from './utils/global';
-Vue.prototype.$myglobal = global;
-
+import * as echarts from 'echarts';
+//需要挂载到Vue原型上
+Vue.prototype.$echarts = echarts; //echarts
+Vue.prototype.$myglobal = global; //global
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
