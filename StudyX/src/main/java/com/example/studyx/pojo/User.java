@@ -33,4 +33,6 @@ public class User {
     String school;
     int age;
     String url;
+
+    String status;
 }
