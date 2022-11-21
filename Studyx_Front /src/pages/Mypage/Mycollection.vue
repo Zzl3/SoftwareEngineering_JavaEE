@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Collectioncard from "@/components/MypageCom/Collectioncard";
+import Collectioncard from "@/components/MypageCom/MyCollectionCom/Collectioncard";
 export default {
   components: { Collectioncard },
 };

@@ -19,6 +19,8 @@
         <div class="infouser">邮箱：{{ mail }}</div>
         <div class="infouser">手机：{{ phone }}</div>
         <div class="infouser">学校：{{ school }}</div>
+        <div class="infouser">个人积分：{{ integration }}</div>
+        <div class="infouser">用户状态：{{ status }}</div>
         <div class="infouser">个人介绍：{{ detail }}</div>
       </div>
       <div class="c">
@@ -42,8 +44,8 @@
 </template>
 
 <script>
-import Myfrom from "@/components/MypageCom/Form";
-import TDButton from "@/components/MypageCom/TDButton";
+import Myfrom from "@/components/MypageCom/MyInfoCom/Form";
+import TDButton from "@/components/MypageCom/MyInfoCom/TDButton";
 export default {
   name: "Myinfo",
   components: { TDButton, Myfrom },
@@ -58,6 +60,8 @@ export default {
       phone: "",
       detail: "",
       age: "",
+      integration: "",
+      status:"",
     };
   },
   mounted() {
@@ -66,21 +70,24 @@ export default {
   methods: {
     getlist() {
       var _this = this;
-      this.username = this.$myglobal.nowuserid; //当前用户
+      //this.username = this.$myglobal.nowuserid; //当前用户
       this.$axios({
         url: "/user/getuserinfo",
         method: "post",
-        data: _this.username,
+        data: _this.$myglobal.nowuserid,
         headers: {
           "Content-Type": "text/plain",
         },
       }).then((res) => {
+        this.username=res.data.username
         this.gender = res.data.gender;
         this.detail = res.data.detail;
         this.mail = res.data.mail;
         this.phone = res.data.phone;
         this.school = res.data.school;
         this.age = res.data.age;
+        this.integration = res.data.integration;
+        this.status = res.data.status;
       });
     },
   },

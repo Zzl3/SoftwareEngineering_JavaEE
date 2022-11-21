@@ -13,12 +13,7 @@
           >
             <div v-show="isShow" class="title">
               <span
-                style="
-                  display: inline-block;
-                  margin: 0px;
-                  padding: 0px;
-                  margin-top: 30px;
-                "
+                style="display: inline-block; margin: 0px; padding: 0px; margin-top: 30px"
                 >SIGN IN</span
               >
               <br />
@@ -113,16 +108,8 @@
           >
             <!-- 注册表单-->
             <div v-show="!isShow" class="sign-up-container">
-              <input
-                type="text"
-                placeholder="Name"
-                v-model="regUser.regUsername"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                v-model="regUser.regPwd"
-              />
+              <input type="text" placeholder="Name" v-model="regUser.regUsername" />
+              <input type="password" placeholder="Password" v-model="regUser.regPwd" />
               <input
                 type="password"
                 placeholder="Re-enter Password"
@@ -214,8 +201,8 @@
     <Recommand></Recommand>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import validCode from "@/components/LoginCom/VerificationCode";
 import Sentbutton from "@/components/LoginCom/SentButton";
 import Loadingbutton from "@/components/LoginCom/LoadingButton";
@@ -294,11 +281,21 @@ export default {
                 _this.$message.success({
                   message: "登陆成功！",
                   duration: "500",
+                }); 
+                _this.$axios({
+                  url: "/getuserid",
+                  method: "post",
+                  data: _this.loginForm.userName,
+                  headers: {
+                    "Content-Type": "text/plain",
+                  },
+                }).then((res) => {
+                  _this.$myglobal.setnowuserid(res.data)//改变全局nowusername
+                 // console.log( _this.$myglobal.nowuserid)
                 });
-                this.$myglobal.setnowuserid(_this.loginForm.userName),//改变全局nowusername
-                this.$router.push({
-                  path: "/index",
-                });
+                  this.$router.push({
+                    path: "/index",
+                  });
               } else {
                 this.$message.error("用户名或密码错误！");
               }
@@ -372,7 +369,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 span {
   padding: 10px 0;

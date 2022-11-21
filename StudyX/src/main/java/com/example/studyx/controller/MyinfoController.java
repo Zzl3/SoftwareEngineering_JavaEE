@@ -1,6 +1,7 @@
 package com.example.studyx.controller;
 
 
+import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.User;
 import com.example.studyx.result.ResultFactory;
 import com.example.studyx.service.UserService;
@@ -22,20 +23,22 @@ public class MyinfoController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserDAO userDAO;
+
     @CrossOrigin
     @PostMapping(value = "/api/user/getuserinfo")
     public User getuserinfo(@RequestBody String a) {
-        User user = userService.getByName(a);
+        User user = userDAO.getById(Integer.valueOf(a));
         return user;
     }
 
     @CrossOrigin
     @PostMapping(value = "/api/user/edituserinfo")
     public boolean edituserinfo(@RequestBody User user) {
-        String username = user.getUsername();
-        username = HtmlUtils.htmlEscape(username);
-        User usera = userService.getByName(username);
-        if (user.getPassword() != "") {
+        Integer id = Integer.valueOf(user.getId());
+        User usera = userDAO.getById(id);
+        if (user.getPassword() !=  null) {
             // 默认生成 16 位盐，干扰数据
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
             int times = 2;
@@ -43,25 +46,25 @@ public class MyinfoController {
             String encodedPassword = new SimpleHash("md5", user.getPassword(), salt, times).toString();
             usera.setPassword(encodedPassword);
         }
-        if (user.getMail() != "") {
+        if (user.getMail() !=  null) {
             usera.setMail(user.getMail());
         }
-        if (user.getAge() != 0) {
+        if (user.getAge() != null) {
             usera.setAge(user.getAge());
         }
-        if (user.getGender() != "") {
+        if (user.getGender() !=  null) {
             usera.setGender(user.getGender());
         }
-        if (user.getDetail() != "") {
+        if (user.getDetail() !=  null) {
             usera.setDetail(user.getDetail());
         }
-        if (user.getPhone() != "") {
+        if (user.getPhone() !=  null) {
             usera.setPhone(user.getPhone());
         }
-        if (user.getSchool() != "") {
+        if (user.getSchool() !=  null) {
             usera.setSchool(user.getSchool());
         }
-        if(user.getUrl()!=""){
+        if(user.getUrl()!= null){
             usera.setUrl(user.getUrl());
         }
         userService.add(usera);
@@ -92,8 +95,7 @@ public class MyinfoController {
     @CrossOrigin
     @PostMapping("/api/user/getImg")
     public String getImg(@RequestBody String a) throws Exception {
-
-        User user = userService.getByName(a);
+        User user = userDAO.getById(Integer.valueOf(a));
         String url=user.getUrl();
         return url;
     }

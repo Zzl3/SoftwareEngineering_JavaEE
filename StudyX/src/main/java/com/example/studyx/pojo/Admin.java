@@ -19,7 +19,7 @@ public class Admin {
     @GenericGenerator(name = "id-generator", strategy = "increment")
     @GeneratedValue(generator = "id-generator")
     @Column(name = "id")
-    int id;
+    Integer id;
     String adminname;
     String password;
     String salt;

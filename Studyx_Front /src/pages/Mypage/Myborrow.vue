@@ -2,9 +2,7 @@
   <div>
     <el-breadcrumb separator="/" style="margin-top: 40px; margin-left: 350px">
       <el-breadcrumb-item :to="{ path: '/user' }">我的页面</el-breadcrumb-item>
-      <el-breadcrumb-item
-        ><a href="/user/myborrow">我的借阅</a></el-breadcrumb-item
-      >
+      <el-breadcrumb-item><a href="/user/myborrow">我的借阅</a></el-breadcrumb-item>
     </el-breadcrumb>
     <div class="rwd-table">
       <el-table
@@ -16,8 +14,7 @@
         </el-table-column>
         <el-table-column prop="name" label="书籍名称" sortable width="150">
         </el-table-column>
-        <el-table-column prop="time" label="剩余时间" width="100">
-        </el-table-column>
+        <el-table-column prop="time" label="剩余时间" width="100"> </el-table-column>
         <el-table-column
           prop="status"
           label="当前状态"
@@ -34,7 +31,19 @@
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.status === '申请中' ? 'primary' : 'success'"
+              :type="
+                scope.row.status == '申请中'
+                  ? ''
+                  : scope.row.status == '借阅中'
+                  ? 'success'
+                  : scope.row.status == '归还中'
+                  ? 'danger'
+                  : scope.row.status == '已结束'
+                  ? 'warning'
+                  : scope.row.status == '未借阅'
+                  ? 'info'
+                  : 'primary'
+              "
               disable-transitions
               >{{ scope.row.status }}</el-tag
             >
@@ -70,7 +79,7 @@
   </div>
 </template>
 
-  <script>
+<script>
 export default {
   data() {
     return {

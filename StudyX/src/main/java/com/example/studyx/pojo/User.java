@@ -1,6 +1,7 @@
 package com.example.studyx.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.Interceptor;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
@@ -22,7 +23,7 @@ public class User {
     @GenericGenerator(name = "id-generator",strategy = "increment")
     @GeneratedValue(generator = "id-generator")
     @Column(name = "id")
-    int id;
+    Integer id;
     String username;
     String password;
     String salt;
@@ -31,8 +32,10 @@ public class User {
     String gender;
     String detail;
     String school;
-    int age;
+    Integer age;
     String url;
-
+    String integration;
+    String realname;
+    String idcard;
     String status;
 }

@@ -130,7 +130,7 @@ export default {
         _this.$message("两次密码不一致，请重新输入");
       } else {
         _this.$axios.post("/user/edituserinfo", {
-          username: _this.$myglobal.nowuserid,
+          id: _this.$myglobal.nowuserid,
           password: formData.get("password"),
           phone: formData.get("phone"),
           mail: formData.get("mail"),

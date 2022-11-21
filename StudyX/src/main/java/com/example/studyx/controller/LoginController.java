@@ -22,6 +22,14 @@ public class LoginController {
     UserService userService;
 
     @CrossOrigin
+    @PostMapping("/api/getuserid")
+    public Integer getUserid(@RequestBody String a) throws Exception {
+        User user = userService.getByName(a);
+        Integer id = user.getId();
+        return id;
+    }
+
+    @CrossOrigin
     @PostMapping(value = "/api/login")
     public Result login(@RequestBody User requestUser, HttpSession session) {
         String username = requestUser.getUsername();

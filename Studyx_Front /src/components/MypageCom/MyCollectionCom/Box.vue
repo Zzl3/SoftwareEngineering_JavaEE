@@ -3,24 +3,16 @@
   <div class="box">
     <!-- top-bar -->
     <div class="top-bar"></div>
-    <!-- nav -->
-    <div class="nav">
-      <!-- verify-icon -->
-      <i class="verify fas fa-check-circle"></i>
-      <!-- heart-btn -->
-      <input type="checkbox" class="heart-btn" id="heart-btn" />
-      <label for="heart-btn" class="heart"></label>
-    </div>
-    <!-- img and details  -->
-    <div class="details">
-      <img src="../../assets/1.png" />
-      <strong>{{ Title }}</strong>
-      <p>{{ Description }}</p>
-    </div>
     <!-- view-btns  -->
     <div class="btn">
       <a href="#"><i class="fas fa-eys"></i>查看详情</a>
-      <a href="#"><i class="fas fa-eys"></i>上传封面</a>
+      <a href="#" v-on:click="deletecollectdir()"><i class="fas fa-eys"></i>删除收藏夹</a>
+    </div>
+    <!-- img and details  -->
+    <div class="details">
+      <img src="@/assets/1.png" />
+      <strong>{{ Title }}</strong>
+      <p>{{ Description }}</p>
     </div>
   </div>
 </template>
@@ -32,6 +24,27 @@ export default {
     Description: String,
     Title: String,
   },
+  methods: {
+    deletecollectdir() {
+      let vm = this;
+      if (vm.Title == "默认收藏夹") {
+        vm.$message({
+          showClose: true,
+          message: "默认收藏夹不可删除",
+          type: "error",
+        });
+      } else {
+        this.$axios
+          .post("/user/deletecollectiondir", {
+            userid: vm.$myglobal.nowuserid,
+            dirname: vm.Title,
+          })
+          .then((res) => {
+            vm.$router.go(0);
+          });
+      }
+    },
+  },
 };
 </script>
 
@@ -40,15 +53,15 @@ a {
   text-decoration: none;
 }
 .box {
-  width: 266px;
-  height: 340px;
+  width: 700px;
+  height: 200px;
   background-color: #fff;
   box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: px;
   border-radius: 10px;
   margin: 20px;
   position: relative;
@@ -96,7 +109,6 @@ a {
   font-weight: 500;
   color: #141414;
   letter-spacing: 1px;
-  margin-top: 10px;
 }
 .box .details p {
   font-size: 0.8rem;
