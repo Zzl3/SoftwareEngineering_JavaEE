@@ -46,9 +46,9 @@
             </el-drawer>
             <li class="classroom"><a href="#">教室板块</a></li>
             <li class="project">
-              <a href="#">组队板块</a>
+              <a href="#">测试用例</a>
               <ul>
-                <li><a href="/project/allproject">全部组队</a></li>
+                <li><a href="/project/allproject">测试用例</a></li>
                 <li><a href="/project/myproject">我的组队</a></li>
                 <li><a href="/project/addproject">新建组队</a></li>
               </ul>
@@ -101,7 +101,7 @@ export default {
       direction: "rtl",
     };
   },
-  created() {
+  mounted() {
     this.getimg();
   },
   // mounted() {

@@ -38,7 +38,7 @@ public class MyinfoController {
     public boolean edituserinfo(@RequestBody User user) {
         Integer id = Integer.valueOf(user.getId());
         User usera = userDAO.getById(id);
-        if (user.getPassword() !=  null) {
+        if (user.getPassword() !=  "") {
             // 默认生成 16 位盐，干扰数据
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
             int times = 2;
@@ -46,25 +46,25 @@ public class MyinfoController {
             String encodedPassword = new SimpleHash("md5", user.getPassword(), salt, times).toString();
             usera.setPassword(encodedPassword);
         }
-        if (user.getMail() !=  null) {
+        if (user.getMail() !=  "") {
             usera.setMail(user.getMail());
         }
-        if (user.getAge() != null) {
-            usera.setAge(user.getAge());
-        }
-        if (user.getGender() !=  null) {
+//        if (user.getAge().toString() != "") {
+//            usera.setAge(Integer.valueOf(user.getAge()));
+//        }
+        if (user.getGender() !=  "") {
             usera.setGender(user.getGender());
         }
-        if (user.getDetail() !=  null) {
+        if (user.getDetail() !=  "") {
             usera.setDetail(user.getDetail());
         }
-        if (user.getPhone() !=  null) {
+        if (user.getPhone() !=  "") {
             usera.setPhone(user.getPhone());
         }
-        if (user.getSchool() !=  null) {
+        if (user.getSchool() !=  "") {
             usera.setSchool(user.getSchool());
         }
-        if(user.getUrl()!= null){
+        if(user.getUrl()!= ""){
             usera.setUrl(user.getUrl());
         }
         userService.add(usera);

@@ -13,7 +13,7 @@
     <div class="a">
       <div class="b">
         <a href="#">{{ username }}</a>
-        <h2>个人信息卡片</h2>
+        <!-- <h2>个人信息卡片</h2> -->
         <div class="infouser">性别：{{ gender }}</div>
         <div class="infouser">年龄：{{ age }}</div>
         <div class="infouser">邮箱：{{ mail }}</div>

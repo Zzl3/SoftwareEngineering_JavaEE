@@ -38,10 +38,6 @@ export default {
       },
       username: "",
       codata: [
-        {
-          dirname: "默认收藏夹",
-          content: "这是我的默认收藏夹",
-        },
       ],
     };
   },

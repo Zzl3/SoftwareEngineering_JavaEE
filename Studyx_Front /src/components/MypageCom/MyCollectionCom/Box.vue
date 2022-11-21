@@ -1,19 +1,47 @@
 <template>
-  <!-- box-1 -->
-  <div class="box">
-    <!-- top-bar -->
-    <div class="top-bar"></div>
-    <!-- view-btns  -->
-    <div class="btn">
-      <a href="#"><i class="fas fa-eys"></i>查看详情</a>
-      <a href="#" v-on:click="deletecollectdir()"><i class="fas fa-eys"></i>删除收藏夹</a>
+  <div>
+    <!-- box-1 -->
+    <div class="box">
+      <!-- top-bar -->
+      <div class="top-bar"></div>
+      <!-- view-btns  -->
+      <div class="btn">
+        <a href="#" v-on:click="viewdirdetail()"><i class="fas fa-eys"></i>查看详情</a>
+        <a href="#" v-on:click="deletecollectdir()"
+          ><i class="fas fa-eys"></i>删除收藏夹</a
+        >
+      </div>
+      <!-- img and details  -->
+      <div class="details">
+        <img src="@/assets/1.png" />
+        <strong>{{ Title }}</strong>
+        <p>{{ Description }}</p>
+      </div>
     </div>
-    <!-- img and details  -->
-    <div class="details">
-      <img src="@/assets/1.png" />
-      <strong>{{ Title }}</strong>
-      <p>{{ Description }}</p>
-    </div>
+
+    <el-dialog :title="Title" :visible.sync="dialogTableVisible">
+      <el-table :data="gridData">
+        <el-table-column property="isbn" label="ISBN" width="100"></el-table-column>
+        <el-table-column
+          property="collectiontime"
+          label="收藏时间"
+          width="300"
+        ></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="deletecollection(scope.$index, scope.row)"
+              >取消收藏</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="viewisbndetail(scope.$index, scope.row)"
+              >查看详情</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -24,25 +52,60 @@ export default {
     Description: String,
     Title: String,
   },
+  data() {
+    return {
+      gridData: [],
+      dialogTableVisible: false,
+    };
+  },
   methods: {
     deletecollectdir() {
       let vm = this;
-      if (vm.Title == "默认收藏夹") {
-        vm.$message({
-          showClose: true,
-          message: "默认收藏夹不可删除",
-          type: "error",
-        });
-      } else {
-        this.$axios
-          .post("/user/deletecollectiondir", {
-            userid: vm.$myglobal.nowuserid,
-            dirname: vm.Title,
-          })
-          .then((res) => {
-            vm.$router.go(0);
+      this.$axios
+        .post("/user/deletecollectiondir", {
+          userid: vm.$myglobal.nowuserid,
+          dirname: vm.Title,
+        })
+        .then((res) => {
+          vm.$message({
+            showClose: true,
+            message: "删除收藏jia",
+            type: "success",
           });
-      }
+        });
+    },
+    viewdirdetail() {
+      let vm = this;
+      vm.gridData = undefined;
+      vm.gridData = new Array(); //先清空再进行筛选
+
+      this.dialogTableVisible = true;
+      this.$axios
+        .post("/user/getcollection", {
+          userid: vm.$myglobal.nowuserid,
+          dirname: vm.Title,
+        })
+        .then((res) => {
+          for (let item of res.data) {
+            // console.log(item);
+            vm.gridData.push(item);
+          }
+        });
+    },
+    deletecollection(index, row) {
+      let vm = this;
+      this.$axios
+        .post("/user/deletecollection", {
+          userid: vm.$myglobal.nowuserid,
+          isbn: row.isbn,
+        })
+        .then((res) => {
+          vm.$message({
+            showClose: true,
+            message: "取消收藏成功",
+            type: "success",
+          });
+        });
     },
   },
 };

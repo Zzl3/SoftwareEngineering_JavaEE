@@ -9,6 +9,7 @@ import Login from '@/pages/Login/Login'
 
 //这里是管理员模块
 import AdminPage from '@/pages/Admin/Adminpage'
+import AdminBorrow from '@/pages/Admin/Adminborrow'
 
 //这里是用户模块
 import Mypage from '@/pages/Mypage/Mypage'
@@ -45,11 +46,13 @@ export default new Router({
     {
       path: '/admin',
       component: AdminPage,
-      chileren: [
-
-      ],
+      children: [{
+        path: '/admin/adminborrow',
+        component: AdminBorrow,
+      }],
       props: true
     },
+
     //个人中心界面
     {
       path: '/user',
@@ -57,20 +60,19 @@ export default new Router({
       children: [{
           path: '/user/myinfo',
           component: Myinfo,
-      },
-      {
-        path: '/user/myborrow',
-        component: Myborrow,
-      },
-      {
-        path: '/user/mydonation',
-        component: Mydonation,
-      },
-      {
-        path: '/user/mycollection',
-        component: Mycollection,
-      },
-
+        },
+        {
+          path: '/user/myborrow',
+          component: Myborrow,
+        },
+        {
+          path: '/user/mydonation',
+          component: Mydonation,
+        },
+        {
+          path: '/user/mycollection',
+          component: Mycollection,
+        },
       ],
       props: true
     },

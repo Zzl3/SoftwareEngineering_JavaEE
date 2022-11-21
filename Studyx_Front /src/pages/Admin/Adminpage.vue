@@ -9,7 +9,6 @@
       <Sidebar></Sidebar>
       <!-- 这里是中间部分 -->
       <div id="main">
-        这里是管理员页面
         <router-view></router-view>
       </div>
     </div>

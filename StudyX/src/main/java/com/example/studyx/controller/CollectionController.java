@@ -1,69 +1,53 @@
 package com.example.studyx.controller;
 
 
-import com.example.studyx.dao.CollectiondirDAO;
+import com.example.studyx.dao.CollectionDAO;
 import com.example.studyx.dao.UserDAO;
+import com.example.studyx.pojo.Collection;
 import com.example.studyx.pojo.Collectiondir;
-import com.example.studyx.pojo.User;
-import com.example.studyx.result.Result;
-import com.example.studyx.service.UserService;
 import com.example.studyx.utils.GetNowTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 public class CollectionController {
     @Autowired
-    CollectiondirDAO collectiondirDAO;
+    CollectionDAO collectionDAO;
 
     @Autowired
     UserDAO userDAO;
 
     @CrossOrigin
     @PostMapping(value = "/api/user/deletecollection")
-    public void deletecollection() {
-        System.out.println(1);
-    }
-
-    @CrossOrigin
-    @PostMapping(value = "/api/user/deletecollectiondir")
-    public long deletecollectiondir(@RequestBody Map<String,String> datas) {
+    public long deletecollection(@RequestBody Map<String,String> datas) {
         Integer userid=Integer.valueOf(datas.get("userid").toString());
-        String title=datas.get("dirname").toString();
-        long a=collectiondirDAO.deleteByUseridAndDirname(userid,title);
+        String isbn=datas.get("isbn").toString();
+        long a=collectionDAO.deleteByUseridAndIsbn(userid,isbn);
         return a;
     }
 
     @CrossOrigin
-    @PostMapping(value = "/api/user/getcollectiondir")
-    public List<Collectiondir> getcollectiondir(@RequestBody String id) {
-        List<Collectiondir> collectiondir = collectiondirDAO.findByUserid(Integer.valueOf(id));
-        return collectiondir;
+    @PostMapping(value = "/api/user/getcollection")
+    public List<Collection> getcollectionbydirname(@RequestBody Map<String,String> datas) {
+        Integer userid=Integer.valueOf(datas.get("userid").toString());
+        String dirname=datas.get("dirname").toString();
+        List<Collection> collections=collectionDAO.findByUseridAndDirname(userid,dirname);
+        return collections;
     }
 
     @CrossOrigin
-    @PostMapping(value = "/api/user/setcollectiondir")
-    public int setcollectiondir(@RequestBody Collectiondir collectiondir) {
+    @PostMapping(value = "/api/user/setcollection")
+    public int setcollection(@RequestBody Collection collection) {
         try {
             String createTime=GetNowTime.gettime().toString();//得到当前时间
-            collectiondir.setCreatetime(createTime);
-            collectiondirDAO.save(collectiondir);
+            collection.setCollectiontime(createTime);
+            collectionDAO.save(collection);
             return 1;
         } catch (Exception e) {
             return 0;
         }
-    }
-
-    @CrossOrigin
-    @PostMapping(value = "/api/user/findallcollection")
-    @ResponseBody
-    public List<Collectiondir> findallcollection() {
-        List<Collectiondir> collectiondirs=collectiondirDAO.findAll();
-        return collectiondirs;
     }
 }

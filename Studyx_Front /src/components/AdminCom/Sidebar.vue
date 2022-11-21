@@ -2,27 +2,10 @@
   <div>
     <el-col :span="4">
       <div class="shell">
-        <a href="#" class="box">
+        <a href="/admin/adminborrow" class="box">
           <span><i class="el-icon-edit"></i></span>
-          <span>list</span>
+          <span>借阅管理</span>
         </a>
-        <a href="#" class="box">
-          <span><i class="el-icon-share"></i></span><span> Warehouse</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-user"></i></span><span>theme</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-remove-outline"></i></span
-          ><span>wallet</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-picture-outline"></i></span
-          ><span>picture</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-camera"></i></span><span>QR code</span></a
-        >
         <a href="#" class="box">
           <span><i class="el-icon-s-marketing"></i></span
           ><span>authentication</span></a
