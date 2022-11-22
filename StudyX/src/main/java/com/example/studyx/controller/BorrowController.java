@@ -27,9 +27,9 @@ public class BorrowController {
         List<Borrow> borrows = borrowDAO.findByUserid(userid);
         LocalDate nowTime = LocalDate.now();
         for (Borrow borrow : borrows) {
-            if (borrow.getStatus() == "借阅中") {
+            if (borrow.getStatus().equals("借阅中") ) {
                 LocalDate tmptime = LocalDate.parse(borrow.getStarttime());
-                int a = nowTime.compareTo(tmptime);
+                int a = 30-nowTime.compareTo(tmptime);
                 borrow.setDuring(String.valueOf(a) + "天");//更新during日期
             }
         }
