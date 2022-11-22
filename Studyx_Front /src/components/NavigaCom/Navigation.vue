@@ -27,11 +27,7 @@
                 margin-left: 20px;
               "
             >
-              <i
-                class="el-icon-help"
-                style="font-size: 30px"
-                @click="drawer = true"
-              ></i
+              <i class="el-icon-help" style="font-size: 30px" @click="drawer = true"></i
             ></a>
             <el-drawer
               title="这里是有关积分的介绍"
@@ -64,15 +60,7 @@
                 position: fixed;
               "
             >
-              <el-avatar
-                :src="
-                  require('/Users/zhouzilei/Documents/GitHub/SoftwareEngineering-JavaEE/StudyX/img/avator/' +
-                    url +
-                    '.jpg')
-                "
-              >
-                user
-              </el-avatar>
+            <el-avatar :src=url></el-avatar>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item icon="el-icon-s-fold" @click.native="logout"
                   >退出登录</el-dropdown-item
@@ -96,17 +84,15 @@ export default {
   components: { RankDetail },
   data() {
     return {
-      url: "d8rjcw",
+      url: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
       drawer: false,
       direction: "rtl",
     };
   },
   mounted() {
-    this.getimg();
+    //alert(this.$myglobal.imageurl);
+    //this.getimg();
   },
-  // mounted() {
-  //   this.getimg();
-  // },
   methods: {
     getimg() {
       var _this = this;
@@ -119,6 +105,7 @@ export default {
         },
       }).then((res) => {
         this.url = res.data;
+        console.log(this.url);
       });
     },
     handleClose(done) {
@@ -142,6 +129,11 @@ export default {
 };
 </script>
 <style scoped>
+.avatar {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
 .drawer {
   background: linear-gradient(200deg, #517fa4, #243949);
 }

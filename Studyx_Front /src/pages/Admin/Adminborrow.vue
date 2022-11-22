@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-breadcrumb separator="/" style="margin-top: 40px; margin-left: 350px">
-      <el-breadcrumb-item :to="{ path: '/user' }">管理员页面</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/user/myborrow">借阅管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/admin' }">管理员页面</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/adminborrow">借阅管理</a></el-breadcrumb-item>
     </el-breadcrumb>
     <div class="rwd-table">
       <el-table
@@ -86,15 +86,7 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          starttime: "2022-11-13",
-          bookid: "1",
-          userid: "1",
-          during: "28天",
-          status: "申请中",
-        },
-      ],
+      tableData: [],
     };
   },
   mounted() {

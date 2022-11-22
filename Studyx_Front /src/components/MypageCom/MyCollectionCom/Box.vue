@@ -69,7 +69,7 @@ export default {
         .then((res) => {
           vm.$message({
             showClose: true,
-            message: "删除收藏jia",
+            message: "删除收藏夹成功",
             type: "success",
           });
         });
@@ -106,6 +106,7 @@ export default {
             type: "success",
           });
         });
+      this.dialogTableVisible = false;
     },
   },
 };
