@@ -1,23 +1,35 @@
 package com.example.studyx.controller.Admin;
 
-import com.example.studyx.service.Admin.UserManageService;
+import com.example.studyx.dao.UserDAO;
+import com.example.studyx.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 public class UserManageController {
-    @Autowired
-    private UserManageService userManageService;
 
-    @PostMapping("/admin/manageuser/")
-    public Map<String,String> getStatus(@RequestParam Map<String,String> m){
-        System.out.println("testhere?");
+    @Autowired
+    private UserDAO userDAO;
+
+    @PostMapping("/admin/manageuser")
+    public Map<String,String> changeStatus(@RequestParam Map<String,String> m) {
         String username=m.get("username");
-        return userManageService.getUserStatus(username);
+        User user=userDAO.findByUsername(username);
+        Map<String,String> ret=new HashMap<>();
+        if(user.getStatus().equals("banned")){
+            ret.put("message","the user is already banned");
+        }
+        else{
+            user.setStatus("banned");
+            userDAO.save(user);
+            ret.put("message","ban user successfully");
+        }
+        return ret;
     }
 
 }
