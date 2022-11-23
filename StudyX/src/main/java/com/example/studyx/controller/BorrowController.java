@@ -34,9 +34,9 @@ public class BorrowController {
         for (Borrow borrow : borrows) {
             if (borrow.getStatus().equals("借阅中")) {
                 LocalDate tmptime = LocalDate.parse(borrow.getStarttime());
-                int dayy= (int) (nowTime.toEpochDay()-tmptime.toEpochDay());
+                int dayy = (int) (nowTime.toEpochDay() - tmptime.toEpochDay());
                 int a = 30 - dayy;
-                if (a < 0) {
+                if (a < 0 && user.getStatus().equals("normal")) {
                     user.setIntegration(String.valueOf(Integer.valueOf(user.getIntegration()) - 20));
                     if (Integer.valueOf(user.getIntegration()) < 0) {
                         user.setStatus("banned");
