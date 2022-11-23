@@ -10,6 +10,7 @@ import Login from '@/pages/Login/Login'
 //这里是管理员模块
 import AdminPage from '@/pages/Admin/Adminpage'
 import AdminBorrow from '@/pages/Admin/Adminborrow'
+import AdminUser from '@/pages/Admin/AdminUser'
 
 //这里是用户模块
 import Mypage from '@/pages/Mypage/Mypage'
@@ -28,73 +29,78 @@ import ProjectAdd from '@/pages/Project/ProjectAdd'
 export default new Router({
   mode: 'history',
   routes: [{
-      path: '/',
-      redirect: 'login'
+    path: '/',
+    redirect: 'login'
+  },
+  //登录界面
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  //用户进入界面
+  {
+    path: '/index',
+    component: UserIndex,
+  },
+  //管理员中心界面
+  {
+    path: '/admin',
+    component: AdminPage,
+    children: [{
+      path: '/admin/adminborrow',
+      component: AdminBorrow,
     },
-    //登录界面
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    //用户进入界面
-    {
-      path: '/index',
-      component: UserIndex,
-    },
-    //管理员中心界面
-    {
-      path: '/admin',
-      component: AdminPage,
-      children: [{
-        path: '/admin/adminborrow',
-        component: AdminBorrow,
-      }],
-      props: true
-    },
-
-    //个人中心界面
-    {
-      path: '/user',
-      component: Mypage,
-      children: [{
-          path: '/user/myinfo',
-          component: Myinfo,
-        },
-        {
-          path: '/user/myborrow',
-          component: Myborrow,
-        },
-        {
-          path: '/user/mydonation',
-          component: Mydonation,
-        },
-        {
-          path: '/user/mycollection',
-          component: Mycollection,
-        },
-      ],
-      props: true
-    },
-    //下面开始分成4个模块
-    //项目界面
-    {
-      path: '/project',
-      component: Project,
-      children: [{
-          path: '/project/allproject',
-          component: ProjectAll,
-        },
-        {
-          path: '/project/myproject',
-          component: ProjectMy,
-        },
-        {
-          path: '/project/addproject',
-          component: ProjectAdd,
-        }
-      ],
-      props: true
+      path: '/admin/adminuser',
+      component: AdminUser,
     }
+    ],
+    props: true
+  },
+
+  //个人中心界面
+  {
+    path: '/user',
+    component: Mypage,
+    children: [{
+      path: '/user/myinfo',
+      component: Myinfo,
+    },
+    {
+      path: '/user/myborrow',
+      component: Myborrow,
+    },
+    {
+      path: '/user/mydonation',
+      component: Mydonation,
+    },
+    {
+      path: '/user/mycollection',
+      component: Mycollection,
+    },
+    ],
+    props: true
+  },
+  //下面开始分成4个模块
+  //项目界面
+  {
+    path: '/project',
+    component: Project,
+    children: [{
+      path: '/project/allproject',
+      component: ProjectAll,
+    },
+    {
+      path: '/project/myproject',
+      component: ProjectMy,
+    },
+    {
+      path: '/project/addproject',
+      component: ProjectAdd,
+    }
+    ],
+    props: true
+  }
   ]
 })

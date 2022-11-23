@@ -15,7 +15,7 @@ public class BookManageController {
     @Autowired
     private CategoryDAO categoryDAO;
 
-    @PostMapping("/admin/managebook/")
+    @PostMapping("/api/admin/managebook/")
     public Map<String,String> modifybookproperty(@RequestBody Map<String,Object> m){
         Map<String,String> ret=new HashMap<>();
         String isbn=(String)m.get("isbn");

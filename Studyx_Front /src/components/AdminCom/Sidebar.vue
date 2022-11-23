@@ -6,6 +6,10 @@
           <span><i class="el-icon-edit"></i></span>
           <span>借阅管理</span>
         </a>
+        <a href="/admin/adminuser" class="box">
+          <span><i class="el-icon-user-solid"></i></span>
+          <span>用户管理</span>
+        </a>
         <a href="#" class="box">
           <span><i class="el-icon-s-marketing"></i></span
           ><span>authentication</span></a

@@ -17,9 +17,6 @@
               >
                 <el-avatar> admin </el-avatar>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item icon="el-icon-user-solid" @click.native="logout"
-                    >用户管理</el-dropdown-item
-                  >
                   <el-dropdown-item icon="el-icon-s-fold" @click.native="logout"
                     >退出登录</el-dropdown-item
                   >
