@@ -35,7 +35,7 @@ public class BookManageController {
     }
 
 
-    @PostMapping("/admin/managebook/")
+
     //管理员下架某书籍
     public Map<String,String> deletecategory(@RequestBody String isbn){
         Map<String,String> ret=new HashMap<>();

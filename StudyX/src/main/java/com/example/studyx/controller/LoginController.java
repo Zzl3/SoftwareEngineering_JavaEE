@@ -88,6 +88,7 @@ public class LoginController {
     @PostMapping(value = "/api/login/admin")
     public Result adminlogin(@RequestBody Admin requestAdmin, HttpSession session) {
         String adminname = requestAdmin.getAdminname();
+        System.out.println(adminname);
         adminname = HtmlUtils.htmlEscape(adminname);
         //先得到salt加密的值
         Admin admin = AdminService.getByName(adminname);

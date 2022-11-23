@@ -33,7 +33,7 @@
           >
             <!-- 密码框和用户名框 -->
             <div v-show="isShow" class="sign-in-container">
-              <el-form :model="loginForm" :rules="rules" ref="loginForm">
+              <el-form :model="loginForm" ref="loginForm">
                 <el-form-item prop="userName">
                   <el-input
                     v-model="loginForm.userName"
@@ -59,7 +59,7 @@
                     <el-form-item prop="validCode">
                       <el-input
                         v-model="loginForm.validCode"
-                        style="width: 150px"
+                        style="width: 140px"
                         placeholder="Verification code"
                       ></el-input>
                     </el-form-item>
@@ -303,7 +303,7 @@ export default {
         } else if (this.nowrole == "ADMINISTRATOR NOW") {
           _this.$axios
             .post("/login/admin", {
-              username: _this.loginForm.userName,
+              adminname: _this.loginForm.userName,
               password: _this.loginForm.password,
             })
             .then((res) => {
@@ -314,7 +314,7 @@ export default {
                   duration: "500",
                 });
                 this.$router.push({
-                  path: "/admin/index",
+                  path: "/admin",
                 });
               } else {
                 this.$message.error("用户名或密码错误！");
@@ -457,7 +457,7 @@ input {
   border-bottom-right-radius: 15px;
   position: absolute;
   height: 400px;
-  width: 350px;
+  width: 310px;
   z-index: 2;
   top: 0;
   right: 0;
