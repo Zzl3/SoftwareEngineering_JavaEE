@@ -39,4 +39,10 @@ public class UserManageController {
         return userDAO.findAll();
     }
 
+    @CrossOrigin
+    @GetMapping("/api/admin/searchuser")
+    public User searchuser(@RequestParam String username){
+        return userDAO.findByUsername(username);
+    }
+
 }

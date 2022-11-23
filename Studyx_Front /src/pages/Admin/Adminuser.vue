@@ -13,7 +13,7 @@
                 <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
                         <el-input v-model="search" size="mini" placeholder="输入用户名搜索" style="width: 60% " />
-                        <el-button icon="el-icon-search" type="primary" circle size="mini"></el-button>
+                        <el-button icon="el-icon-search" type="primary" circle size="mini" @click="searchuser(search)"></el-button>
                     </template>
                     <template slot-scope="scope">
                         <el-button v-if="scope.row.status==='banned'" type="warning" size="mini" @click="changestatus(scope.$index, scope.row);refresh()">解封此用户</el-button>
@@ -36,6 +36,7 @@ export default {
     data() {
         return {
             tableData: [],
+            search:"",
         };
     },
     mounted(){
@@ -72,8 +73,22 @@ export default {
                 console.log(res);
             })
         },
-        searchuser(){
-
+        searchuser(username){
+            let vm=this;
+            //console.log(username);
+            this.$axios({
+                url:"/admin/searchuser",
+                method:"get",
+                params:{
+                    username:username
+                }
+            }).then((res)=>{
+                vm.tableData=[];
+                //console.log(res.data);
+                if(res!=null){
+                    vm.tableData.push(res.data);
+                }
+            })
         }
     }
 }
