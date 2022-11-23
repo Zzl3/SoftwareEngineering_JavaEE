@@ -13,11 +13,14 @@
                 <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
                         <el-input v-model="search" size="mini" placeholder="输入用户名搜索" style="width: 60% " />
-                        <el-button icon="el-icon-search" type="primary" circle size="mini" @click="searchuser(search)"></el-button>
+                        <el-button icon="el-icon-search" type="primary" circle size="mini" @click="searchuser(search)">
+                        </el-button>
                     </template>
                     <template slot-scope="scope">
-                        <el-button v-if="scope.row.status==='banned'" type="warning" size="mini" @click="changestatus(scope.$index, scope.row);refresh()">解封此用户</el-button>
-                        <el-button v-else size="mini" type="danger" @click="changestatus(scope.$index, scope.row);refresh()">封禁此用户</el-button>
+                        <el-button v-if="scope.row.status === 'banned'" type="warning" size="mini"
+                            @click="changestatus(scope.$index, scope.row); refresh()">解封此用户</el-button>
+                        <el-button v-else size="mini" type="danger"
+                            @click="changestatus(scope.$index, scope.row); refresh()">封禁此用户</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -36,10 +39,10 @@ export default {
     data() {
         return {
             tableData: [],
-            search:"",
+            search: "",
         };
     },
-    mounted(){
+    mounted() {
         this.getdata();
     },
     methods: {
@@ -55,40 +58,45 @@ export default {
                 }
             });
         },
-        refresh(){
+        refresh() {
             this.$router.go(0)
         },
         changestatus(index, row) {
             console.log(index, row);
             this.$axios({
-                url:"/admin/manageuser",
-                method:"post",
-                headers:{
-                    'Content-Type':'application/json'
+                url: "/admin/manageuser",
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                data:{
-                    username:row.username
+                data: {
+                    username: row.username
                 }
-            }).then((res)=>{
+            }).then((res) => {
                 console.log(res);
             })
         },
-        searchuser(username){
-            let vm=this;
-            //console.log(username);
-            this.$axios({
-                url:"/admin/searchuser",
-                method:"get",
-                params:{
-                    username:username
-                }
-            }).then((res)=>{
-                vm.tableData=[];
-                //console.log(res.data);
-                if(res!=null){
-                    vm.tableData.push(res.data);
-                }
-            })
+        searchuser(username) {
+            let vm = this;
+            console.log(username);
+            if (username=="" || username==null) {
+                this.getdata();
+            }
+            else {
+                this.$axios({
+                    url: "/admin/searchuser",
+                    method: "get",
+                    params: {
+                        username: username
+                    }
+                }).then((res) => {
+                    vm.tableData = [];
+                    //console.log(res.data);
+                    if (res != null) {
+                        vm.tableData.push(res.data);
+                    }
+                })
+            }
         }
     }
 }
@@ -98,5 +106,4 @@ export default {
 .el-breadcrumb {
     height: 50px;
 }
-
 </style>
