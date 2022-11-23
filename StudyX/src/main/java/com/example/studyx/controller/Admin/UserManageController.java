@@ -4,7 +4,7 @@ import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class UserManageController {
     private UserDAO userDAO;
 
     @PostMapping("/admin/manageuser")
-    public Map<String,String> changeStatus(@RequestParam Map<String,String> m) {
+    public Map<String,String> changeStatus(@RequestBody Map<String,String> m) {
         String username=m.get("username");
         User user=userDAO.findByUsername(username);
         Map<String,String> ret=new HashMap<>();

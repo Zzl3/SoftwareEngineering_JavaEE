@@ -10,8 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "admin")
-@ToString
+@Table(name = "category")
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Category {
     @Id
@@ -21,6 +20,9 @@ public class Category {
     String bookname;
     String publisher;
     String author;
-    String category;
-    String publicationdate;
+    String type;
+    String publishdate;
+    String url;
+    String bookabstract;
+    Double price;
 }
