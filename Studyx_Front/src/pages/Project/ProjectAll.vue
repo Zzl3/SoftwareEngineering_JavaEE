@@ -25,7 +25,7 @@
 import Collectionclick from "@/components/MypageCom/MyCollectionCom/CollectionClick";
 export default {
   name: "Projectall",
-  components: { Collectionclick},
+  components: { Collectionclick },
   data() {
     return {
       gridData: [],
@@ -82,16 +82,28 @@ export default {
     },
     addborrow() {
       let _this = this;
-      this.$axios.post("/user/setborrow", {
-        userid: _this.$myglobal.nowuserid,
-        bookid: _this.bookid, //这个就是需要对接的接口
-        status: "申请中",
-      });
-      this.$message({
-        showClose: true,
-        message: "您已开始申请",
-        type: "success",
-      });
+      this.$axios
+        .post("/user/setborrow", {
+          userid: _this.$myglobal.nowuserid,
+          bookid: _this.bookid, //这个就是需要对接的接口
+          status: "申请中",
+        })
+        .then((res) => {
+          console.log(res)
+          if (res.data == '') {
+            _this.$message({
+              showClose: true,
+              message: "您已被封禁!无法借阅书籍",
+              type: "error",
+            });
+          } else {
+            _this.$message({
+              showClose: true,
+              message: "您已开始申请",
+              type: "success",
+            });
+          }
+        });
     },
   },
 };

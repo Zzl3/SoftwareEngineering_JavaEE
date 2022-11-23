@@ -73,6 +73,7 @@ export default {
             type: "success",
           });
         });
+      vm.$router.go(0);
     },
     viewdirdetail() {
       let vm = this;
