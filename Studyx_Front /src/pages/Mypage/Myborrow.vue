@@ -4,6 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/user' }">我的页面</el-breadcrumb-item>
       <el-breadcrumb-item><a href="/user/myborrow">我的借阅</a></el-breadcrumb-item>
     </el-breadcrumb>
+    <input type="text" name="text" class="input" placeholder="请输入要搜索的书籍～" />
     <div class="rwd-table">
       <el-table
         :data="tableData"
@@ -85,8 +86,7 @@
 export default {
   data() {
     return {
-      tableData: [
-      ],
+      tableData: [],
     };
   },
   mounted() {
@@ -140,9 +140,9 @@ export default {
         });
       } else {
         this.$axios.post("/changeborrow", {
-        userid: _this.$myglobal.nowuserid,
-        bookid: row.bookid,
-        status: "未借阅",
+          userid: _this.$myglobal.nowuserid,
+          bookid: row.bookid,
+          status: "未借阅",
         });
         _this.$message({
           showClose: true,
@@ -150,7 +150,6 @@ export default {
           type: "success",
         });
       }
-
     },
     filterTag(value, row) {
       return row.status === value;
@@ -160,9 +159,27 @@ export default {
 </script>
 
 <style scoped>
-.rwd-table {
+.input {
   position: absolute;
   top: 150px;
+  right:25px;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #e8e8e8;
+  box-shadow: 6px 6px 12px #ffffff, -6px -6px 12px #c5c5c5;
+  font-size: medium;
+  font-weight: bold;
+  max-width: 200px;
+}
+
+.input:focus {
+  outline-color: white;
+  place-content: "Enter your message!";
+}
+.rwd-table {
+  position: absolute;
+  top: 220px;
   left: 330px;
 }
 </style>

@@ -2,6 +2,7 @@
   <div>
     这里是测试用例，由于书籍页面没有建好，所以我就先写收藏和借阅的接口，后面直接对接就可以
     <br />
+    <Collectionclick @click.native="addcollection"></Collectionclick>
     <el-button @click="addcollection">书籍收藏</el-button>
     <el-button @click="addborrow">书籍借阅</el-button>
     <el-dialog title="选择收藏夹" :visible.sync="dialogTableVisible">
@@ -21,8 +22,10 @@
 </template>
 
 <script>
+import Collectionclick from "@/components/MypageCom/MyCollectionCom/CollectionClick";
 export default {
   name: "Projectall",
+  components: { Collectionclick},
   data() {
     return {
       gridData: [],
