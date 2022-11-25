@@ -22,12 +22,14 @@ public class UserManageController {
         Map<String,String> ret=new HashMap<>();
         if(user.getStatus().equals("banned")){
             user.setStatus("normal");
-            userDAO.save(user);
+            userDAO.saveAndFlush(user);
+//            userDAO.save(user);
             ret.put("message","unban user successfully");
         }
         else{
             user.setStatus("banned");
-            userDAO.save(user);
+            userDAO.saveAndFlush(user);
+//            userDAO.save(user);
             ret.put("message","ban user successfully");
         }
         return ret;

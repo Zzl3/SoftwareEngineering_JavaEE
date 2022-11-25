@@ -11,6 +11,7 @@ import Login from '@/pages/Login/Login'
 import AdminPage from '@/pages/Admin/Adminpage'
 import AdminBorrow from '@/pages/Admin/Adminborrow'
 import AdminUser from '@/pages/Admin/AdminUser'
+import AdminCategory from "@/pages/Admin/AdminCategory"
 
 //这里是用户模块
 import Mypage from '@/pages/Mypage/Mypage'
@@ -54,6 +55,10 @@ export default new Router({
     {
       path: '/admin/adminuser',
       component: AdminUser,
+    },
+    {
+      path: '/admin/admincategory',
+      component: AdminCategory,
     }
     ],
     props: true

@@ -10,6 +10,10 @@
           <span><i class="el-icon-user-solid"></i></span>
           <span>用户管理</span>
         </a>
+        <a href="/admin/admincategory" class="box">
+          <span><i class="el-icon-notebook-1"></i></span>
+          <span>书籍管理</span>
+        </a>
         <a href="#" class="box">
           <span><i class="el-icon-s-marketing"></i></span
           ><span>authentication</span></a
