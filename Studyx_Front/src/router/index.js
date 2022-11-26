@@ -26,6 +26,10 @@ import ProjectAll from '@/pages/Project/ProjectAll'
 import ProjectMy from '@/pages/Project/ProjectMy'
 import ProjectAdd from '@/pages/Project/ProjectAdd'
 
+//这里是书籍管理模块
+import BookDisplay from '@/pages/Book/BookDisplay'
+import BookParticulars from '@/pages/Book/BookParticulars'
+
 //有children的都是分成模块的
 export default new Router({
   mode: 'history',
@@ -106,6 +110,26 @@ export default new Router({
     }
     ],
     props: true
-  }
+  },
+            //书籍
+    //书籍分类展示
+    {
+      path: '/book',
+      name: 'book',
+      component: BookDisplay,
+      children: [{
+        path: '/book/particulars',
+        name: 'BookParticulars',
+        component: BookParticulars,
+      },
+      ],
+      props: true
+    },
+    //书籍详情
+    {
+      path: '/bookparticulars',
+      name: 'BookParticulars',
+      component: BookParticulars,
+    },
   ]
 })
