@@ -137,7 +137,7 @@ export default {
 }
 
 .CardContainer {
-  width: 400px;
+  width: 375px;
   height: 310px;
   margin-bottom: 10px;
   margin-left: 25px;
