@@ -10,6 +10,10 @@
           <span><i class="el-icon-user-solid"></i></span>
           <span>用户管理</span>
         </a>
+        <a href="/admin/adminfeedback" class="box">
+          <span><i class="el-icon-user-solid"></i></span>
+          <span>反馈管理</span>
+        </a>
         <a href="#" class="box">
           <span><i class="el-icon-s-marketing"></i></span
           ><span>authentication</span></a

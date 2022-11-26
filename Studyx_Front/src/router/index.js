@@ -11,6 +11,8 @@ import Login from '@/pages/Login/Login'
 import AdminPage from '@/pages/Admin/Adminpage'
 import AdminBorrow from '@/pages/Admin/Adminborrow'
 import AdminUser from '@/pages/Admin/AdminUser'
+import AdminFeedback from '@/pages/Admin/Adminfeedback'
+import AdminFeed from '@/pages/Admin/Adminfeed'
 
 //这里是用户模块
 import Mypage from '@/pages/Mypage/Mypage'
@@ -24,6 +26,9 @@ import Project from '@/pages/Project/Project'
 import ProjectAll from '@/pages/Project/ProjectAll'
 import ProjectMy from '@/pages/Project/ProjectMy'
 import ProjectAdd from '@/pages/Project/ProjectAdd'
+import FeedbackAdd from '@/pages/Project/FeedbackAdd'
+import DonationmoneyAdd from '@/pages/Project/DonationmoneyAdd'
+import DonationbookAdd from '@/pages/Project/DonationbookAdd'
 
 //有children的都是分成模块的
 export default new Router({
@@ -54,7 +59,15 @@ export default new Router({
     {
       path: '/admin/adminuser',
       component: AdminUser,
-    }
+    },
+      {
+        path: '/admin/adminfeedback',
+        component: AdminFeedback,
+      },
+      {
+        path: '/admin/adminfeed',
+        component: AdminFeed,
+      }
     ],
     props: true
   },
@@ -98,7 +111,19 @@ export default new Router({
     {
       path: '/project/addproject',
       component: ProjectAdd,
-    }
+    },
+      {
+        path: '/project/addfeedback',
+        component: FeedbackAdd,
+      },
+      {
+        path: '/project/adddonationmoney',
+        component: DonationmoneyAdd,
+      },
+      {
+        path: '/project/adddonationbook',
+        component: DonationbookAdd,
+      }
     ],
     props: true
   }

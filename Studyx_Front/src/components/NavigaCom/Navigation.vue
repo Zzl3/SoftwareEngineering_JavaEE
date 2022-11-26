@@ -51,6 +51,14 @@
             </li>
             <li class="material"><a href="#">资料板块</a></li>
             <li class="punch"><a href="#">打卡板块</a></li>
+            <li class="project">
+              <a href="#">反馈捐赠</a>
+              <ul>
+                <li ><a href="/project/addfeedback">反馈意见</a></li>
+                <li><a href="/project/adddonationmoney">我要捐款</a></li>
+                <li><a href="/project/adddonationbook">我要捐书</a></li>
+              </ul>
+            </li>
             <el-dropdown
               style="
                 border-bottom: none;

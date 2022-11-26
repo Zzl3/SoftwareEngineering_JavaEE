@@ -1,6 +1,6 @@
 package com.example.studyx.utils;
 
-import cn.hutool.core.codec.Base64;
+//import cn.hutool.core.codecro.Base64;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
@@ -143,7 +143,7 @@ public class GiteeImgBedUtils {
         HashMap<String, Object> bodyMap = new HashMap<>(3);
         bodyMap.put("access_token", GiteeImgBedUtils.ACCESS_TOKEN);
         bodyMap.put("message", GiteeImgBedUtils.ADD_MESSAGE);
-        bodyMap.put("content", Base64.encode(multipartFile));
+        //bodyMap.put("content", Base64.encode(multipartFile));
         return bodyMap;
     }
 
