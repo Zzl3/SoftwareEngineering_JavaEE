@@ -99,7 +99,7 @@ export default {
   },
   mounted() {
     //alert(this.$myglobal.imageurl);
-    //this.getimg();
+    this.getimg();
   },
   methods: {
     getimg() {
@@ -112,8 +112,8 @@ export default {
           "Content-Type": "text/plain",
         },
       }).then((res) => {
-        this.url = res.data;
-        console.log(this.url);
+        _this.url = res.data;
+        console.log(_this.url);
       });
     },
     handleClose(done) {

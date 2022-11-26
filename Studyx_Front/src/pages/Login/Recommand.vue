@@ -1,56 +1,35 @@
 <template>
   <!-- 这里是首页中的推荐部分 -->
-  <div class="recommand">
-    <!--热门自习室-->
-    <RecommandCard
-      CardTitle="热门自习室"
-      CardDescription="热门自习室，等你来自律"
-      :cardType="1"
-      style="margin-top: 5%; margin-bottom: 0%"
-    >
-    </RecommandCard>
+  <div>
+    <div class="recommand">
+      <!--新书推荐-->
+      <RecommandCard
+        CardTitle="新书推荐"
+        CardDescription="新进图书，欢迎借阅"
+        :cardType="1"
+        style="margin-top: 5%; margin-bottom: 0%"
+      ></RecommandCard>
 
-    <!--热门组队-->
-    <ProjectCard
-      CardTitle="热门组队"
-      CardDescription="热门组队，等你来组队"
-      projectname="组队名称"
-      projectdetail="组队细则"
-      otherdetail="其他要求"
-      style="margin-top: 5%"
-    >
-    </ProjectCard>
+      <!--经典好书-->
+      <RecommandCard
+        CardTitle="经典好书"
+        CardDescription="阅读经典，品味人生"
+        :cardType="3"
+        style="margin-top: 5%; margin-bottom: 5%"
+      ></RecommandCard>
 
-    <!--热门资料-->
-    <RecommandCard
-      CardTitle="热门资料"
-      CardDescription="你想要的资料都在这里"
-      :cardType="3"
-      style="margin-top: 5%"
-    >
-    </RecommandCard>
-
-    <!--热门打卡-->
-    <RecommandCard
-      CardTitle="热门打卡"
-      CardDescription="快来一起学习打卡吧"
-      :cardType="4"
-      style="margin-top: 5%"
-    >
-    </RecommandCard>
-    <el-divider>
-      <div style="color: #bebaba">从点击你感兴趣的一个话题开始吧！</div>
-    </el-divider>
-    <h4
-      style="
+      <el-divider>
+        <div style="color: #bebaba">今天你读书了吗？</div>
+      </el-divider>
+      <h4
+        style="
         text-align: center;
         color: #bebaba;
         font-weight: normal;
         margin-top: 10vh;
       "
-    >
-      无限精彩，等着你的到来......
-    </h4>
+      >无限精彩，等着你的到来......</h4>
+    </div>
   </div>
 </template>
 
