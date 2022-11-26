@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <el-breadcrumb separator="/" style="margin-top: 40px; margin-left: 350px">
-      <el-breadcrumb-item :to="{ path: '/admin' }">管理员页面</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/adminborrow">借阅管理</a></el-breadcrumb-item>
-    </el-breadcrumb>
-    <div class="rwd-table">
+  <Contentfield>
+    <div>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/admin' }">管理员页面</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/admin/adminborrow">借阅管理</a></el-breadcrumb-item>
+      </el-breadcrumb>
       <el-table
         :data="tableData"
         style="width: 100%"
@@ -79,11 +79,13 @@
         </el-table-column>
       </el-table>
     </div>
-  </div>
+  </Contentfield>
 </template>
 
 <script>
+import Contentfield from "../../components/AdminCom/Contentfield.vue";
 export default {
+  components: { Contentfield },
   data() {
     return {
       tableData: [],
@@ -164,5 +166,8 @@ export default {
   position: absolute;
   top: 150px;
   left: 300px;
+}
+.el-breadcrumb {
+  height: 50px;
 }
 </style>
