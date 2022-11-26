@@ -2,9 +2,7 @@
   <div class="app">
     <div>
       <!--板块-->
-      <h2 style="text-align: left; padding-left: 8vw; margin-bottom: 0">
-        {{ CardTitle }}
-      </h2>
+      <h2 style="text-align: left; padding-left: 8vw; margin-bottom: 0">{{ CardTitle }}</h2>
       <h4
         style="
           padding-left: 8vw;
@@ -13,128 +11,45 @@
           font-weight: normal;
           margin-top: 0;
         "
-      >
-        {{ CardDescription }}
-      </h4>
-      <el-divider style="width: 80% !important"> </el-divider>
+      >{{ CardDescription }}</h4>
+      <el-divider style="width: 80% !important"></el-divider>
       <div style="width: 85%; margin: 0 auto" class="containerFlex">
         <!--使用flex布局-->
-        <div
-          class="CardContainer"
-          v-for="(item, index) in stayInfoList"
-          :key="index"
-        >
+        <div class="CardContainer" v-for="(item, index) in stayInfoList" :key="index">
           <!--卡片-->
-          <div
-            class="CardType"
-            @mouseenter="changeCardStyle($event)"
-            @mouseleave="removeCardStyle($event)"
-            @click="clickCard(index)"
-          >
-            <!---->
-            <!-- <el-image
-                fit="cover"
-                style="width: 100%;height:55%;border-radius: 10px 10px 0 0;box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;"
-                :src="stayInfoList[index].StayPic">
-            </el-image> -->
-            <!--走马灯-->
-            <el-carousel
-              trigger="click"
-              height="165px"
-              indicator-position="none"
-            >
-              <el-carousel-item
-                v-for="(stayPhoto, index) in stayInfoList[index].StayPic"
-                :key="index"
-              >
-                <el-image
-                  fit="cover"
-                  style="
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 10px 10px 0 0;
-                    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-                      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-                  "
-                  :src="stayPhoto"
-                >
-                </el-image>
-              </el-carousel-item>
-            </el-carousel>
-
-            <h5
-              style="
-                font-size: 5px;
-                font-weight: revert;
-                text-align: left;
-                margin-left: 4%;
-                margin-top: 2%;
-                color: #909399;
-                margin-bottom: 0;
-              "
-            >
-              {{ stayInfoList[index].StayType }}
-            </h5>
-            <h4
-              style="
-                text-align: left;
-                margin-left: 4%;
-                margin-top: 0;
-                margin-right: 4%;
-                margin-bottom: 0;
-              "
-            >
-              {{ stayInfoList[index].StayName | ellipsis }}
-            </h4>
-            <el-row>
-              <el-col :span="14">
-                <h4
-                  style="
-                    margin-top: 4%;
-                    font-family: 'Avenir';
-                    text-align: left;
-                    margin-left: 5%;
-                    margin-bottom: 2%;
-                  "
-                >
-                  ￥{{ stayInfoList[index].StayPrice }}/晚
-                </h4>
-                <el-rate
-                  v-model="stayInfoList[index].StayCommentRate"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}"
-                  style="margin-left: 0; margin-bottom: 0"
-                  :colors="colors"
-                >
-                </el-rate>
-                <h5
-                  style="
-                    margin-top: 0;
-                    color: #7b7b7b;
-                    font-weight: normal;
-                    margin-left: 6%;
-                    text-align: left;
-                  "
-                >
-                  {{ stayInfoList[index].StayCommentNum }}条评价
-                </h5>
-              </el-col>
-              <el-col :span="10">
-                <el-divider
-                  direction="vertical"
-                  style="float: left; margin-right: 0"
-                  class="el-divider--vertical"
-                ></el-divider>
-                <el-image
-                  class="UserAvatar"
-                  :src="stayInfoList[index].UserAvatar"
-                  style="float: right; margin-left: 0; margin-right: 10px"
-                >
-                </el-image>
-              </el-col>
-            </el-row>
+          <div id="cards">
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
+            <link
+              href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Arima+Madurai|Atomic+Age|Bahiana|Baloo|Bangers|Barrio|Bevan|Bungee|Bungee+Inline|Chonburi|Coiny|Comfortaa|Cousine|Life+Savers|Lobster|Milonga|New+Rocker|Racing+Sans+One|Ranchers|Sigmar+One|Source+Code+Pro"
+              rel="stylesheet"
+            />
+            <div id="obsu">
+              <div id="sekil">
+                <img
+                  src="https://s-media-cache-ak0.pinimg.com/236x/2f/11/69/2f1169d967bd0a2505d8088011ff1a2e.jpg"
+                  alt
+                />
+              </div>
+              <div id="kitabadi">
+                <h1>这是书名</h1>
+              </div>
+              <div id="kimindi">
+                <p>这是作者</p>
+              </div>
+              <div id="reytinq">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+              </div>
+              <div id="haqqinda">
+                <h3>这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介</h3>
+              </div>
+            </div>
           </div>
         </div>
         <div class="clear"></div>
@@ -149,7 +64,6 @@ export default {
   components: {},
   data() {
     return {
-      colors: ["#a3c6ea", "#70a8c4", "#559bcb"],
       stayInfoList: [
         {
           StayType: "房源类型",
@@ -199,62 +113,7 @@ export default {
     CardDescription: String,
     cardType: Number,
   },
-  created: function () {
-    //这里是复制的gohome的，需要我们自己去到时候写接口，有可能到时候每个卡片也不一样
-    // if (this.cardType == 1) {
-    //   // 评分最高的8个房源
-    //   GetHighestScoreList().then((response) => {
-    //     this.stayIdList = response.data.stayList;
-    //     this.getStayInfoFromStayIdList();
-    //   });
-    // } else if (this.cardType == 2) {
-    //   // 订单数最多的8个房源
-    //   GetHottestList().then((response) => {
-    //     this.stayIdList = response.data.stayList;
-    //     this.getStayInfoFromStayIdList();
-    //   });
-    // } else if (this.cardType == 3) {
-    //   // 价格最便宜的8个房源
-    //   GetCheapestList().then((response) => {
-    //     this.stayIdList = response.data.stayList;
-    //     this.getStayInfoFromStayIdList();
-    //   });
-    // }
-  },
   methods: {
-    changeCardStyle(e) {
-      e.currentTarget.className = "activeMe";
-    },
-    removeCardStyle(e) {
-      e.currentTarget.className = "CardType";
-    },
-    getStayInfoFromStayIdList() {
-      for (let i = 0; i < 8 && i < this.stayIdList.length; ++i) {
-        GetDetailedStay(this.stayIdList[i]).then((response) => {
-          let stayData = response.data.stayPositionInfo;
-          this.stayInfoList[i].StayType = stayData.stayDescribe;
-          this.stayInfoList[i].StayName = stayData.stayName;
-          this.stayInfoList[i].UserAvatar = stayData.hostAvatar;
-          this.stayInfoList[i].StayPrice = stayData.stayPrice;
-          this.stayInfoList[i].UserId = stayData.hostId;
-          this.stayInfoList[i].StayCommentRate = stayData.stayScore;
-          this.stayInfoList[i].StayCommentNum = stayData.stayCommentNum;
-
-          if (stayData.stayPhoto.length != 0) {
-            this.stayInfoList[i].StayPic = stayData.stayPhoto;
-          }
-        });
-      }
-    },
-
-    clickCard(index) {
-      //暂时还有没详细要求
-      //   // console.log(this.stayIdList[index])
-      //   this.$router.push({
-      //     path: "/StayInfo",
-      //     query: { stayId: this.stayIdList[index] },
-      //   });
-    },
   },
   filters: {
     ellipsis(value) {
@@ -267,7 +126,8 @@ export default {
   },
 };
 </script>
-  <style scoped>
+
+<style scoped>
 .containerFlex {
   display: flex;
   flex-direction: row; /*容器内成员的排列方式为从左到右*/
@@ -277,48 +137,60 @@ export default {
 }
 
 .CardContainer {
-  width: 270px;
+  width: 400px;
   height: 310px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left: 25px;
 }
 
-.CardType {
-  width: 95%;
-  height: 95%;
-  margin: 0 auto;
-  margin-top: 5px;
-  border-radius: 10px !important;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px !important;
-  background-color: rgba(229, 225, 225, 0.34);
-  cursor: pointer;
-  -webkit-transition: all 200ms ease-in;
+#sekil img {
+  margin-left: -300px;
+  margin-top: -30px;
+  width: 130px;
+  box-shadow: 2px 2px 2px #9e9e9e;
+  -webkit-box-shadow: 5px 5px 3px #9e9e9e;
+  -moz-box-shadow: 3px 3px 1px #9e9e9e;
 }
-.activeMe {
-  width: 95%;
-  height: 95%;
-  margin: 0 auto;
-  margin-top: 0px;
-  border-radius: 10px !important;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
-  background-color: rgba(255, 255, 255, 0.84);
+#obsu {
+  margin-top: 10%;
+  width: 300px;
+  height: 230px;
+  background-color: rgb(238, 238, 238);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px;
   cursor: pointer;
-  -webkit-transition: all 200ms ease-in;
 }
 
-.UserAvatar {
-  width: 54px;
-  height: 54px;
-  border-radius: 27px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  margin-left: 30%;
+#obsu:hover {
+  margin-top: 10%;
+  width: 300px;
+  height: 230px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 10px;
+  transform: translateY(-4px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+  cursor: pointer;
 }
-</style>
-  
-  <style scoped>
-.el-divider--vertical {
-  height: 4em !important;
-  width: 1.5px !important;
+
+#kitabadi {
+  margin-top: -150px;
+  font-size: 11px;
+  margin-left: 55px;
+  color: #464647;
+}
+#kimindi {
+  padding-left: 55px;
+  margin-top: -10px;
+  color: #555659;
+}
+#reytinq {
+  padding-left: 55px;
+  margin-top: -5px;
+}
+#haqqinda {
+  color: #555659;
+  width: 200px;
+  padding-left: 80px;
+  font-size: 13px;
 }
 </style>
