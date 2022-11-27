@@ -8,11 +8,11 @@
           <a
             href=""
             target="_blank"
-            ><img src="@/assets/2.png" alt="" class="img-curry c-img-left"
+            ><img src="@/assets/book1.png" alt="" class="img-curry c-img-left"
           /></a>
-          <h3>Studyx</h3>
+          <h3>漂流书屋</h3>
           <p>
-            这里是介绍我们的项目简介-----------------------------------------------
+            本平台致力于打造一个线上漂流图书馆，联集各定点的漂流书屋网络，为用户和管理者打造一个便捷的线上借阅平台。
           </p>
           <br />
           <a

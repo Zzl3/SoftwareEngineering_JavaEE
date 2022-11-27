@@ -2,7 +2,7 @@
   <section class="honor-section" id="honor">
     <div class="honor-wrap">
       <div class="honor-header">
-        <h2>用户如何操作</h2>
+        <h2>操 作 指 南</h2>
         <hr class="line" />
         <span class="intro">贴心指引</span>
       </div>
@@ -12,9 +12,8 @@
             <i class="fa fa-heart-o"></i>
           </div>
           <div class="timeline-panel">
-            <h2>如何使用教室</h2>
-            <p>
-              如何使用教室说明...
+            <h2>如何搜索图书</h2>
+            <p>在搜索框输入图书关键词即可进行搜索。也可选择对应的关键词进行搜索，如作者、摘要等。得到搜索结果后可在界面进行更加细致的筛选，找到你想借阅的图书。             
             </p>
           </div>
         </li>
@@ -23,9 +22,9 @@
             <i class="fa fa-heart-o"></i>
           </div>
           <div class="timeline-panel-right">
-            <h2>如何进行组队</h2>
+            <h2>如何借阅图书</h2>
             <p>
-              如何组队说明...
+              找到感兴趣的图书后点击借阅按钮，若您的积分不低于一定值即可进行借阅。若书本已被其他用户借阅，平台将为您进行预约，在书本可借阅时第一时间通知。若借阅成功，平台将为您提供取书地址，请自行前往取书。
             </p>
           </div>
         </li>
@@ -34,9 +33,9 @@
             <i class="fa fa-heart-o"></i>
           </div>
           <div class="timeline-panel">
-            <h2>如何搜索图书</h2>
+            <h2>如何归还图书</h2>
             <p>
-              如何搜索图书说明...
+              当您想归还图书时，在我的信息-图书中选择要归还的书籍，平台将为您提供归还地址，请自行前往归还，并耐心等待平台进行归还确认。
             </p>
           </div>
         </li>
@@ -45,9 +44,9 @@
             <i class="fa fa-heart-o"></i>
           </div>
           <div class="timeline-panel-right">
-            <h2>如何打卡</h2>
+            <h2>如何反馈</h2>
             <p>
-              如何打卡说明...
+              使用反馈为我们的平台提供您宝贵的建议吧！我们将虚心听取不断改进。通过反馈也可为平台捐赠您闲置的书籍丰富漂流书库，相应我们会给予一定的报酬。感谢您对平台的支持！
             </p>
           </div>
         </li>

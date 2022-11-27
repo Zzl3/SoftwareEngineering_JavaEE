@@ -30,7 +30,7 @@
         <!-- 长引用 -->
         <div class="quote-wrap">
           <blockquote>
-            <p>快乐使用StudyX</p>
+            <p>快乐使用图书漂流</p>
           </blockquote>
         </div>
         <!-- 照片墙 -->

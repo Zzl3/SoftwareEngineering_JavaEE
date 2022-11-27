@@ -8,21 +8,21 @@
     <div class="pic-wrap">
       <div class="row-wrap">
         <div>
-          <img src="@/assets/2.png" alt="" />
+          <img src="@/assets/book2.jpg" alt="" />
         </div>
         <div>
-          <img src="@/assets/2.png" alt="" />
+          <img src="@/assets/book6.jpg" alt="" />
         </div>
         <div>
-          <img src="@/assets/2.png" alt="" />
+          <img src="@/assets/book7.jpg" alt="" />
         </div>
       </div>
       <div class="row-wrap">
         <div>
-          <img src="@/assets/2.png" alt="" />
+          <img src="@/assets/book9.jpeg" alt="" />
         </div>
         <div>
-          <img src="@/assets/2.png" alt="" />
+          <img src="@/assets/book10.jpeg" alt="" />
         </div>
         <div>
           <img src="@/assets/2.png" alt="" />
