@@ -11,6 +11,9 @@ import Login from '@/pages/Login/Login'
 import AdminPage from '@/pages/Admin/Adminpage'
 import AdminBorrow from '@/pages/Admin/Adminborrow'
 import AdminUser from '@/pages/Admin/AdminUser'
+import AdminFeedback from '@/pages/Admin/Adminfeedback'
+import AdminFeed from '@/pages/Admin/Adminfeed'
+import AdminCategory from "@/pages/Admin/AdminCategory"
 
 //这里是用户模块
 import Mypage from '@/pages/Mypage/Mypage'
@@ -24,6 +27,13 @@ import Project from '@/pages/Project/Project'
 import ProjectAll from '@/pages/Project/ProjectAll'
 import ProjectMy from '@/pages/Project/ProjectMy'
 import ProjectAdd from '@/pages/Project/ProjectAdd'
+import FeedbackAdd from '@/pages/Project/FeedbackAdd'
+import DonationmoneyAdd from '@/pages/Project/DonationmoneyAdd'
+import DonationbookAdd from '@/pages/Project/DonationbookAdd'
+
+//这里是书籍管理模块
+import BookDisplay from '@/pages/Book/BookDisplay'
+import BookParticulars from '@/pages/Book/BookParticulars'
 
 //有children的都是分成模块的
 export default new Router({
@@ -54,6 +64,18 @@ export default new Router({
     {
       path: '/admin/adminuser',
       component: AdminUser,
+    },
+      {
+        path: '/admin/adminfeedback',
+        component: AdminFeedback,
+      },
+      {
+        path: '/admin/adminfeed',
+        component: AdminFeed,
+      },
+    {
+      path: '/admin/admincategory',
+      component: AdminCategory,
     }
     ],
     props: true
@@ -98,9 +120,41 @@ export default new Router({
     {
       path: '/project/addproject',
       component: ProjectAdd,
-    }
+    },
+      {
+        path: '/project/addfeedback',
+        component: FeedbackAdd,
+      },
+      {
+        path: '/project/adddonationmoney',
+        component: DonationmoneyAdd,
+      },
+      {
+        path: '/project/adddonationbook',
+        component: DonationbookAdd,
+      }
     ],
     props: true
-  }
+  },
+            //书籍
+    //书籍分类展示
+    {
+      path: '/book',
+      name: 'book',
+      component: BookDisplay,
+      children: [{
+        path: '/book/particulars',
+        name: 'BookParticulars',
+        component: BookParticulars,
+      },
+      ],
+      props: true
+    },
+    //书籍详情
+    {
+      path: '/bookparticulars',
+      name: 'BookParticulars',
+      component: BookParticulars,
+    },
   ]
 })

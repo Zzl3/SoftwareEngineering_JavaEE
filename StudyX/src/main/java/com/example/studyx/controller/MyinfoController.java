@@ -96,7 +96,7 @@ public class MyinfoController {
     @RequestMapping("/api/user/covers")
     public String add(@RequestParam("file") MultipartFile multipartFile) {
         String a= GiteeImgBedUtils.upload("image", multipartFile);
-        String b="https://gitee.com/zjjjjjj_----zjjj/javaee/blob/master/"+a;
+        String b="https://zjjjjjj_----zjjj.gitee.io/javaee/"+a;
         return b;
     }
 

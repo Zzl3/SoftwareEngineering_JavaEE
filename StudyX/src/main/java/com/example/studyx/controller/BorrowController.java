@@ -7,6 +7,7 @@ import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Borrow;
 import com.example.studyx.pojo.Collection;
 import com.example.studyx.pojo.Collectiondir;
+import com.example.studyx.pojo.User;
 import com.example.studyx.utils.GetNowTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +21,28 @@ public class BorrowController {
     @Autowired
     BorrowDAO borrowDAO;
 
+    @Autowired
+    UserDAO userDAO;
+
     @CrossOrigin
     @PostMapping(value = "/api/user/findallborrow")
     public List<Borrow> findallborrow(@RequestBody String id) {
         Integer userid = Integer.valueOf(id);
+        User user = userDAO.getById(userid);
         List<Borrow> borrows = borrowDAO.findByUserid(userid);
         LocalDate nowTime = LocalDate.now();
         for (Borrow borrow : borrows) {
-            if (borrow.getStatus().equals("借阅中") ) {
+            if (borrow.getStatus().equals("借阅中")) {
                 LocalDate tmptime = LocalDate.parse(borrow.getStarttime());
-                int a = 30-nowTime.compareTo(tmptime);
+                int dayy = (int) (nowTime.toEpochDay() - tmptime.toEpochDay());
+                int a = 30 - dayy;
+                if (a < 0 && user.getStatus().equals("normal")) {
+                    user.setIntegration(String.valueOf(Integer.valueOf(user.getIntegration()) - 20));
+                    if (Integer.valueOf(user.getIntegration()) < 0) {
+                        user.setStatus("banned");
+                    }
+                    userDAO.save(user);
+                }
                 borrow.setDuring(String.valueOf(a) + "天");//更新during日期
             }
         }
@@ -42,6 +55,10 @@ public class BorrowController {
         try {
             String createTime = GetNowTime.gettime().toString();//得到当前时间
             if (borrow.getStatus().equals("申请中")) {
+                Integer userid = borrow.getUserid();
+                User user = userDAO.getById(userid);
+                if (user.getStatus().equals("banned"))
+                    return null;
                 borrow.setStarttime("---");
                 borrow.setReturntime("---");
                 borrow.setDuring("---");
@@ -68,7 +85,7 @@ public class BorrowController {
         } else if (status.equals("已结束")) {
             borrow.setReturntime(createTime);//设置归还日期
             borrow.setDuring("---");//设置为一个月
-        }else if (status.equals("未借阅")) {
+        } else if (status.equals("未借阅")) {
             borrow.setReturntime("---");//设置归还日期
             borrow.setStarttime("---");//设置归还日期
             borrow.setDuring("---");//设置为一个月

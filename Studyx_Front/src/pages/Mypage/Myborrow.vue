@@ -161,7 +161,7 @@ export default {
 <style scoped>
 .input {
   position: absolute;
-  top: 150px;
+  top: 100px;
   right:25px;
   border: none;
   border-radius: 15px;
@@ -179,7 +179,7 @@ export default {
 }
 .rwd-table {
   position: absolute;
-  top: 220px;
+  top: 190px;
   left: 330px;
 }
 </style>

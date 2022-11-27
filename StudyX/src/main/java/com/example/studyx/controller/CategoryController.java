@@ -3,6 +3,7 @@ package com.example.studyx.controller;
 import com.example.studyx.dao.CategoryDAO;
 import com.example.studyx.pojo.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,8 @@ public class CategoryController {
     @Autowired
     private CategoryDAO categoryDAO;
 
-    @GetMapping("/search/")
+    @CrossOrigin
+    @GetMapping("/api/searchcategory/")
     public List<Category> searchcategory(@RequestParam String standard,String content,boolean ifblur){
         if(standard.equals("isbn")){
             List<Category> ret=new ArrayList<>();

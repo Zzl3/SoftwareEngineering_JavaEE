@@ -17,14 +17,16 @@ import javax.servlet.http.HttpSession;
 //requestBody 参数后面跟着相关的类
 
 @RestController
-public class LoginController {
+public class
+
+LoginController {
     @Autowired
     UserService userService;
 
     @CrossOrigin
     @PostMapping("/api/getuserid")
     public Integer getUserid(@RequestBody String a) throws Exception {
-        User user = userService.getByName(a);
+        User user = userService.getByMail(a);
         Integer id = user.getId();
         return id;
     }
@@ -32,10 +34,10 @@ public class LoginController {
     @CrossOrigin
     @PostMapping(value = "/api/login")
     public Result login(@RequestBody User requestUser, HttpSession session) {
-        String username = requestUser.getUsername();
-        username = HtmlUtils.htmlEscape(username);
+        String mail = requestUser.getMail();
+        mail = HtmlUtils.htmlEscape(mail);
         //先得到salt加密的值
-        User user = userService.getByName(username);
+        User user = userService.getByMail(mail);
         if (null == user) {
             return ResultFactory.buildFailResult("账号不存在");
         }
@@ -44,14 +46,15 @@ public class LoginController {
         //加密密码，和原来的做对比
         String password = new SimpleHash("md5", requestUser.getPassword(), salt, 2).toString();
         ;
-        user = userService.get(username, password);
+        user = userService.get(mail, password);
         if (null == user) {
             return ResultFactory.buildFailResult("账号不存在");
         } else {
             session.setAttribute("user", user);
-            return ResultFactory.buildSuccessResult(username);
+            return ResultFactory.buildSuccessResult(mail);
         }
     }
+
 
     @CrossOrigin
     @PostMapping(value = "/api/register")
@@ -59,15 +62,29 @@ public class LoginController {
         int status = userService.register(user);
         switch (status) {
             case 0:
-                return ResultFactory.buildFailResult("用户名和密码不能为空");
+                return ResultFactory.buildFailResult("电话号码或密码或用户名不能为空");
             case 1:
                 return ResultFactory.buildSuccessResult("注册成功");
             case 2:
-                return ResultFactory.buildFailResult("用户已存在");
+                return ResultFactory.buildFailResult("该手机号已注册");
         }
         return ResultFactory.buildFailResult("未知错误");
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/api/findpassword")
+    public Result findpassword(@RequestBody User user) {
+        int status = userService.findpassword(user);
+        switch (status) {
+            case 0:
+                return ResultFactory.buildFailResult("邮箱或密码或用户名不能为空");
+            case 1:
+                return ResultFactory.buildSuccessResult("找回密码成功");
+            case 2:
+                return ResultFactory.buildFailResult("该手机号未注册，请先注册");
+        }
+        return ResultFactory.buildFailResult("未知错误");
+    }
     //注销登录
     @CrossOrigin
     @RequestMapping("/api/logout")
@@ -88,7 +105,6 @@ public class LoginController {
     @PostMapping(value = "/api/login/admin")
     public Result adminlogin(@RequestBody Admin requestAdmin, HttpSession session) {
         String adminname = requestAdmin.getAdminname();
-        System.out.println(adminname);
         adminname = HtmlUtils.htmlEscape(adminname);
         //先得到salt加密的值
         Admin admin = AdminService.getByName(adminname);
