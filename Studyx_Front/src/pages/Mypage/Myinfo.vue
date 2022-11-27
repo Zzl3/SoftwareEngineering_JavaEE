@@ -277,7 +277,7 @@ export default {
 }
 .a {
   position: relative;
-  width: 700px;
+  width: 800px;
   height: 400px;
   border: #fff 10px solid;
   background-color: rgb(120, 140, 200);
@@ -288,7 +288,7 @@ export default {
 }
 .b {
   position: absolute;
-  width: 200px;
+  width: 350px;
   height: 300px;
   left: 0;
   margin: 75px 50px;
