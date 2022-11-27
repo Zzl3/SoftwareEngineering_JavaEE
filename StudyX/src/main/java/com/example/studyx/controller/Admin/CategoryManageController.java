@@ -17,22 +17,41 @@ public class CategoryManageController {
     @CrossOrigin
     @PostMapping("/api/admin/managecategory/")
     public Map<String,String> modifybookproperty(@RequestBody Map<String,Object> m){
+        System.out.println(m);
         Map<String,String> ret=new HashMap<>();
         String isbn=(String)m.get("isbn");
         System.out.println(isbn);
+        System.out.println("\n\n\n\n\n");
         Category category=categoryDAO.findByIsbn(isbn);
 
-        System.out.println(category.getAuthor());
-        System.out.println(m.get("price"));
-        category.setAuthor((String)m.get("author"));
-        category.setBookname((String)m.get("bookname"));
-        category.setPrice(Double.parseDouble((String)m.get("price")));
-        category.setBookabstract((String) m.get("bookabstract"));
-        category.setPublishdate((String)m.get("publishdate"));
-        category.setType((String)m.get("type"));
+        String author=(String)m.get("author");
+        String bookname= (String)m.get("bookname");
+        Double price=Double.parseDouble((String)m.get("price"));
+        System.out.println(price);
+        String bookabstract=(String)m.get("bookabstract");
+        String publishdate=(String) m.get("publishdate");
+        String type=(String) m.get("type");
+        String publisher=(String) m.get("publisher");
+        String url=(String) m.get("url");
 
-        categoryDAO.save(category);
-        ret.put("message","succeed");
+        if(category!=null){
+            //修改图书
+            category.setAuthor(author);
+            category.setBookname(bookname);
+            category.setPrice(price);
+            category.setBookabstract(bookabstract);
+            category.setPublishdate(publishdate);
+            category.setType(type);
+            categoryDAO.save(category);
+            ret.put("message","modify successfully");
+        }
+        else{
+            //新建图书
+            Category c=new Category(isbn,bookname,publisher,author,type,publishdate,url,bookabstract,price);
+            categoryDAO.saveAndFlush(c);
+            ret.put("message","add successfully");
+        }
+
         return ret;
     }
 
@@ -47,6 +66,27 @@ public class CategoryManageController {
         System.out.println(category);
         categoryDAO.delete(category);
         ret.put("message","delete successfully");
+        return ret;
+    }
+
+    @CrossOrigin
+    @PostMapping("/api/admin/addcategory/")
+    public Map<String,String> addcategory(@RequestBody Map<String,String> m){
+        Map<String,String> ret=new HashMap<>();
+        String isbn=m.get("isbn");
+
+        String bookname=m.get("bookname");
+        String publisher=m.get("publisher");
+        String author=m.get("author");
+        String type=m.get("type");
+        String publishdate=m.get("publishdate");
+        String url=m.get("url");
+        String bookabstract=m.get("bookabstract");
+        Double price=Double.parseDouble(m.get("price"));
+
+        Category c=new Category(isbn,bookname,publisher,author,type,publishdate,url,bookabstract,price);
+        categoryDAO.saveAndFlush(c);
+        ret.put("message","add successfully");
         return ret;
     }
 

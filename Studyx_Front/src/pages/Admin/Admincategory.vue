@@ -5,10 +5,19 @@
                 <el-breadcrumb-item :to="{ path: '/admin' }">管理员页面</el-breadcrumb-item>
                 <el-breadcrumb-item><a href="/admin/admincategory">书籍管理</a></el-breadcrumb-item>
             </el-breadcrumb>
-            <div class="search">
-                <el-input v-model="search" size="mini" placeholder="输入isbn搜索" style="width: 60% ; float:left" />
-                <el-button icon="el-icon-search" type="primary" circle size="mini" @click="searchcategory(search)">
-                </el-button>
+            <div class="search" style="height:50px">
+                <div>
+                    <el-input v-model="search" size="mini" placeholder="输入isbn搜索"
+                        style="width: 60% ; float:left;display:inline-block" />
+                    <el-button icon="el-icon-search" type="primary" circle size="mini" @click="searchcategory(search)"
+                        style="float:left;display:inline-block">
+                    </el-button>
+                    <el-dialog :visible.sync="dialogFormVisible">
+                        <Myform></Myform>
+                    </el-dialog>
+                </div>
+                <div style="white-space:nowrap; margin-left: 230px ; margin-top: -10px;"><button id="button1"
+                        @click="dialogFormVisible = true">添加书籍</button></div>
             </div>
             <el-scrollbar>
                 <el-table style="width: 100%" height=600 :data="tableData">
@@ -28,7 +37,7 @@
                     </el-table-column>
                     <el-table-column label="Operation" align="right" width="200">
                         <template slot-scope="scope">
-                            <button color="#626aef"  @click="dialogFormVisible = true">修改书籍信息
+                            <button color="#626aef" @click="dialogFormVisible = true">修改书籍信息
                             </button>
                             <el-dialog :visible.sync="dialogFormVisible">
                                 <Myform></Myform>
@@ -156,5 +165,34 @@ export default {
     margin-bottom: 20px;
     width: 300px;
 
+}
+
+#button1 {
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    height: 40px;
+    display: inline-block;
+}
+
+#button1:hover {
+    background-color: #23c483;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+#button1:active {
+    transform: translateY(-1px);
 }
 </style>

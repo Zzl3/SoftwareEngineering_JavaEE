@@ -5,14 +5,14 @@
         <div class="nav">
           <Search></Search>
           <ul>
-            <li class="classroom">
+            <li class="classroom" style="float:right">
               <el-dropdown
                 style="
                   border-bottom: none;
                   top: 13px;
                   display: inline-block;
                   right: 40px;
-                  position: fixed;
+                  /* position: fixed; */
                 "
               >
                 <el-avatar> admin </el-avatar>
@@ -77,6 +77,7 @@ body {
   text-align: center;
   padding: 0;
   margin: 0;
+  height:60px;
 }
 
 .nav li {
@@ -138,6 +139,7 @@ body {
   /* Sub Menus */
   .nav li ul {
     position: absolute;
+    /* float:right; */
     display: none;
     width: inherit;
   }

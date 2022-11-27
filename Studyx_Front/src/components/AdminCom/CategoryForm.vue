@@ -2,12 +2,12 @@
     <div>
         <form class="basic-grey" id="myform">
             <h1>
-                修改书籍信息
-                <span>请按照下方规则修改书籍信息(若不填写则不会修改)</span>
+                书籍信息
+                <!-- <span>请按照下方规则修改书籍信息(若不填写则不会修改)</span> -->
             </h1>
             <label>
                 <span>isbn:</span>
-                <input id="isbn" name="isbn" type="text" placeholder="请输入书籍isbn" />
+                <input id="isbn" type="text" name="isbn"  placeholder="请输入书籍isbn" />
             </label>
             <label>
                 <span>bookname:</span>
@@ -63,21 +63,22 @@ export default {
     methods: {
         submitdata() {
             var _this = this;
-            var formData = new FormData(myform); // form为表单对象
+            var formData = new FormData(document.getElementById("myform")); // form为表单对象
+            console.log(formData);
             _this.$axios.post("admin/managecategory/", {
                 isbn: formData.get("isbn"),
                 author: formData.get("author"),
+                publisher: formData.get("publisher"),
                 bookname: formData.get("bookname"),
                 price: formData.get("price"),
                 bookabstract: formData.get("bookabstract"),
-                age: formData.get("age"),
                 type: formData.get("type")
             });
             this.$message({
                 message: "已成功修改信息",
                 type: "success",
             });
-            this.$router.go(0);
+            //this.$router.go(0);
         },
     },
 };
