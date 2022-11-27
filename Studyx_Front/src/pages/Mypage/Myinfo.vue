@@ -57,6 +57,7 @@
         </svg>
       </div>
     </div>
+    <div id="share"><Share></Share></div>
   </div>
 </template>
 
@@ -64,9 +65,10 @@
 import Card from "@/components/MypageCom/MyInfoCom/Card";
 import Myfrom from "@/components/MypageCom/MyInfoCom/Form";
 import TDButton from "@/components/MypageCom/MyInfoCom/TDButton";
+import Share from "@/components/MypageCom/MyInfoCom/Share";
 export default {
   name: "Myinfo",
-  components: { TDButton, Myfrom, Card },
+  components: { TDButton, Myfrom, Card, Share },
   data() {
     return {
       dialogFormVisible: false,
@@ -113,10 +115,15 @@ export default {
 </script>
 
 <style scoped>
-#loaddd{
+#share {
+  position: absolute;
+  top: 620px;
+  right: 880px;
+}
+#loaddd {
   position: absolute;
   top: 600px;
-  right:400px;
+  right: 400px;
 }
 .loader {
   --path: #2f3545;
