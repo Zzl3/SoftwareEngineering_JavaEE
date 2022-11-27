@@ -13,6 +13,7 @@ import AdminBorrow from '@/pages/Admin/Adminborrow'
 import AdminUser from '@/pages/Admin/AdminUser'
 import AdminFeedback from '@/pages/Admin/Adminfeedback'
 import AdminFeed from '@/pages/Admin/Adminfeed'
+import AdminDonation from '@/pages/Admin/Admindonation'
 import AdminCategory from "@/pages/Admin/AdminCategory"
 
 //这里是用户模块
@@ -72,6 +73,10 @@ export default new Router({
       {
         path: '/admin/adminfeed',
         component: AdminFeed,
+      },
+      {
+        path: '/admin/admindonation',
+        component: AdminDonation,
       },
     {
       path: '/admin/admincategory',

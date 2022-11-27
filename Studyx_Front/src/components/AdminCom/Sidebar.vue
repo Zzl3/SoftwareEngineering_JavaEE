@@ -14,6 +14,10 @@
           <span><i class="el-icon-user-solid"></i></span>
           <span>反馈管理</span>
         </a>
+        <a href="/admin/admindonation" class="box">
+          <span><i class="el-icon-user-solid"></i></span>
+          <span>捐赠管理</span>
+        </a>
 
         <a href="/admin/admincategory" class="box">
           <span><i class="el-icon-notebook-1"></i></span>

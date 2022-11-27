@@ -15,14 +15,26 @@
         <el-table-column prop="id" label="序号" sortable width="150"> </el-table-column>
         <el-table-column prop="userid" label="用户id" sortable width="150">
         </el-table-column>
-        <el-table-column prop="content" label="反馈内容" sortable width="150">
+        <el-table-column prop="content" label="反馈内容" width="150">
         </el-table-column>
-        <el-table-column prop="feedbacktime" label="反馈时间" width="150">
+        <el-table-column prop="feedbacktime" label="反馈时间" width="150" sortable>
+        </el-table-column>
+        <el-table-column
+            prop="replytime"
+            label="答复状态"
+            width="150"
+            sortable
+        >
+          <template slot-scope="scope">
+            <div>{{scope.row.replycontent==null?'未答复':'已答复'}}</div>
+          </template>
         </el-table-column>
         <!-- <el-table-column prop="status" label="当前状态" width="150">
           </el-table-column> -->
-        <el-table-column label="查看详情" width="100px">
-          <button @click="borrowcon(scope.$index, scope.row)">查看</button>
+        <el-table-column label="查看详情" width="150px">
+          <template slot-scope="scope">
+            <el-button @click="detail(scope.$index, scope.row);">查看</el-button>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -57,28 +69,11 @@ export default {
         }
       });
     },
-    borrowcon(index, row) {
+    detail(index, row) {
+      //alert("diji")
       this.$router.push({
         path: "/admin/adminfeed?id=" + row.userid,
       });
-      /*var _this = this;
-      if (row.status != "申请中") {
-        _this.$message({
-          showClose: true,
-          message: "该借阅并未在申请中",
-          type: "warning",
-        });
-      } else {
-        this.$axios.post("/changeborrow", {
-          userid: row.userid,
-          bookid: row.bookid,
-          status: "借阅中",
-        });
-        _this.$message({
-          showClose: true,
-          message: "借阅成功",
-          type: "success",
-        });*/
     },
   },
 };
