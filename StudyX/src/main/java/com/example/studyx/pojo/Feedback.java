@@ -28,4 +28,5 @@ public class Feedback {
     String feedbacktime;
     String replycontent;
     String replytime;
+    String type;
 }

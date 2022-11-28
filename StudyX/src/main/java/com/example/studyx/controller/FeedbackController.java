@@ -19,18 +19,34 @@ public class FeedbackController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/addFeedback")
-    public String addFeedback(@RequestBody String content,HttpSession session){
+    public String addFeedback(@RequestBody Feedback feedback1,HttpSession session){
+        String content=feedback1.getContent();
+        String type=feedback1.getType();
         System.out.println("content"+content);
         if(content==null||"".equals(content)){
             return "no";
         }else{
-            User user=(User)session.getAttribute("user");
+            //User user=(User)session.getAttribute("user");
             //Feedback feedback= feedbackService.addFeedback(content,user.getId());
-            Feedback feedback= feedbackService.addFeedback(content,8);
+            Feedback feedback= feedbackService.addFeedback(content,type,8);
             return "yes";
         }
     }
-
+    @CrossOrigin
+    @RequestMapping(value = "/api/addDonationbook")
+    public String addDonationbook(@RequestBody Feedback feedback1,HttpSession session){
+        String content=feedback1.getContent();
+        String type=feedback1.getType();
+        System.out.println("content"+content);
+        if(!(feedbackService.isExist(content))){
+            return "no";
+        }else{
+            //User user=(User)session.getAttribute("user");
+            //Feedback feedback= feedbackService.addFeedback(content,user.getId());
+            feedbackService.addFeedback(content,type,8);
+            return "yes";
+        }
+    }
     @CrossOrigin
     @RequestMapping(value = "/api/getAllFeedback")
     public List<Feedback> getAllFeedback(){
