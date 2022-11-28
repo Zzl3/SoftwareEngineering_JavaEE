@@ -20,9 +20,9 @@ public class Category {
     String bookname;
     String publisher;
     String author;
-    String type;
     String publishdate;
     String url;
+    String type;
     String bookabstract;
     String label;
     Double price;

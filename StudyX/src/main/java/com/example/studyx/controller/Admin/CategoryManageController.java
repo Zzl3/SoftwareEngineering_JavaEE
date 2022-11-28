@@ -41,7 +41,6 @@ public class CategoryManageController {
             category.setPrice(price);
             category.setBookabstract(bookabstract);
             category.setPublishdate(publishdate);
-            category.setType(type);
             categoryDAO.save(category);
             ret.put("message","modify successfully");
         }
@@ -119,7 +118,5 @@ public class CategoryManageController {
     public List<Category> getallcategory(){
         return categoryDAO.findAll();
     }
-
-
 }
 
