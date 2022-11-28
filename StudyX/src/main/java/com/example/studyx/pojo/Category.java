@@ -24,5 +24,7 @@ public class Category {
     String publishdate;
     String url;
     String bookabstract;
+    String label;
     Double price;
+    Double mark;
 }

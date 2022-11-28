@@ -16,7 +16,7 @@ public class CategoryManageController {
 
     @CrossOrigin
     @PostMapping("/api/admin/managecategory/")
-    public Map<String,String> modifybookproperty(@RequestBody Map<String,Object> m){
+    public Map<String,String> modifybookproperty(@RequestBody Map<String,String> m){
         System.out.println(m);
         Map<String,String> ret=new HashMap<>();
         String isbn=(String)m.get("isbn");
@@ -47,11 +47,22 @@ public class CategoryManageController {
         }
         else{
             //新建图书
-            Category c=new Category(isbn,bookname,publisher,author,type,publishdate,url,bookabstract,price);
+            //Category c=new Category(isbn,bookname,publisher,author,type,publishdate,url,bookabstract,price);
+            Category c=new Category();
+            c.setIsbn(m.get("isbn"));
+            c.setBookname(m.get("bookname"));
+            c.setPublisher(m.get("publisher"));
+            c.setAuthor(m.get("author"));
+            c.setType(m.get("type"));
+            c.setPublishdate(m.get("publishdate"));
+            c.setUrl(m.get("url"));
+            c.setBookabstract(m.get("bookabstract"));
+            c.setLabel(m.get("label"));
+            c.setPrice(Double.valueOf(m.get("price")));
+            c.setMark(Double.valueOf(m.get("mark")));
             categoryDAO.saveAndFlush(c);
             ret.put("message","add successfully");
         }
-
         return ret;
     }
 
@@ -73,18 +84,30 @@ public class CategoryManageController {
     @PostMapping("/api/admin/addcategory/")
     public Map<String,String> addcategory(@RequestBody Map<String,String> m){
         Map<String,String> ret=new HashMap<>();
-        String isbn=m.get("isbn");
+//        String isbn=m.get("isbn");
+//
+//        String bookname=m.get("bookname");
+//        String publisher=m.get("publisher");
+//        String author=m.get("author");
+//        String type=m.get("type");
+//        String publishdate=m.get("publishdate");
+//        String url=m.get("url");
+//        String bookabstract=m.get("bookabstract");
+//        Double price=Double.parseDouble(m.get("price"));
 
-        String bookname=m.get("bookname");
-        String publisher=m.get("publisher");
-        String author=m.get("author");
-        String type=m.get("type");
-        String publishdate=m.get("publishdate");
-        String url=m.get("url");
-        String bookabstract=m.get("bookabstract");
-        Double price=Double.parseDouble(m.get("price"));
-
-        Category c=new Category(isbn,bookname,publisher,author,type,publishdate,url,bookabstract,price);
+       // Category c=new Category(isbn,bookname,publisher,author,type,publishdate,url,bookabstract,price);
+        Category c=new Category();
+        c.setIsbn(m.get("isbn"));
+        c.setBookname(m.get("bookname"));
+        c.setPublisher(m.get("publisher"));
+        c.setAuthor(m.get("author"));
+        c.setType(m.get("type"));
+        c.setPublishdate(m.get("publishdate"));
+        c.setUrl(m.get("url"));
+        c.setBookabstract(m.get("bookabstract"));
+        c.setLabel(m.get("label"));
+        c.setPrice(Double.valueOf(m.get("price")));
+        c.setMark(Double.valueOf(m.get("mark")));
         categoryDAO.saveAndFlush(c);
         ret.put("message","add successfully");
         return ret;
