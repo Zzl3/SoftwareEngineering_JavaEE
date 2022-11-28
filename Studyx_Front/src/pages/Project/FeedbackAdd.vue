@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-dialog title="意见反馈" :visible.sync="dialogTableVisible" showClose="false">
+    <el-dialog :before-close="handleDialogClose" title="意见反馈" :visible.sync="dialogTableVisible" showClose="false">
       <textarea placeholder="请输入您要反馈的内容" v-model="content">
       </textarea>
-      <div style="display: flex">
-        <button style="height:30px;line-height: 15px;"
+      <div style="width: 90%;margin:auto;height: 40px">
+        <button style="display: inline;float: left"
                 @click="yes"
         >确认</button>
-        <div style="width:50px;"></div>
-        <button style="height:30px;line-height: 15px;"
+<!--        <div style="width:50px;"></div>-->
+        <button style="display: inline;float: right"
                 @click="no"
         >取消</button>
       </div>
@@ -33,18 +33,18 @@ export default {
       });
       this.content=""
     },
+    handleDialogClose(){
+      this.no()
+    },
     yes(){
       //alert(this.$myglobal.nowuserid)
       var _this=this
       if(this.content!="") {
+
         //this.$message(this.content)
-        this.$axios({
-          url: "/addFeedback",
-          method: "post",
-          data: _this.content,
-          headers: {
-            "Content-Type": "text/plain",
-          },
+        this.$axios.post("/addFeedback",{
+          content:_this.content,
+          type:"反馈"
         })
             .then((res) => {
               //alert("res")
@@ -79,5 +79,31 @@ textarea {
   border: gray 1px solid;
   padding-left: 1.125rem;
   height: 6.5rem ;
+}
+button {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+button:active {
+  transform: translateY(-1px);
 }
 </style>

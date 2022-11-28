@@ -1,6 +1,8 @@
 package com.example.studyx.service;
 
+import com.example.studyx.dao.CategoryDAO;
 import com.example.studyx.dao.FeedbackDAO;
+import com.example.studyx.pojo.Category;
 import com.example.studyx.pojo.Feedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +16,18 @@ import java.util.List;
 public class FeedbackService {
     @Autowired
     FeedbackDAO feedbackDAO;
+    @Autowired
+    CategoryDAO categoryDAO;
 
     public void add(Feedback feedback) {
         feedbackDAO.save(feedback);
     }
-    public Feedback addFeedback(String content,Integer userid){
+    public Feedback addFeedback(String content,String type,Integer userid){
         Feedback feedback=new Feedback();
         //feedback.setId(3);
         feedback.setUserid(userid);
         feedback.setContent(content);
+        feedback.setType(type);
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(formatter.format(date));
@@ -30,7 +35,10 @@ public class FeedbackService {
         add(feedback);
         return feedback;
     }
-
+    public boolean isExist(String content){
+        Category category=categoryDAO.findByIsbn(content);
+        return null!=category;
+    }
     public List<Feedback> getAllFeedback(){
         return feedbackDAO.findAll();
     }
