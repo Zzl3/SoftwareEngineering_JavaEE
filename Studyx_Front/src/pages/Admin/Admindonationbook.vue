@@ -3,40 +3,45 @@
     <div>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/admin' }">管理员页面</el-breadcrumb-item>
-        <el-breadcrumb-item
-          ><a href="/admin/adminfeedback">反馈管理</a></el-breadcrumb-item
-        >
+        <el-breadcrumb-item style="display: flex">
+          <a href="/admin/admindonationbook" style="color: black">捐书管理</a>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item style="display: flex">
+          <a href="/admin/admindonationmoney">捐款管理</a>
+        </el-breadcrumb-item>
       </el-breadcrumb>
       <el-table
-        :data="tableData"
-        style="width: 100%"
-        :default-sort="{ prop: 'order', order: 'ascending' }"
+          :data="tableData"
+          style="width: 100%"
+          :default-sort="{ prop: 'order', order: 'ascending' }"
       >
         <el-table-column prop="order" label="序号" sortable width="150" :show-overflow-tooltip="true"> </el-table-column>
         <el-table-column prop="userid" label="用户id" sortable width="150" :show-overflow-tooltip="true">
         </el-table-column>
-        <el-table-column prop="content" label="反馈内容" width="150" :show-overflow-tooltip="true">
+        <el-table-column prop="content" label="ISBN" width="150" :show-overflow-tooltip="true">
         </el-table-column>
-        <el-table-column prop="feedbacktime" label="反馈时间" width="150" sortable>
+        <el-table-column prop="feedbacktime" label="提出时间" width="150" sortable>
         </el-table-column>
         <el-table-column
             prop="state"
-            label="答复状态"
+            label="处理状态"
             width="150"
             sortable
         >
           <template slot-scope="scope">
-            <div>{{scope.row.state==0?'未答复':'已答复'}}</div>
+            <div v-if="scope.row.state==0">未处理</div>
+            <div v-if="scope.row.state==1" style="color:red">已拒绝</div>
+            <div v-if="scope.row.state==2" style="color:green">已同意</div>
           </template>
         </el-table-column>
-        <el-table-column label="查看详情" width="350px" align="center">
+        <el-table-column label="操作" width="350px" align="center">
           <template slot-scope="scope" style="display: flex">
-            <el-button @click="feedbackdetail(scope.$index, scope.row);">查看反馈</el-button>
+            <el-button @click="bookdetail(scope.$index, scope.row);">查看书籍</el-button>
             <el-button @click="userdetail(scope.$index, scope.row);">查看用户</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-dialog title="反馈信息" :visible.sync="dialogTableVisible_feedback" >
+<!--      <el-dialog title="反馈信息" :visible.sync="dialogTableVisible_book" >
         <el-form ref="form" label-width="80px">
           <el-form-item label="反馈内容">
             <div>{{feedback==null?"":feedback.content}}</div>
@@ -53,7 +58,7 @@
             <el-button @click="no_feedback" style="float: right">取消</el-button>
           </el-form-item>
         </el-form>
-      </el-dialog>
+      </el-dialog>-->
       <el-dialog title="用户信息" :visible.sync="dialogTableVisible_user">
         <el-form ref="form" :model="user" label-width="80px">
           <el-form-item label="用户id">
@@ -87,7 +92,7 @@ export default {
   data() {
     return {
       tableData: [],
-      dialogTableVisible_feedback: false,
+      dialogTableVisible_book: false,
       dialogTableVisible_user: false,
       feedbackid:1,
       userid:1,
@@ -119,22 +124,26 @@ export default {
       }).then((res) => {
         var i=1
         for (let item of res.data) {
-          if (item.type == "反馈") {
+          if (item.type == "捐书") {
             item.order=i
             i=i+1
             console.log(item);
             if (item.replytime == null || item.replytime == '') {
               item.state = 0
             } else {
-              item.state = 1
+              if(item.replycontent == null || item.replycontent == ''){
+                item.state=2
+              }else {
+                item.state = 1
+              }
             }
             vm.tableData.push(item);
           }
         }
       });
     },
-    feedbackdetail(index, row) {
-      this.dialogTableVisible_feedback=true
+    bookdetail(index, row) {
+      this.dialogTableVisible_book=true
       this.dialogTableVisible_user=false
       this.feedbackid=row.id
       this.userid=row.userid
@@ -188,7 +197,7 @@ export default {
         path: "/admin/adminfuser?id=" + row.userid,
       });*/
     },
-    yes_feedback(){
+    /*yes_feedback(){
       var _this=this
       if(this.is_reply==true) {
         if (this.content != "") {
@@ -222,7 +231,7 @@ export default {
     },
     no_feedback(){
       this.dialogTableVisible_feedback=false
-    },
+    },*/
     /*yes_user(){
 
     },
@@ -230,7 +239,7 @@ export default {
       this.dialogTableVisible_user=false
     }*/
   },
-};
+}
 </script>
 
 <style scoped>

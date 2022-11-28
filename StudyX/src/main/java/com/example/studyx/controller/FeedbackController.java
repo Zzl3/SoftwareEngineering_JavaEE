@@ -1,13 +1,11 @@
 package com.example.studyx.controller;
 
+import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Feedback;
 import com.example.studyx.pojo.User;
 import com.example.studyx.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -16,6 +14,8 @@ import java.util.List;
 public class FeedbackController {
     @Autowired
     FeedbackService feedbackService;
+    @Autowired
+    UserDAO userDAO;
 
     @CrossOrigin
     @RequestMapping(value = "/api/addFeedback")
@@ -55,9 +55,8 @@ public class FeedbackController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/getFeedbackById")
-    public Feedback getFeedbackById(@RequestBody String Id){
-        int feedbackid=Integer.parseInt(Id);
-        return  feedbackService.getFeedbackById(feedbackid);
+    public Feedback getFeedbackById(@RequestBody Feedback feedback){
+        return  feedbackService.getFeedbackById(feedback.getId());
     }
 
     @CrossOrigin
@@ -69,10 +68,15 @@ public class FeedbackController {
         Integer adminid=admin.getId();*/
         Integer adminid=1;
         if("".equals(reply)||reply==null){
-            return "no:答复内容不能为空";
+            return "no";
         }else {
-            Feedback feedback = feedbackService.addReply(reply, feedbackid, adminid);
-            return "yes:" + feedback;
+            boolean result = feedbackService.addReply(reply, feedbackid);
+            return result==true?"yes":"no";
         }
+    }
+    @CrossOrigin
+    @RequestMapping("/api/getuserinfo")
+    public User getUserinfo(@RequestBody User user){
+        return userDAO.getById(user.getId());
     }
 }

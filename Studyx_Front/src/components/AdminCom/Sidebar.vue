@@ -11,11 +11,11 @@
           <span>用户管理</span>
         </a>
         <a href="/admin/adminfeedback" class="box">
-          <span><i class="el-icon-user-solid"></i></span>
+          <span><i class="el-icon-s-promotion"></i></span>
           <span>反馈管理</span>
         </a>
-        <a href="/admin/admindonation" class="box">
-          <span><i class="el-icon-user-solid"></i></span>
+        <a href="/admin/admindonationbook" class="box">
+          <span><i class="el-icon-orange"></i></span>
           <span>捐赠管理</span>
         </a>
 

@@ -1,17 +1,26 @@
 <template>
   <div>
     <el-dialog :before-close="handleDialogClose" title="意见反馈" :visible.sync="dialogTableVisible" showClose="false">
-      <textarea placeholder="请输入您要反馈的内容" v-model="content">
+<!--      <textarea placeholder="请输入您要反馈的内容" v-model="content">
       </textarea>
       <div style="width: 90%;margin:auto;height: 40px">
         <button style="display: inline;float: left"
                 @click="yes"
         >确认</button>
-<!--        <div style="width:50px;"></div>-->
+&lt;!&ndash;        <div style="width:50px;"></div>&ndash;&gt;
         <button style="display: inline;float: right"
                 @click="no"
         >取消</button>
-      </div>
+      </div>-->
+      <el-form label-width="80px">
+        <el-form-item label="反馈内容">
+          <el-input type="textarea" v-model="content" placeholder="请输入您要反馈的内容"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="yes" style="float: left">确认</el-button>
+          <el-button @click="no" style="float: right">取消</el-button>
+        </el-form-item>
+      </el-form>
     </el-dialog>
   </div>
 </template>
@@ -79,31 +88,5 @@ textarea {
   border: gray 1px solid;
   padding-left: 1.125rem;
   height: 6.5rem ;
-}
-button {
-  padding: 1.3em 3em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-}
-
-button:hover {
-  background-color: #23c483;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
-
-button:active {
-  transform: translateY(-1px);
 }
 </style>

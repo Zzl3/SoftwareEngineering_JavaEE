@@ -48,4 +48,21 @@ public class SMSCodeService {
             return false;
         }
     }
+
+    public boolean send_reply(String reply,String mail) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("2083978036@qq.com");
+        message.setTo(mail);
+        message.setSubject("您的反馈答复");
+        message.setText(reply);
+        try {
+            mailSender.send(message);
+            logger.info("答复邮件已发送。");
+            return true;
+
+        } catch (Exception e) {
+            logger.error("邮件时发生异常了！", e);
+            return false;
+        }
+    }
 }

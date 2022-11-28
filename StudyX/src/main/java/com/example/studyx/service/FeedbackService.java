@@ -2,6 +2,7 @@ package com.example.studyx.service;
 
 import com.example.studyx.dao.CategoryDAO;
 import com.example.studyx.dao.FeedbackDAO;
+import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Category;
 import com.example.studyx.pojo.Feedback;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class FeedbackService {
     FeedbackDAO feedbackDAO;
     @Autowired
     CategoryDAO categoryDAO;
+    @Autowired
+    SMSCodeService smsCodeService;
+    @Autowired
+    UserDAO userDAO;
 
     public void add(Feedback feedback) {
         feedbackDAO.save(feedback);
@@ -47,16 +52,21 @@ public class FeedbackService {
         return feedbackDAO.getById(feedbackid);
     }
 
-    public Feedback addReply(String reply,Integer feedbackid,Integer adminid){
+    public boolean addReply(String reply,Integer feedbackid){
         Feedback feedback=feedbackDAO.getById(feedbackid);
+        if(feedback==null)
+            return false;
         feedback.setReplycontent(reply);
-        feedback.setAdminid(adminid);
+        String mail=userDAO.getById(feedback.getUserid()).getMail();
+        boolean result= smsCodeService.send_reply(reply,mail);
+        if(result==false)
+            return false;
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(formatter.format(date));
         feedback.setFeedbacktime(formatter.format(date));
         feedback.setReplytime(formatter.format(date));
         feedbackDAO.save(feedback);
-        return feedback;
+        return true;
     }
 }
