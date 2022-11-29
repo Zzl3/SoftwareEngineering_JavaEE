@@ -60,6 +60,8 @@ public class UserService {
         user.setSalt(salt);
         String encodedPassword = new SimpleHash("md5", password, salt, times).toString();
         user.setPassword(encodedPassword);
+        user.setStatus("normal");
+        user.setIntegration("100");
         userDAO.save(user);
         return 1;
     }

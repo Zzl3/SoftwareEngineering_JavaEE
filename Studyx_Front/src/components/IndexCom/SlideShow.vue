@@ -11,12 +11,12 @@ export default {
   data() {
     return {
       imgList: [
-        { img: require("@/assets/1.png") },
-        { img: require("@/assets/2.png") },
+        { img: require("@/assets/book7.jpg") },
+        { img: require("@/assets/book2.jpg") },
         { img: require("@/assets/book3.png") },
         { img: require("@/assets/book4.jpeg") },
         { img: require("@/assets/book5.jpeg") },
-        { img: require("@/assets/6.jpg") },
+        { img: require("@/assets/book10.jpeg") },
       ],
     };
   },

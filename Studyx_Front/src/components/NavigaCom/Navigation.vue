@@ -15,7 +15,7 @@
                 margin-left: 20px;
               "
             >
-              <i class="el-icon-s-home" style="font-size: 30px"></i
+              <i class="el-icon-house" style="font-size: 30px"></i
             ></a>
             <a
               style="
@@ -29,6 +29,19 @@
             >
               <i class="el-icon-help" style="font-size: 30px" @click="drawer = true"></i
             ></a>
+            <a
+              href="/bookall"
+              style="
+                display: inline-block;
+                float: left;
+                top: 50px;
+                margin-top: 10px;
+                padding: 0px;
+                margin-left: 20px;
+              "
+            >
+              <i class="el-icon-reading" style="font-size: 30px"></i
+            ></a>
             <el-drawer
               title="这里是有关积分的介绍"
               :visible.sync="drawer"
@@ -40,25 +53,10 @@
                 <RankDetail> </RankDetail>
               </span>
             </el-drawer>
-            <li class="classroom"><a href="#">教室板块</a></li>
             <li class="project">
-              <a href="#">测试用例</a>
-              <ul>
-                <li><a href="/project/allproject">测试用例</a></li>
-                <li><a href="/project/myproject">我的组队</a></li>
-                <li><a href="/project/addproject">新建组队</a></li>
-              </ul>
+              <a href="/project/allproject">测试用例</a>
             </li>
-            <li class="material"><a href="#">资料板块</a></li>
-            <li class="punch"><a href="#">打卡板块</a></li>
-            <li class="project">
-              <a href="#">反馈捐赠</a>
-              <ul>
-                <li ><a href="/project/addfeedback">反馈意见</a></li>
-                <li><a href="/project/adddonationmoney">我要捐款</a></li>
-                <li><a href="/project/adddonationbook">我要捐书</a></li>
-              </ul>
-            </li>
+            <li class="punch"><a href="/book">图书大厅</a></li>
             <el-dropdown
               style="
                 border-bottom: none;
@@ -68,7 +66,7 @@
                 position: fixed;
               "
             >
-            <el-avatar :src=url></el-avatar>
+              <el-avatar :src="url"></el-avatar>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item icon="el-icon-s-fold" @click.native="logout"
                   >退出登录</el-dropdown-item
@@ -80,6 +78,7 @@
             </el-dropdown>
           </ul>
         </div>
+        <SideFeed id="aaa"></SideFeed>
       </header>
     </body>
   </div>
@@ -87,9 +86,10 @@
 
 <script>
 import RankDetail from "@/components/NavigaCom/RankDetail.vue";
+import SideFeed from "@/components/NavigaCom/SideFeed.vue";
 export default {
   name: "Navigation",
-  components: { RankDetail },
+  components: { RankDetail, SideFeed },
   data() {
     return {
       url: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
@@ -137,6 +137,12 @@ export default {
 };
 </script>
 <style scoped>
+#aaa {
+  bottom: -40px;
+  right: 40px;
+  position: fixed;
+  z-index: 999999;
+}
 .avatar {
   width: 30px;
   height: 30px;

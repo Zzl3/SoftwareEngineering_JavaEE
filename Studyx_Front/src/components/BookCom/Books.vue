@@ -2,15 +2,15 @@
   <div>
     <el-row style="height: 840px;">
       <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
-      <view-switch class="switch"></view-switch>
       <el-tooltip effect="dark" placement="right"
                   v-for="item in books.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                   :key="item.id">
-        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
+        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.bookname}}</p>
         <p slot="content" style="font-size: 13px;margin-bottom: 6px">
           <span>{{item.author}}</span> /
-          <span>{{item.date}}</span> /
-          <span>{{item.press}}</span>
+          <span>{{item.type}}</span> /
+          <span>{{item.publisher}}</span>
+          <span>{{item.summary}}</span>
         </p>
         <p slot="content" style="width: 300px" class="abstract">{{item.abs}}</p>
         <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
@@ -19,7 +19,7 @@
             <img :src="item.cover" alt="封面">
           </div>
           <div class="info" @click="goDetail">
-            <el-link :underline="false">{{item.title}}</el-link>
+            <el-link :underline="false">{{item.bookname}}</el-link>
           </div>
 
           <div class="author">{{item.author}}</div>
@@ -47,12 +47,12 @@ export default {
   data () {
     return {
       books: [{
-        cover: 'https://i.loli.net/2019/04/10/5cada7e73d601.jpg',
-        title: '三体',
-        author: '刘慈欣',
-        date: '2019-05-05',
-        press: '重庆出版社',
-        abs: '文化大革命如火如荼进行的同时。军方探寻外星文明的绝秘计划“红岸工程”取得了突破性进展。但在按下发射键的那一刻，历经劫难的叶文洁没有意识到，她彻底改变了人类的命运。地球文明向宇宙发出的第一声啼鸣，以太阳为中心，以光速向宇宙深处飞驰……'
+        cover: 'https://bkimg.cdn.bcebos.com/pic/e1fe9925bc315c601e2d30818eb1cb1349547727?x-bce-process=image/resize,m_lfit,w_536,limit_1',
+        bookname: '',
+        author: '',
+        type: '',
+        publisher: '',
+        summary: ''
       }],
       currentPage: 1,
       pagesize: 18
@@ -64,11 +64,19 @@ export default {
   methods: {
     loadBooks () {
       var _this = this
-      this.$axios.get('/books').then(resp => {
-        if (resp && resp.data.code === 200) {
-          _this.books = resp.data.result
-        }
-      })
+      this.$axios
+        .get('/books')
+        .then(successResponse => {
+          if (successResponse.data.code === 200) {
+            _this.books = successResponse.data.result
+            this.$message.error(successResponse.data.message);
+          }
+          else
+            this.$message.error("反应成功")
+        })
+        .catch(failResponse => {
+          this.$message.error("数据发送失败");
+        })
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage
@@ -76,10 +84,11 @@ export default {
     searchResult () {
       var _this = this
       this.$axios
-        .get('/search?keywords=' + this.$refs.searchBar.keywords, {
-        }).then(resp => {
-        if (resp && resp.data.code === 200) {
-          _this.books = resp.data.result
+        .get('/search?keywords=' + _this.keyword)
+        .then(successResponse => {
+        if (successResponse.data.code === 200) {
+          _this.books = successResponse.data.result
+          this.$message.error(successResponse.data.message);
         }
       })
     },

@@ -11,7 +11,7 @@
                   border-bottom: none;
                   top: 13px;
                   display: inline-block;
-                  right: 40px;
+                  right: 20px;
                   /* position: fixed; */
                 "
               >

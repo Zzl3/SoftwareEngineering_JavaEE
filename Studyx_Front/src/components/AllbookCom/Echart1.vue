@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 1000px; height: 600px;left:300px" id="main"></div>
+  <div style="width: 1000px; height: 600px;left:300px;margin-top:50px" id="main"></div>
 </template>
   
   <script>
@@ -22,8 +22,8 @@ export default {
       let myChart = this.$echarts.init(document.getElementById("main"));
       var option = {
         title: {
-          text: "Distribution of Electricity",
-          subtext: "Fake Data",
+          text: "借阅统计",
+          subtext: "可以统计一下过去一年中的借阅数量",
         },
         tooltip: {
           trigger: "axis",
@@ -41,12 +41,12 @@ export default {
           type: "category",
           boundaryGap: false,
           // prettier-ignore
-          data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45'],
+          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
         },
         yAxis: {
           type: "value",
           axisLabel: {
-            formatter: "{value} W",
+            formatter: "{value}活力",
           },
           axisPointer: {
             snap: true,
@@ -96,19 +96,19 @@ export default {
                 [
                   {
                     name: "Morning Peak",
-                    xAxis: "07:30",
+                    xAxis: "2月",
                   },
                   {
-                    xAxis: "10:00",
+                    xAxis: "4月",
                   },
                 ],
                 [
                   {
                     name: "Evening Peak",
-                    xAxis: "17:30",
+                    xAxis: "7月",
                   },
                   {
-                    xAxis: "21:15",
+                    xAxis: "8月",
                   },
                 ],
               ],
