@@ -6,14 +6,13 @@
           ><a href="/user/mydonation">我的捐赠</a></el-breadcrumb-item
         >
       </el-breadcrumb>
-    <Echarttest></Echarttest>
   </div>
 </template>
 
 <script>
-import Echarttest from "@/components/MypageCom/Echarttest";
+
 export default {
-  components: { Echarttest },
+
 };
 </script>
 

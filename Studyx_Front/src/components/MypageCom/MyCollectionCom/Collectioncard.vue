@@ -92,7 +92,7 @@ body {
 }
 .container {
   width: 80%;
-  margin-left: 350px;
+  margin-left: 400px;
   padding-top: 40px;
 }
 button {

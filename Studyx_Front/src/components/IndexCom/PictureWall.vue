@@ -25,7 +25,7 @@
           <img src="@/assets/book10.jpeg" alt="" />
         </div>
         <div>
-          <img src="@/assets/2.png" alt="" />
+          <img src="@/assets/book3.png" alt="" />
         </div>
       </div>
     </div>

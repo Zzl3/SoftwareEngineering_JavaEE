@@ -21,23 +21,52 @@
 
     <el-dialog :title="Title" :visible.sync="dialogTableVisible">
       <el-table :data="gridData">
-        <el-table-column property="isbn" label="ISBN" width="100"></el-table-column>
+        <el-table-column property="isbn" label="ISBN" width="200"></el-table-column>
         <el-table-column
           property="collectiontime"
           label="收藏时间"
-          width="300"
+          width="200"
         ></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="deletecollection(scope.$index, scope.row)"
               >取消收藏</el-button
             >
+            <el-popover
+              placement="top-start"
+              title="书本信息"
+              width="300"
+              height="1000"
+              trigger="click"
+              :content="catecontent"
+              style="white-space: pre-wrap"
+            >
+              <Categorycard
+                :isbn="isbn"
+                :author="author"
+                :bookabstract="bookabstract"
+                :bookname="bookname"
+                :label="label"
+                :mark="mark"
+                :price="price"
+                :publishdate="publishdate"
+                :type="type"
+              ></Categorycard>
+              <el-button
+                slot="reference"
+                size="mini"
+                type="danger"
+                @click="viewisbndetail(scope.$index, scope.row)"
+                >查看详情</el-button
+              >
+            </el-popover>
+            <!--             
             <el-button
               size="mini"
               type="danger"
               @click="viewisbndetail(scope.$index, scope.row)"
               >查看详情</el-button
-            >
+            > -->
           </template>
         </el-table-column>
       </el-table>
@@ -46,7 +75,9 @@
 </template>
 
 <script>
+import Categorycard from "./Categorycard.vue";
 export default {
+  components: { Categorycard },
   props: {
     Picsrc: String,
     Description: String,
@@ -54,6 +85,16 @@ export default {
   },
   data() {
     return {
+      isbn: "--",
+      bookname: "--",
+      author: "--",
+      publishdate: "--",
+      type: "--",
+      bookabstract: "--",
+      label: "--",
+      price: "--",
+      mark: "--",
+      catecontent: "暂无信息～",
       gridData: [],
       dialogTableVisible: false,
     };
@@ -108,6 +149,28 @@ export default {
           });
         });
       this.dialogTableVisible = false;
+    },
+    viewisbndetail(index, row) {
+      let _this = this;
+      this.$axios({
+        url: "/user/getcategoryinfo",
+        method: "post",
+        data: row.isbn,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      }).then((res) => {
+        console.log(res);
+        _this.isbn = row.isbn;
+        _this.bookname = res.data.bookname;
+        _this.author = res.data.author;
+        _this.publishdate = res.data.publishdate;
+        _this.type = res.data.type;
+        _this.bookabstract = res.data.bookabstract;
+        _this.label = res.data.label;
+        _this.price = res.data.price;
+        _this.mark= res.data.mark;
+      });
     },
   },
 };

@@ -4,7 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/user' }">我的页面</el-breadcrumb-item>
       <el-breadcrumb-item><a href="/user/myborrow">我的借阅</a></el-breadcrumb-item>
     </el-breadcrumb>
-    <input type="text" name="text" class="input" placeholder="请输入要搜索的书籍～" />
+    <!-- <input type="text" name="text" class="input" placeholder="请输入要搜索的书籍～" /> -->
     <div class="rwd-table">
       <el-table
         :data="tableData"

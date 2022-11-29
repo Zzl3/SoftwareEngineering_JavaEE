@@ -23,12 +23,6 @@
           <span><i class="el-icon-notebook-1"></i></span>
           <span>书籍管理</span>
         </a>
-        <a href="#" class="box">
-          <span><i class="el-icon-s-marketing"></i></span><span>authentication</span></a
-        >
-        <a href="#" class="box">
-          <span><i class="el-icon-d-caret"></i></span><span>cancellation</span></a
-        >
       </div>
     </el-col>
   </div>

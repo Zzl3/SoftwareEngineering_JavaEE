@@ -2,14 +2,14 @@ package com.example.studyx.controller;
 
 import com.example.studyx.dao.CategoryDAO;
 import com.example.studyx.pojo.Category;
+import com.example.studyx.pojo.Collection;
+import com.example.studyx.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CategoryController {
@@ -52,5 +52,10 @@ public class CategoryController {
         return null;
     }
 
-
+    @CrossOrigin
+    @PostMapping(value = "/api/user/getcategoryinfo")
+    public Category getcategoryinfo(@RequestBody String a) {
+        Category category=categoryDAO.findByIsbn(a);
+        return category;
+    }
 }
