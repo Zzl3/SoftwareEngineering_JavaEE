@@ -21,6 +21,7 @@ import ViewSwitch from '@/components/BookCom/ViewSwitch'
 export default {
   name: 'BookDisplay',
   components: {Books, SideMenu,SearchBar,ViewSwitch},
+
   methods: {
     listByCategory () {
       var _this = this
@@ -32,7 +33,8 @@ export default {
           _this.$refs.booksArea.currentPage = 1
         }
       })
-    }
+    },
+
   }
 }
 </script>
