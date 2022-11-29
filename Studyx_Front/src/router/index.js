@@ -35,6 +35,9 @@ import DonationbookAdd from '@/pages/Project/DonationbookAdd'
 //这里是书籍管理模块
 import BookDisplay from '@/pages/Book/BookDisplay'
 import BookParticulars from '@/pages/Book/BookParticulars'
+import DataTest from '@/pages/Book/DataTest'
+import test from '@/pages/Book/test'
+import testDisplay from '@/pages/Book/testDisplay'
 
 //有children的都是分成模块的
 export default new Router({
@@ -141,7 +144,7 @@ export default new Router({
     ],
     props: true
   },
-            //书籍
+    //书籍界面
     //书籍分类展示
     {
       path: '/book',
@@ -160,6 +163,18 @@ export default new Router({
       path: '/bookparticulars',
       name: 'BookParticulars',
       component: BookParticulars,
+    },
+    //书籍前后端测试
+    {
+      path: '/test',
+      name: 'test',
+      component: test,
+    },
+    //书籍显示测试
+    {
+      path: '/testdis',
+      name: 'testDisplay',
+      component: testDisplay,
     },
   ]
 })
