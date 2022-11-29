@@ -69,12 +69,40 @@
         </el-table-column>
         <el-table-column label="查看详情" width="100px">
           <template slot-scope="scope">
-            <el-button
-              type="info"
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)"
-              >查看详情</el-button
+            <el-popover
+              placement="top-start"
+              title="书本详情"
+              width="200"
+              trigger="click"
             >
+              <Bookcard
+                :isbn="isbn"
+                :donatetime="donatetime"
+                :userid="userid"
+              ></Bookcard>
+              <el-button
+                slot="reference"
+                size="mini"
+                type="danger"
+                @click="viewbookdetail(scope.$index, scope.row)"
+                >查看详情</el-button
+              >
+            </el-popover>
+            <!--         
+            <el-popover
+              placement="top-start"
+              title="书本信息"
+              width="300"
+              height="1000"
+              trigger="click"
+            >
+              <Bookcard
+                :isbn="isbn"
+                :donatetime="donatetime"
+                :useridd="useridd"
+              ></Bookcard>
+
+            </el-popover> -->
           </template>
         </el-table-column>
       </el-table>
@@ -83,9 +111,14 @@
 </template>
 
 <script>
+import Bookcard from "@/components/MypageCom/MyBorrowCom/Bookcard.vue";
 export default {
+  components: { Bookcard },
   data() {
     return {
+      userid: "",
+      isbn: "",
+      donatetime: "",
       tableData: [],
     };
   },
@@ -154,6 +187,22 @@ export default {
     filterTag(value, row) {
       return row.status === value;
     },
+    viewbookdetail(index, row) {
+      let _this = this;
+      this.$axios({
+        url: "/user/getbookdetail",
+        method: "post",
+        data: row.bookid,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      }).then((res) => {
+        console.log(res);
+        _this.donatetime = res.data.donatetime;
+        _this.isbn = res.data.isbn;
+        _this.userid = res.data.userid;
+      });
+    },
   },
 };
 </script>
@@ -162,7 +211,7 @@ export default {
 .input {
   position: absolute;
   top: 100px;
-  right:25px;
+  right: 25px;
   border: none;
   border-radius: 15px;
   padding: 15px;

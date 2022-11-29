@@ -30,4 +30,11 @@ public class BookController {
         bookDAO.save(book);
         return true;
     }
+
+    @CrossOrigin
+    @PostMapping(value = "/api/user/getbookdetail")
+    public Book getbookdetail(@RequestBody String bookid) {
+        Book book=bookDAO.findByBookid(Integer.valueOf(bookid));
+        return book;
+    }
 }
