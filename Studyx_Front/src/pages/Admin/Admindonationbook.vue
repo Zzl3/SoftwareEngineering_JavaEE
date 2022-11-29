@@ -18,7 +18,7 @@
         <el-table-column prop="order" label="序号" sortable width="150" :show-overflow-tooltip="true"> </el-table-column>
         <el-table-column prop="userid" label="用户id" sortable width="150" :show-overflow-tooltip="true">
         </el-table-column>
-        <el-table-column prop="content" label="ISBN" width="150" :show-overflow-tooltip="true">
+        <el-table-column prop="content" label="ISBN"  sortable width="150" :show-overflow-tooltip="true">
         </el-table-column>
         <el-table-column prop="feedbacktime" label="提出时间" width="150" sortable>
         </el-table-column>
@@ -41,43 +41,56 @@
           </template>
         </el-table-column>
       </el-table>
-<!--      <el-dialog title="反馈信息" :visible.sync="dialogTableVisible_book" >
-        <el-form ref="form" label-width="80px">
-          <el-form-item label="反馈内容">
-            <div>{{feedback==null?"":feedback.content}}</div>
-          </el-form-item>
-          <el-form-item label="答复内容">
-            <el-input type="textarea" v-model="content" v-if="is_reply" placeholder="还没答复，请输入答复内容"></el-input>
-            <div v-if="!is_reply">{{feedback==null?"":feedback.replycontent}}</div>
-          </el-form-item>
-          <el-form-item label="答复时间" v-if="!is_reply">
-            <div v-if="!is_reply">{{feedback==null?"":feedback.replytime}}</div>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="yes_feedback" style="float: left">确认</el-button>
-            <el-button @click="no_feedback" style="float: right">取消</el-button>
-          </el-form-item>
-        </el-form>
-      </el-dialog>-->
+      <el-dialog title="书籍信息" :visible.sync="dialogTableVisible_book" >
+        <div v-if="book!=null">
+          <el-form label-width="80px">
+            <el-form-item label="isbn">
+              <div>{{book.isbn}}</div>
+            </el-form-item>
+            <el-form-item label="书名">
+              <div>{{book.bookname}}</div>
+            </el-form-item>
+            <el-form-item label="作者">
+              <div>{{book.author}}</div>
+            </el-form-item>
+            <el-form-item label="类型">
+              <div>{{book.type}}</div>
+            </el-form-item>
+            <el-form-item label="出版社">
+              <div>{{book.publisher}}</div>
+            </el-form-item>
+            <el-form-item label="出版日期">
+              <div>{{book.publishdate}}</div>
+            </el-form-item>
+            <el-form-item label="内容介绍">
+              <div>{{book.bookabstract}}</div>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="addbook" style="float: left" v-if="state==0">同意</el-button>
+              <el-button @click="refuse" style="float: right" v-if="state==0">拒绝</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
       <el-dialog title="用户信息" :visible.sync="dialogTableVisible_user">
         <el-form ref="form" :model="user" label-width="80px">
           <el-form-item label="用户id">
-            <div>{{user.id==''?信息不详:user.id}}</div>
+            <div>{{user.id==null?"信息不详":user.id}}</div>
           </el-form-item>
           <el-form-item label="用户昵称">
-            <div>{{user.username==null?信息不详:user.username}}</div>
+            <div>{{user.username==null?"信息不详":user.username}}</div>
           </el-form-item>
           <el-form-item label="用户年龄">
-            <div>{{user.age==""?信息不详:user.age}}</div>
+            <div>{{user.age==null?"信息不详":user.age}}</div>
           </el-form-item>
           <el-form-item label="用户电话">
-            <div>{{user.phone==""?信息不详:user.phone}}</div>
+            <div>{{user.phone==null?"信息不详":user.phone}}</div>
           </el-form-item>
           <el-form-item label="用户邮箱">
-            <div>{{user.mail==""?信息不详:user.mail}}</div>
+            <div>{{user.mail==null?"信息不详":user.mail}}</div>
           </el-form-item>
           <el-form-item label="用户介绍">
-            <div>{{user.detail==""?信息不详:user.detail}}</div>
+            <div>{{user.detail==null?"信息不详":user.detail}}</div>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -94,11 +107,11 @@ export default {
       tableData: [],
       dialogTableVisible_book: false,
       dialogTableVisible_user: false,
-      feedbackid:1,
-      userid:1,
-      feedback:null,
-      content:"",
-      is_reply:false,
+      state:0,
+      isbn:"",
+      book:null,
+      feedbackid:null,
+      userid:null,
       user:{
         id:"",
         username:"",
@@ -145,22 +158,26 @@ export default {
     bookdetail(index, row) {
       this.dialogTableVisible_book=true
       this.dialogTableVisible_user=false
-      this.feedbackid=row.id
+      this.isbn=row.content
+      this.state=row.state
+      console.log(index)
+      console.log(this.tableData[index])
+      console.log(this.tableData[index].id)
+      this.feedbackid=this.tableData[index].id
+      console.log(this.feedbackid)
+      //this.feedbackid=row.id
+      //this.$message(row.id)
+      //console.log(this.tableData[index])
       this.userid=row.userid
       var _this=this
       this.$axios
-          .post("/getFeedbackById", {
-            id:_this.feedbackid
+          .post("/getbookinfo", {
+            isbn:_this.isbn
           })
           .then((res) => {
             // console.log(res.data)
             if (res.data!=null) {
-              _this.feedback=res.data
-              if(res.data.replycontent==""||res.data.replycontent==null){
-                _this.is_reply=true
-              }else{
-                _this.is_reply=false
-              }
+              _this.book=res.data
             } else {
               this.$message.error("系统繁忙，请稍后再试");
             }
@@ -197,47 +214,38 @@ export default {
         path: "/admin/adminfuser?id=" + row.userid,
       });*/
     },
-    /*yes_feedback(){
+    addbook(){
       var _this=this
-      if(this.is_reply==true) {
-        if (this.content != "") {
-          //this.$message(this.content)
-          this.$axios.post("/addReply", {
-            id: _this.feedback.id,
-            replycontent: _this.content
+      //this.$message("dianji")
+      this.$axios
+          .post("/Adminf_book", {
+            id:_this.feedbackid
           })
-              .then((res) => {
-                //alert("res")
-                // console.log(res.data)
-                if (res.data == "yes") {
-                  this.$message.success("答复成功，用户将会收到邮件");
-                  location.reload()
-                  //alert(res.data)
-
-                } else {
-                  console.log(res.data);
-                  this.$message.error("系统繁忙，答复失败，请重新答复");
-                }
-              });
-          //alert(res.data)
-          this.content = ""
-          this.dialogTableVisible_feedback = false
-        } else {
-          this.$message.error("答复内容不能为空！")
-        }
-      }else{
-        this.dialogTableVisible_feedback = false
-      }
+          .then((res) => {
+            // console.log(res.data)
+            if (res.data!=null) {
+              _this.book=res.data
+              _this.$message.success("入库成功")
+            } else {
+              _this.$message.error("系统繁忙，请稍后再试");
+            }
+            location.reload()
+          });
     },
-    no_feedback(){
-      this.dialogTableVisible_feedback=false
-    },*/
-    /*yes_user(){
-
-    },
-    no_user(){
-      this.dialogTableVisible_user=false
-    }*/
+    refuse(){
+      var _this=this
+      //this.$message("this.feedbackid")
+      //this.$message(this.feedbackid+'')
+      this.$message("正在处理请稍等")
+      this.$axios
+          .post("/refuse", {
+            id:_this.feedbackid
+          })
+          .then((res) => {
+            // console.log(res.data)
+            location.reload()
+          });
+    }
   },
 }
 </script>

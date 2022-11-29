@@ -57,22 +57,22 @@
       <el-dialog title="用户信息" :visible.sync="dialogTableVisible_user">
         <el-form ref="form" :model="user" label-width="80px">
           <el-form-item label="用户id">
-            <div>{{user.id==''?信息不详:user.id}}</div>
+            <div>{{user.id==null?"信息不详":user.id}}</div>
           </el-form-item>
           <el-form-item label="用户昵称">
-            <div>{{user.username==null?信息不详:user.username}}</div>
+            <div>{{user.username==null?"信息不详":user.username}}</div>
           </el-form-item>
           <el-form-item label="用户年龄">
-            <div>{{user.age==""?信息不详:user.age}}</div>
+            <div>{{user.age==null?"信息不详":user.age}}</div>
           </el-form-item>
           <el-form-item label="用户电话">
-            <div>{{user.phone==""?信息不详:user.phone}}</div>
+            <div>{{user.phone==null?"信息不详":user.phone}}</div>
           </el-form-item>
           <el-form-item label="用户邮箱">
-            <div>{{user.mail==""?信息不详:user.mail}}</div>
+            <div>{{user.mail==null?"信息不详":user.mail}}</div>
           </el-form-item>
           <el-form-item label="用户介绍">
-            <div>{{user.detail==""?信息不详:user.detail}}</div>
+            <div>{{user.detail==null?"信息不详":user.detail}}</div>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -89,7 +89,7 @@ export default {
       tableData: [],
       dialogTableVisible_feedback: false,
       dialogTableVisible_user: false,
-      feedbackid:1,
+      feedbackid:null,
       userid:1,
       feedback:null,
       content:"",
@@ -144,7 +144,7 @@ export default {
             id:_this.feedbackid
           })
           .then((res) => {
-            // console.log(res.data)
+            console.log(res.data)
             if (res.data!=null) {
               _this.feedback=res.data
               if(res.data.replycontent==""||res.data.replycontent==null){
