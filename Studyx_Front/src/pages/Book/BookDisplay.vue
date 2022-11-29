@@ -22,14 +22,8 @@ import SearchBar from "@/components/BookCom/SearchBar";
 import ViewSwitch from "@/components/BookCom/ViewSwitch";
 
 export default {
-<<<<<<< Updated upstream
-  name: 'BookDisplay',
-  components: {Books, SideMenu,SearchBar,ViewSwitch},
-
-=======
   name: "BookDisplay",
   components: { Books, SideMenu, SearchBar, ViewSwitch, Navigation },
->>>>>>> Stashed changes
   methods: {
     listByCategory() {
       var _this = this;
@@ -40,18 +34,11 @@ export default {
           _this.$refs.booksArea.books = resp.data.result;
           _this.$refs.booksArea.currentPage = 1;
         }
-<<<<<<< Updated upstream
       })
     },
 
   }
 }
-=======
-      });
-    },
-  },
-};
->>>>>>> Stashed changes
 </script>
 
 <style scoped>

@@ -128,27 +128,9 @@ export default new Router({
         component: ProjectAll,
       }, ],
       props: true
+
     },
-<<<<<<< Updated upstream
-      {
-        path: '/project/addfeedback',
-        component: FeedbackAdd,
-      },
-      {
-        path: '/project/adddonationmoney',
-        component: DonationmoneyAdd,
-      },
-      {
-        path: '/project/adddonationbook',
-        component: DonationbookAdd,
-      }
-    ],
-    props: true
-  },
     //书籍界面
-=======
-    //书籍
->>>>>>> Stashed changes
     //书籍分类展示
     {
       path: '/book',
