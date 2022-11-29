@@ -30,7 +30,7 @@ public class BookController {
     @GetMapping("/api/search/byauthor")
     public Result searchbyauthor(@RequestParam String author){
 
-        System.out.println("已跑通！！！全世界最棒的海豹驾到！！！");
+       
         //String bookauthor=book.getAuthor();
 
         //List<Category> ret=new ArrayList<>();
@@ -50,7 +50,7 @@ public class BookController {
     @GetMapping("/api/search/byname")
     public Result searchbyname(@RequestParam String bookname){
 
-        System.out.println("已跑通！！！全世界最棒的海豹驾到！！！");
+        
 
         List<Category> booktest=categoryDAO.findByBookname(bookname);
 
