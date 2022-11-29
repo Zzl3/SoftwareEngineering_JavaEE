@@ -30,7 +30,7 @@ export default {
     return {
       gridData: [],
       dialogTableVisible: false,
-      isbn: 2,
+      isbn: "9787020033430",
       bookid: 1,
     };
   },

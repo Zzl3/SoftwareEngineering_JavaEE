@@ -1,13 +1,11 @@
 package com.example.studyx.controller;
 
 
+import com.example.studyx.dao.BookDAO;
 import com.example.studyx.dao.BorrowDAO;
 import com.example.studyx.dao.CollectionDAO;
 import com.example.studyx.dao.UserDAO;
-import com.example.studyx.pojo.Borrow;
-import com.example.studyx.pojo.Collection;
-import com.example.studyx.pojo.Collectiondir;
-import com.example.studyx.pojo.User;
+import com.example.studyx.pojo.*;
 import com.example.studyx.utils.GetNowTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +18,9 @@ import java.util.Map;
 public class BorrowController {
     @Autowired
     BorrowDAO borrowDAO;
+
+    @Autowired
+    BookDAO bookDAO;
 
     @Autowired
     UserDAO userDAO;
@@ -57,7 +58,7 @@ public class BorrowController {
             if (borrow.getStatus().equals("申请中")) {
                 Integer userid = borrow.getUserid();
                 User user = userDAO.getById(userid);
-                if (user.getStatus().equals("banned"))
+                if (user.getStatus().equals("banned")||(Integer.valueOf(user.getIntegration())<20))//被封禁或者积分小于20不可借
                     return null;
                 borrow.setStarttime("---");
                 borrow.setReturntime("---");
@@ -78,13 +79,18 @@ public class BorrowController {
         Integer bookid = Integer.valueOf(datas.get("bookid").toString());
         String status = datas.get("status").toString();
         Borrow borrow = borrowDAO.findByUseridAndBookid(userid, bookid);
+        Book book=bookDAO.findByBookid(bookid);
         if (status.equals("借阅中")) {
             borrow.setStarttime(createTime);
             borrow.setReturntime("---");//设置归还日期
             borrow.setDuring("30天");//设置为一个月
+            book.setBorrowstatus("不可借");
+            bookDAO.save(book);
         } else if (status.equals("已结束")) {
             borrow.setReturntime(createTime);//设置归还日期
             borrow.setDuring("---");//设置为一个月
+            book.setBorrowstatus("可借");
+            bookDAO.save(book);
         } else if (status.equals("未借阅")) {
             borrow.setReturntime("---");//设置归还日期
             borrow.setStarttime("---");//设置归还日期
