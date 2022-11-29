@@ -1,4 +1,5 @@
 <template>
+  <div>
   <el-card :body-style="{ padding: '0px' }">
     <img :src="books[0].cover" alt="封面">
     <div style="padding: 14px;">
@@ -13,6 +14,7 @@
       </div>
     </div>
   </el-card>
+  </div>
 </template>
 
 <script>
