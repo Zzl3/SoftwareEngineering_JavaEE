@@ -16,7 +16,7 @@
         <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
                  bodyStyle="padding:10px" shadow="hover">
           <div class="cover">
-            <img :src="item.cover" alt="封面">
+            <img :src="temcover" alt="封面">
           </div>
           <div class="info">
             <div class="title" v-on:click="goDetail(item)">
@@ -47,6 +47,7 @@ export default {
   components: {SearchBar, ViewSwitch},
   data () {
     return {
+      temcover:"https://zjjjjjj_----zjjj.gitee.io/javaee/image/cover.png",
       books: [],
       currentPage: 1,
       pagesize: 18

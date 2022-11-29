@@ -1,6 +1,8 @@
 package com.example.studyx.controller;
 
+import com.example.studyx.dao.BookDAO;
 import com.example.studyx.dao.CategoryDAO;
+import com.example.studyx.pojo.Book;
 import com.example.studyx.pojo.Category;
 import com.example.studyx.result.Result;
 import com.example.studyx.service.BookService;
@@ -25,6 +27,8 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    BookDAO bookDAO;
 
     @CrossOrigin
     @GetMapping("/api/search/byauthor")
