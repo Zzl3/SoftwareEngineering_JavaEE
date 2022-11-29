@@ -33,7 +33,7 @@ import BookParticulars from '@/pages/Book/BookParticulars'
 import DataTest from '@/pages/Book/DataTest'
 import test from '@/pages/Book/test'
 import testDisplay from '@/pages/Book/testDisplay'
-//import library from '@/pages/Book/library'
+import library from '@/pages/Book/library'
 
 //这里是总体书籍模块
 import BookAll from '@/pages/BookAll/bookall'
@@ -162,10 +162,10 @@ export default new Router({
       name: 'testDisplay',
       component: testDisplay,
     },
-    // {
-    //   path: '/library',
-    //   name: 'library',
-    //   component: library,
-    // },
+     {
+       path: '/library',
+       name: 'library',
+       component: library,
+    },
   ]
 })
