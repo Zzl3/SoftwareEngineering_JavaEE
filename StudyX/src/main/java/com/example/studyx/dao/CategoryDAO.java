@@ -20,4 +20,10 @@ public interface CategoryDAO extends JpaRepository<Category,Integer> {
     List<Category> findByPublishdate(String publishdate);
 
     List<Category> findByAuthor(String author);
+
+    //根据标题或作者模糊查询
+    List<Category> findAllByBooknameLikeOrAuthorLike(String keyword1, String keyword2);
+    //Category findByBookname(String bookname);
+
+    List<Category> findByType(String type);
 }
