@@ -1,141 +1,146 @@
 <template>
-
   <div>
     <br />
-    <Collectionclick @click.native="addcollection"></Collectionclick>
-    <div>
-          <div>
-              <div>
-                <el-row>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                  <el-col :span="12">
-                      <br>
-                      <br>
-                      <br>
-                    <h1 class="book-title">
-                      <span property="v:itemreviewed">{{books[0].bookname}}</span>
-                    </h1>
-                  </el-col>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+    <el-row>
+      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="8">
+        <br>
+        <br>
+        <br>
+        <h1 class="book-title" >
+          <span property="v:itemreviewed">{{books[0].bookname}}</span>
+        </h1>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
 
-                  </el-row>
-                  <el-row  >
-                      <el-col :span="6"><div class="grid-content bg-purple">    </div></el-col>
-                      <el-col :span="12">
-                        <img class="book-cover"src="https://img9.doubanio.com/view/subject/s/public/s34327482.jpg" title="点击看大图" alt="长安的荔枝" rel="v:photo" style="max-width: 135px;max-height: 200px;">
-                      </el-col>
-                    <el-col :span="6" class="info">
-                      <span class="pl"> 作者</span>:
-                      <span class="pl">{{books[0].author}}</span>
-                      <br>
-                      <span class="pl">出版社:</span>
-                      <span class="pl">{{books[0].publisher}}</span>
-                      <br>
-                      <span class="pl">出版日期:</span>
-                      <span class="pl">{{books[0].publishdate}}</span><br>
-                      <span class="pl">定价:</span>
-                      <span class="pl">{{books[0].price}}</span><br>
-                      <span class="pl">ISBN:</span>
-                      <span class="pl">{{books[0].isbn}}</span><br></el-col>
-                    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                </el-row>
-                <br>
-                <br>
-                <el-row>
-                  <el-col :span="6"><div class="grid-content bg-purple">    </div></el-col>
-                  <el-col :span="12">
-                    <el-button type="warning" plain @click="addcollection">书籍收藏</el-button>
-                    <el-button type="warning" plain @click="addborrow">书籍借阅</el-button>
-                    <el-dialog title="选择收藏夹" :visible.sync="dialogTableVisible">
-                      <el-table :data="gridData">
-                        <el-table-column property="dirname" label="名称" width="150"></el-table-column>
-                        <el-table-column property="content" label="简介" width="350"></el-table-column>
-                        <el-table-column label="选择">
-                          <template slot-scope="scope">
-                            <el-button size="mini" @click="checkcollect(scope.$index, scope.row)"
-                            >确认</el-button
-                            >
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                    </el-dialog>
-                  </el-col>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                </el-row>
+    </el-row>
+    <el-row :gutter="20" >
+      <el-col :span="4"><div class="grid-content bg-purple">                            </div></el-col>
+      <el-col :span="8">
+        <img class="book-cover"src="https://img9.doubanio.com/view/subject/s/public/s34327482.jpg" title="点击看大图" alt="长安的荔枝" rel="v:photo" style="max-width: 135px;max-height: 200px;">
+      </el-col>
+      <el-col :span="6" class="info">
+        <span class="pl"> 作者</span>:
+        <span class="pl">{{books[0].author}}</span>
+        <br>
+        <span class="pl">出版社:</span>
+        <span class="pl">{{books[0].publisher}}</span>
+        <br>
+        <span class="pl">出版日期:</span>
+        <span class="pl">{{books[0].publishdate}}</span><br>
+        <span class="pl">定价:</span>
+        <span class="pl">{{books[0].price}}</span><br>
+        <span class="pl">ISBN:</span>
+        <span class="pl">{{books[0].isbn}}</span><br></el-col>
+      <el-col :span="6">
+        <el-rate
+          v-model="books[0].mark"
+          disabled
+          max="10"
+          show-score
+          text-color="#ff9900"
+          score-template="{value}">
+      </el-rate>
+        <div class="bottom clearfix">
+          <el-button @click="goBack" type="text" class="button">返回</el-button>
+        </div>
+      </el-col>
+    </el-row>
+    <br>
+    <br>
+    <el-row :gutter="20">
+      <el-col :span="6"><div class="grid-content bg-purple">    </div></el-col>
+      <el-col :span="7">
+        <el-button class="a1-me" type="warning" plain @click="addcollection">书籍收藏</el-button>
+        <el-dialog title="选择收藏夹" :visible.sync="dialogTableVisible">
+          <el-table :data="gridData">
+            <el-table-column property="dirname" label="名称" width="150"></el-table-column>
+            <el-table-column property="content" label="简介" width="350"></el-table-column>
+            <el-table-column label="选择">
+              <template slot-scope="scope">
+                <el-button size="mini" @click="checkcollect(scope.$index, scope.row)"
+                >确认</el-button
+                >
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-dialog>
+      </el-col>
+      <el-col :span="8">
+        <el-button class="a2-me" type="warning" plain @click="addborrow">书籍借阅</el-button>
+      </el-col>
+    </el-row>
 
-                <el-row>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                  <el-col :span="12"><p>发布评论：</p></el-col>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                  <el-col :span="12">
+    <el-row>
+      <el-col :span="5"><div class="grid-content bg-purple">&nbsp;</div></el-col>
+      <el-col :span="12">
+        <h2 class="summary">
+          <span>内容简介</span>
+          &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+        </h2>
+        <br>
+        <br>
+        <div class="intro">
+          <p>{{books[0].bookabstract}}</p>
+        </div>
+      </el-col>
+      <el-col :span="5"><div class="grid-content bg-purple">&nbsp;</div></el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="5"><div class="grid-content bg-purple">&nbsp;</div></el-col>
+      <el-col :span="12">
+        <div class="mod-hd">
+          <h2>
+            <span class="summary">短评 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</span>
+          </h2>
+          <br>
+          <el-button class="a-me" type="text" @click="dialogVisible = true">我来说两句</el-button>
 
-                    <Remark @onRemark="addRemark" ref="Remark"></Remark>
-
-                    <!--评论区-->
-                    <el-card v-for="item in remarks.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                             :key="item.id">
-                      <div class="info">
-                        <div class="title" >
-                          {{item.content}}
-                          {{item.isbn}}
-                          {{item.remarktime}}
-                          {{item.userid}}
-                          {{item.remarkid}}
-                        </div>
-                        <i class="el-icon-delete" @click="deleteRemark(item.remarkid)">删除评论</i>
-                      </div>
-                    </el-card>
-                    <el-row>
-                      <el-pagination
-                          @current-change="handleCurrentChange"
-                          :current-page="currentPage"
-                          :page-size="pagesize"
-                          :total="remarks.length">
-                      </el-pagination>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-                </el-row>
-
-
-
-
-              </div>
-
-              <div style="padding: 14px;">
-
-                <el-rate
-                    v-model="books[0].mark"
-                    disabled
-                    max="10"
-                    show-score
-                    text-color="#ff9900"
-                    score-template="{value}">
-                </el-rate>
-                <div class="bottom clearfix">
-                  <el-button @click="goBack" type="text" class="button">返回</el-button>
-                </div>
-              </div>
+          <el-dialog
+              :visible.sync="dialogVisible"
+          >
+            <div class="interest-form-hd">
+              <h2>写短评</h2>
+            </div>
+            <Remark @onRemark="addRemark" ref="Remark"></Remark>
+          </el-dialog>
+        </div>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="5"><div class="grid-content bg-purple">&nbsp;</div></el-col>
+      <el-col :span="12">
+        <!--评论区-->
+        <br>
+        <el-card  v-for="item in remarks.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                 :key="item.id">
+          <div class="info">
+            <div class="title" >
+              {{item.content}}
+              {{item.remarktime}}
+              {{item.userid}}
+            </div>
+            <i class="el-icon-delete" @click="deleteRemark(item.remarkid)">删除评论</i>
           </div>
-        </div>
-        <el-col :span="1"><el-divider direction="vertical"></el-divider></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple">
-          <p>  </p>
-          <p>  </p>
+        </el-card>
+        <el-row>
+          <br>
+          <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page="currentPage"
+              :page-size="pagesize"
+              :total="remarks.length">
+          </el-pagination>
+        </el-row>
+      </el-col>
+      <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+    </el-row>
+    <div style="padding: 14px;">
 
 
-          <p>  </p>
-          <p>  </p>
-
-          <p>  </p>
-          <p>  </p>
-
-        </div>
-        </el-col>
     </div>
+  </div>
 
 </template>
 
@@ -161,12 +166,20 @@ export default {
       remarks:[],
       currentPage: 1,
       pagesize: 5,
+      dialogVisible:false,
     };
   },
   mounted: function () {
     this.loadBooks()
   },
   methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+    },
     deleteRemark(remarkid){
       this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -334,58 +347,181 @@ export default {
       let _this = this;
       // alert(row.dirname);
       this.$axios
-        .post("/user/setcollection", {
-          userid: _this.$myglobal.nowuserid,
-          isbn: _this.isbn, //这个就是需要对接的接口
-          dirname: row.dirname,
-        })
-        .then((res) => {
-          if (res.data == "0") {
-            _this.$message({
-              showClose: true,
-              message: "添加失败",
-              type: "error",
-            });
-          } else {
-            this.$message({
-              showClose: true,
-              message: "您已完成收藏",
-              type: "success",
-            });
-          }
-          this.dialogTableVisible = false;
-        });
+          .post("/user/setcollection", {
+            userid: _this.$myglobal.nowuserid,
+            isbn: _this.isbn, //这个就是需要对接的接口
+            dirname: row.dirname,
+          })
+          .then((res) => {
+            if (res.data == "0") {
+              _this.$message({
+                showClose: true,
+                message: "添加失败",
+                type: "error",
+              });
+            } else {
+              this.$message({
+                showClose: true,
+                message: "您已完成收藏",
+                type: "success",
+              });
+            }
+            this.dialogTableVisible = false;
+          });
     },
     addborrow() {
       let _this = this;
       this.$axios
-        .post("/user/setborrow", {
-          userid: _this.$myglobal.nowuserid,
-          bookid: _this.bookid, //这个就是需要对接的接口
-          status: "申请中",
-        })
-        .then((res) => {
-          console.log(res)
-          if (res.data == '') {
-            _this.$message({
-              showClose: true,
-              message: "您已被封禁!无法借阅书籍",
-              type: "error",
-            });
-          } else {
-            _this.$message({
-              showClose: true,
-              message: "您已开始申请",
-              type: "success",
-            });
-          }
-        });
+          .post("/user/setborrow", {
+            userid: _this.$myglobal.nowuserid,
+            bookid: _this.bookid, //这个就是需要对接的接口
+            status: "申请中",
+          })
+          .then((res) => {
+            console.log(res)
+            if (res.data == '') {
+              _this.$message({
+                showClose: true,
+                message: "您已被封禁!无法借阅书籍",
+                type: "error",
+              });
+            } else {
+              _this.$message({
+                showClose: true,
+                message: "您已开始申请",
+                type: "success",
+              });
+            }
+          });
     },
   },
 };
 </script>
 
 <style>
+.my-card{
+  float:left;
+}
+.comment-label{
+  color: #111;
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 98%;
+}
+.interest-form-hd{
+  color: #111;
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  padding: 12px 18px;
+  width: 100%;
+  margin: 0 -18px 15px;
+  clear: both;
+  background: #ebf5ea;
+  overflow: hidden;
+}
+.my-dialog{
+  color: #111;
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  margin: 0;
+  position: fixed;
+  z-index: 103;
+  background-color: #FFFFFF;
+  padding: 0;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  width: 550px;
+  left: 50%;
+  top: 50%;
+  margin-top: -152px;
+  margin-left: -276px;
+}
+.a-me{
+  float: right;
+  overflow: hidden;
+  font: normal 12px sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  zoom: 1;
+  cursor: pointer;
+  padding: 7px 12px;
+  line-height: 13px;
+  border-radius: 2px;
+  height: auto;
+  margin: 0;
+  color: #C65E24;
+  background: rgba(198,94,36,0.15);
+}
+.a1-me{
+  float: right;
+  overflow: hidden;
+  font: normal 12px sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  zoom: 1;
+  cursor: pointer;
+  padding: 7px 12px;
+  line-height: 13px;
+  border-radius: 2px;
+  height: auto;
+  margin: 0;
+  color: #C65E24;
+  background: rgba(198,94,36,0.15);
+}
+.a2-me{
+  float: left;
+  overflow: hidden;
+  font: normal 12px sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  zoom: 1;
+  cursor: pointer;
+  padding: 7px 12px;
+  line-height: 13px;
+  border-radius: 2px;
+  height: auto;
+  margin: 0;
+  color: #C65E24;
+  background: rgba(198,94,36,0.15);
+}
+.mod-hd{
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  color: #111;
+  margin: 0;
+  padding: 0;
+  margin-top: 16px;
+  overflow: hidden;
+}
+.intro{
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  color: #111;
+  word-break: normal;
+  word-wrap: break-word;
+  margin: 0;
+  padding: 0;
+  float:left;
+}
+.summary{
+  padding: 0;
+  font: 15px Arial, Helvetica, sans-serif;
+  margin: 0 0 12px 0;
+  line-height: 150%;
+  color: #007722;
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 3px;
+  float:left;
+}
 .book-title{
   font: 12px Helvetica,Arial,sans-serif;
   word-wrap: break-word;
@@ -396,6 +532,7 @@ export default {
   padding: 0 0 15px 0;
   line-height: 1.1;
   font-size: 26px;
+  float: right;
 }
 .book-cover{
   font: 12px Helvetica,Arial,sans-serif;
@@ -412,17 +549,7 @@ export default {
   margin-bottom: 10px;
   max-width: 135px;
   max-height: 200px;
-}
-.book-title{
-  font: 12px Helvetica,Arial,sans-serif;
-  word-wrap: break-word;
-  display: block;
-  font-weight: bold;
-  color: #494949;
-  margin: 0;
-  padding: 0 0 15px 0;
-  line-height: 1.1;
-  font-size: 26px;
+  float: right;
 }
 .book-info{
   font: 12px Helvetica,Arial,sans-serif;
