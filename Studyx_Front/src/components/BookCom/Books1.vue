@@ -92,7 +92,7 @@ export default {
     },
     goDetail(item) {
 
-      this.$router.push({path:'/bookparticulars',query: {id:item.bookname}})
+      this.$router.push({path:'/project/allproject',query: {id:item.bookname}})
 
     }
   }
