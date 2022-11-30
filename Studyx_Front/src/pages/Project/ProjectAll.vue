@@ -2,8 +2,8 @@
   <div>
     <br />
     <el-row>
-      <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="8">
+      <el-col :span="4"><div class="grid-content bg-purple">&nbsp;</div></el-col>
+      <el-col :span="4">
         <br>
         <br>
         <br>
@@ -15,11 +15,11 @@
 
     </el-row>
     <el-row :gutter="20" >
-      <el-col :span="4"><div class="grid-content bg-purple">                            </div></el-col>
-      <el-col :span="8">
+      <el-col :span="4"><div class="grid-content bg-purple">  &nbsp; </div></el-col>
+      <el-col :span="4">
         <img class="book-cover"src="https://img9.doubanio.com/view/subject/s/public/s34327482.jpg" title="点击看大图" alt="长安的荔枝" rel="v:photo" style="max-width: 135px;max-height: 200px;">
       </el-col>
-      <el-col :span="6" class="info">
+      <el-col :span="8" class="info1">
         <span class="pl"> 作者</span>:
         <span class="pl">{{books[0].author}}</span>
         <br>
@@ -34,24 +34,22 @@
         <span class="pl">{{books[0].isbn}}</span><br></el-col>
       <el-col :span="6">
         <el-rate
-          v-model="books[0].mark"
-          disabled
-          max="10"
-          show-score
-          text-color="#ff9900"
-          score-template="{value}">
-      </el-rate>
-        <div class="bottom clearfix">
-          <el-button @click="goBack" type="text" class="button">返回</el-button>
-        </div>
+            v-model="test"
+            disabled
+            show-score
+            text-color="#ff9900"
+            score-template="{value}">
+        </el-rate>
+
       </el-col>
     </el-row>
     <br>
     <br>
     <el-row :gutter="20">
-      <el-col :span="6"><div class="grid-content bg-purple">    </div></el-col>
+      <el-col :span="5"><div class="grid-content bg-purple"> &nbsp;   </div></el-col>
       <el-col :span="7">
         <el-button class="a1-me" type="warning" plain @click="addcollection">书籍收藏</el-button>
+        <el-button class="a2-me" type="warning" plain @click="addborrow">书籍借阅</el-button>
         <el-dialog title="选择收藏夹" :visible.sync="dialogTableVisible">
           <el-table :data="gridData">
             <el-table-column property="dirname" label="名称" width="150"></el-table-column>
@@ -65,9 +63,6 @@
             </el-table-column>
           </el-table>
         </el-dialog>
-      </el-col>
-      <el-col :span="8">
-        <el-button class="a2-me" type="warning" plain @click="addborrow">书籍借阅</el-button>
       </el-col>
     </el-row>
 
@@ -115,13 +110,15 @@
         <br>
         <el-card  v-for="item in remarks.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                  :key="item.id">
-          <div class="info">
-            <div class="title" >
-              {{item.content}}
-              {{item.remarktime}}
-              {{item.userid}}
+          <div class="inforemark">
+              <span class="user-id"> {{item.userid}}&nbsp;</span>
+              <span class="my-time"> {{item.remarktime}}</span>
+              <br>
+              <span class="my-content"> {{item.content}}</span>
+            <div class="my-delete">
+              <i class="el-icon-delete" @click="deleteRemark(item.remarkid)">删除评论</i>
             </div>
-            <i class="el-icon-delete" @click="deleteRemark(item.remarkid)">删除评论</i>
+            <br>
           </div>
         </el-card>
         <el-row>
@@ -167,6 +164,8 @@ export default {
       currentPage: 1,
       pagesize: 5,
       dialogVisible:false,
+      test:4,
+      value:3.7,
     };
   },
   mounted: function () {
@@ -237,6 +236,8 @@ export default {
               _this.books = resp.data.result
               //_this.isbn=_this.books[0].isbn
               _this.isbn=_this.books[0].isbn
+              var a = _this.books[0].mark;
+
               this.loadRemarks()
               //this.$message.error("共" + _this.isbn);
             }
@@ -399,6 +400,60 @@ export default {
 </script>
 
 <style>
+.info1{
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  color: #111;
+  word-break: normal;
+  margin: 0;
+  padding: 0;
+  float: left;
+  word-wrap: break-word;
+  max-width: 333px;
+}
+.info{
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  color: #111;
+  float:left;
+}
+.inforemark{
+  font: 12px Helvetica,Arial,sans-serif;
+  line-height: 1.62;
+  font-size: 13px;
+  color: #111;
+}
+.user-id{
+  font: 12px Helvetica,Arial,sans-serif;
+  list-style: none;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-weight: normal;
+  line-height: 1.7em;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #3377aa;
+  float:left;
+}
+.my-time{
+  font: 12px Helvetica,Arial,sans-serif;
+  list-style: none;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-weight: normal;
+  line-height: 1.7em;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #aaa;
+  float:left;
+}
+.my-content{
+  float:left;
+}
 .my-card{
   float:left;
 }
@@ -458,8 +513,21 @@ export default {
   color: #C65E24;
   background: rgba(198,94,36,0.15);
 }
+.my-delete{
+  font: 12px Helvetica,Arial,sans-serif;
+  list-style: none;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-weight: normal;
+  line-height: 1.7em;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #aaa;
+  float:right;
+}
 .a1-me{
-  float: right;
+  float: left;
   overflow: hidden;
   font: normal 12px sans-serif;
   text-decoration: none;
@@ -571,19 +639,7 @@ export default {
   color: #666666;
   font-size: 13px;
 }
-.info{
-  font: 12px Helvetica,Arial,sans-serif;
-  line-height: 1.62;
-  font-size: 13px;
-  color: #111;
-  word-break: normal;
-  margin: 0;
-  padding: 0;
-  float: left;
-  word-wrap: break-word;
-  max-width: 333px;
-  Text-align:left
-}
+
 .book-body{
   color: #111;
   padding: 0;
