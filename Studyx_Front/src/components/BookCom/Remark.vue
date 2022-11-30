@@ -12,12 +12,6 @@
       </el-input>
 
       <el-form-item label="评分：">
-        <el-rate
-            v-model="value2"
-        @change="changeValue"
-            :colors="colors">
-        >
-        </el-rate>
 
         <el-button type="primary" round  @click="addRemark">发送</el-button>
       </el-form-item>
