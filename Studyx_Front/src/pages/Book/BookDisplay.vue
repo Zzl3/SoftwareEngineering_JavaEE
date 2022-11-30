@@ -1,42 +1,39 @@
 <template>
-  <div>
-    <Navigation></Navigation>
-    <el-container>
-      <el-aside style="width: 200px; margin-top: 20px">
-        <switch></switch>
-        <SideMenu @indexSelect="listByCategory" ref="sideMenu"></SideMenu>
-      </el-aside>
-      <el-main>
-        <books class="books-area" ref="booksArea"></books>
-      </el-main>
-    </el-container>
-  </div>
+  <el-container>
+    <el-aside style="width: 200px;margin-top: 20px">
+      <switch></switch>
+      <SideMenu @indexSelect="listByCategory" ref="sideMenu"></SideMenu>
+    </el-aside>
+    <el-main>
+      <books1 class="books-area" ref="booksArea"></books1>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-import Navigation from "@/components/NavigaCom/Navigation";
-import SideMenu from "@/components/BookCom/SideMenu";
-import Books from "@/components/BookCom/Books";
-import ReturnButton from "@/components/BookCom/ReturnButton";
-import SearchBar from "@/components/BookCom/SearchBar";
-import ViewSwitch from "@/components/BookCom/ViewSwitch";
+
+
+import SideMenu from '@/components/BookCom/SideMenu'
+import Books1 from '@/components/BookCom/Books1'
+import ReturnButton from '@/components/BookCom/ReturnButton'
+
 
 export default {
-  name: "BookDisplay",
-  components: { Books, SideMenu, SearchBar, ViewSwitch, Navigation },
+  name: 'library',
+  components: {Books1, SideMenu},
   methods: {
-    listByCategory() {
-      var _this = this;
-      var cid = this.$refs.sideMenu.cid;
-      var url = "categories/" + cid + "/books";
-      this.$axios.get(url).then((resp) => {
+    listByCategory () {
+      var _this = this
+      var cid = this.$refs.sideMenu.cid
+      var url = 'categories/' + cid + '/books'
+      this.$axios.get('/type?cid=' + cid, {
+      }).then(resp => {
         if (resp && resp.data.code === 200) {
-          _this.$refs.booksArea.books = resp.data.result;
-          _this.$refs.booksArea.currentPage = 1;
+          _this.$refs.booksArea.books = resp.data.result
+          _this.$refs.booksArea.currentPage = 1
         }
       })
-    },
-
+    }
   }
 }
 </script>
