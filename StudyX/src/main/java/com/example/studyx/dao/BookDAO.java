@@ -5,7 +5,9 @@ import com.example.studyx.pojo.Borrow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-
+import java.util.List;
 public interface BookDAO extends JpaRepository<Book,Integer> {
     Book findByBookid(Integer bookid);
+    
+    List<Book> findByIsbn(String isbn);
 }

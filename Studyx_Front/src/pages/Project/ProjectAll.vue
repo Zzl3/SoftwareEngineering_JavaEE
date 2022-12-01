@@ -31,16 +31,38 @@
         <span class="pl">定价:</span>
         <span class="pl">{{books[0].price}}</span><br>
         <span class="pl">ISBN:</span>
-        <span class="pl">{{books[0].isbn}}</span><br></el-col>
-      <el-col :span="6">
+        <span class="pl">{{books[0].isbn}}</span><br>
+        <br>
+        <br>
         <el-rate
-            v-model="test"
+            v-model="value"
             disabled
-            show-score
             text-color="#ff9900"
             score-template="{value}">
         </el-rate>
+      </el-col>
 
+      <el-col :span="6">
+        <div class="rating_logo">
+
+        </div>
+        <br>
+        <br>
+
+        <br>
+
+
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="5"><div class="grid-content bg-purple">  &nbsp; </div></el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple">  &nbsp; </div>
+      </el-col>
+      <el-col :span="8" >
+
+      </el-col>
+      <el-col :span="6">
       </el-col>
     </el-row>
     <br>
@@ -95,7 +117,7 @@
               :visible.sync="dialogVisible"
           >
             <div class="interest-form-hd">
-              <h2>写短评</h2>
+              <h2 class="my-remark-title">写短评</h2>
             </div>
             <Remark @onRemark="addRemark" ref="Remark"></Remark>
           </el-dialog>
@@ -111,7 +133,7 @@
         <el-card  v-for="item in remarks.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                  :key="item.id">
           <div class="inforemark">
-              <span class="user-id"> {{item.userid}}&nbsp;</span>
+              <span class="user-id"> {{username}}&nbsp;</span>
               <span class="my-time"> {{item.remarktime}}</span>
               <br>
               <span class="my-content"> {{item.content}}</span>
@@ -158,6 +180,7 @@ export default {
       gridData: [],
       dialogTableVisible: false,
       bookid: 1,
+      book:[],
       books: [],
       isbn:'',
       remarks:[],
@@ -166,12 +189,29 @@ export default {
       dialogVisible:false,
       test:4,
       value:3.7,
+      userid:5,
+      username:'',
     };
   },
   mounted: function () {
     this.loadBooks()
   },
   methods: {
+    getUsername(){
+      var _this = this;
+      //this.username = this.$myglobal.nowuserid; //当前用户
+      this.$axios({
+        url: "/user/getuserinfo",
+        method: "post",
+        data: _this.$myglobal.nowuserid,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      }).then((res) => {
+        this.username = res.data.username;
+      });
+    },
+
     handleClose(done) {
       this.$confirm('确认关闭？')
           .then(_ => {
@@ -213,6 +253,7 @@ export default {
           .then(resp => {
             if (resp && resp.data.code === 200) {
               _this.remarks = resp.data.result
+              _this.getUsername()
             }
             else{
               this.$message.error("检索失败");
@@ -234,9 +275,9 @@ export default {
           .then(resp => {
             if (resp && resp.data.code === 200) {
               _this.books = resp.data.result
-              //_this.isbn=_this.books[0].isbn
               _this.isbn=_this.books[0].isbn
-              var a = _this.books[0].mark;
+              _this.value = _this.books[0].mark;
+              this.getbookid()
 
               this.loadRemarks()
               //this.$message.error("共" + _this.isbn);
@@ -269,14 +310,15 @@ export default {
       this.$axios
           .post('/addremarks', {
             content: this.$refs.Remark.textarea, //this.textarea,//从remark.vue传递过来
-            userid: '1',//需要连上接口判断
+            userid:  _this.$myglobal.nowuserid,//需要连上接口判断
             isbn: _this.isbn,
             remarktime:this.Date(),
             remarkid:'0',//等待自增
           })
           .then(successResponse => {
             if (successResponse.data.code === 200) {
-              this.$message.error("发布成功！");
+              this.$message.success("发布成功！");
+              //this.getUsername()
               this.loadRemarks()//实时显示评论
             }
             else{
@@ -284,7 +326,7 @@ export default {
             }
           })
           .catch(failResponse => {
-            this.$message.error("发布失败！");
+            this.$message.error("发布失败！222");
           })
     },
     Date(){
@@ -370,6 +412,25 @@ export default {
             this.dialogTableVisible = false;
           });
     },
+    getbookid(){
+      var _this = this
+      this.$axios
+          .post('/getbookid', {isbn: _this.isbn})
+          .then(successResponse => {
+            if (successResponse.data.code === 200) {
+              this.book=successResponse.data.result;
+              this.bookid=this.book[0].bookid;
+              this.$message.error("bookid获取成功"+this.bookid);
+            }
+            else{
+              this.$message.error("bookid获取失败"+this.isbn);
+            }
+          })
+          .catch(failResponse => {
+            //this.$message.error("请求失败！"+_this.isbn);
+          })
+    },
+
     addborrow() {
       let _this = this;
       this.$axios
@@ -389,7 +450,7 @@ export default {
             } else {
               _this.$message({
                 showClose: true,
-                message: "您已开始申请",
+                message: "您已开始申请"+_this.bookid,
                 type: "success",
               });
             }
@@ -400,6 +461,55 @@ export default {
 </script>
 
 <style>
+.rating_logo{
+  font: 12px Helvetica,Arial,sans-serif;
+  word-break: normal;
+  word-wrap: break-word;
+  color: #9b9b9b;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  float:left;
+}
+.my-remark-title{
+  padding: 0;
+  font: 15px Arial, Helvetica, sans-serif;
+  color: #007722;
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.2;
+}
+.mystar{
+  font: 12px Helvetica,Arial,sans-serif;
+  word-break: normal;
+  word-wrap: break-word;
+  color: #9b9b9b;
+  font-size: 12px;
+  line-height: 2;
+  padding: 0;
+  float: left;
+  display: inline-block;
+  zoom: 1;
+  width: 75px;
+  height: 15px;
+  margin: 1px 0 0 0;
+  overflow: hidden;
+  background-position: 0 -15px;
+}
+.rating_num{
+  font: 12px Helvetica,Arial,sans-serif;
+  word-break: normal;
+  word-wrap: break-word;
+  line-height: 2;
+  font-style: normal;
+  font-weight: normal;
+  float: left;
+  color: #494949;
+  padding: 0;
+  min-width: 30%;
+  font-size: 28px;
+}
 .info1{
   font: 12px Helvetica,Arial,sans-serif;
   line-height: 1.62;
