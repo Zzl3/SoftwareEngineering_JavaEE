@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookDAO extends JpaRepository<Book,Integer> {
     Book findByBookid(Integer bookid);
+    
+    List<Book> findByIsbn(String isbn);
 }
