@@ -1,9 +1,12 @@
 <template>
-  <div style="width: 1000px; height: 600px;left:300px;margin-top:50px" id="main"></div>
+  <div
+    style="width: 500px; height: 300px; left: 0px; margin-top: 50px"
+    id="main"
+  ></div>
 </template>
-  
+
 <script>
-import global from '../../utils/global.js'
+import global from "../../utils/global.js";
 
 //通过this.$echarts来使用
 export default {
@@ -14,9 +17,29 @@ export default {
   },
   data() {
     return {
-      chart_data:[]
+      chart_data: [],
+      myChart: null,
     };
   },
+  //数据自动刷新，必然需要一个监听机制告诉Echarts重新设置数据
+  // watch: {
+  //   //观察option的变化
+  //   option: {
+  //     handler(newVal, oldVal) {
+  //       if (this.myChart) {
+  //         if (newVal) {
+  //           this.myChart.setOption(newVal);
+  //         } else {
+  //           this.myChart.setOption(oldVal);
+  //         }
+  //       } else {
+  //         this.echartsInit();
+  //       }
+  //     },
+  //     deep: true, //对象内部属性的监听，关键。
+  //   },
+  // },
+
   methods: {
     //初始化echarts
     echartsInit() {
@@ -25,24 +48,25 @@ export default {
       //这里的所有echarts都需要改成this.$echarts
       let myChart = this.$echarts.init(document.getElementById("main"));
       //let min=300,max=660;
-      
+
       this.$axios({
-        url:"/user/countborrow",
-        method:"get",
+        url: "/user/countborrow",
+        method: "get",
         params: {
-          id:global.nowuserid
+          id: global.nowuserid,
+        },
+      }).then((res) => {
+        for (let val of res.data) {
+          //console.log(res.data)
+          _this.chart_data.push(val * 100 + 300);
+          //console.log(_this.chart_data);
         }
-      }).then((res)=>{
-        for(let val of res.data){
-          this.chart_data.push(val*100+300);
-        }
-        // console.log(this.chart_data);
-      })
+      });
 
       var option = {
         title: {
           text: "借阅统计",
-          subtext: "可以统计一下过去一年中的借阅数量",
+          //subtext: "可以统计一下过去一年中的借阅数量",
         },
         tooltip: {
           trigger: "axis",
@@ -106,8 +130,8 @@ export default {
             type: "line",
             smooth: true,
             // prettier-ignore
-            data: this.chart_data,
-            // data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
+            //data: _this.chart_data,
+            data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390],
             markArea: {
               itemStyle: {
                 color: "rgba(255, 173, 177, 0.4)",
@@ -115,7 +139,7 @@ export default {
               data: [
                 [
                   {
-                    name: "Morning Peak",
+                   // name: "Morning Peak",
                     xAxis: "2月",
                   },
                   {
@@ -124,7 +148,7 @@ export default {
                 ],
                 [
                   {
-                    name: "Evening Peak",
+                   // name: "Evening Peak",
                     xAxis: "7月",
                   },
                   {
@@ -138,10 +162,10 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       console.log("not here?");
-      console.log(this.chart_data);
+      //console.log(_this.chart_data);
+      console.log(option);
       myChart.setOption(option);
     },
   },
 };
 </script>
-  
