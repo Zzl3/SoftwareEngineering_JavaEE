@@ -64,7 +64,7 @@ export default {
           .then(resp => {
         if (resp && resp.data.code === 200) {
           _this.books = resp.data.result
-          this.$message.error("共"+_this.books.length+"条");
+          this.$message.success("共"+_this.books.length+"条");
         }
       })
           .catch(failResponse => {
