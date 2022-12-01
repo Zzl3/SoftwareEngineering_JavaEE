@@ -7,10 +7,14 @@ import com.example.studyx.dao.CollectionDAO;
 import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.*;
 import com.example.studyx.utils.GetNowTime;
+import org.apache.ibatis.javassist.LoaderClassPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +53,40 @@ public class BorrowController {
         }
         return borrows;
     }
+
+    @CrossOrigin
+    @GetMapping ("/api/user/countborrow")
+    public Integer[] countborrow(@RequestParam String id){
+        Integer userid = Integer.parseInt(id);
+//        User user = userDAO.getById(userid);
+        //find all books borrowed by a certain person
+        List<Borrow> borrows = borrowDAO.findByUserid(userid);
+//        List<Integer> l=new ArrayList<>();
+        Integer[] ret_value=new Integer[12];
+        for(int i=0;i<12;i++) ret_value[i]=0;
+        Map<String,Integer> ret=new HashMap<>();
+        for(Borrow borrow:borrows){
+            System.out.println(borrow.getStarttime());
+            String[] date=borrow.getStarttime().split("-");
+            System.out.println(date.length);
+            System.out.println(date[0]);
+            System.out.println(date[1]);
+            System.out.println(date[2]);
+            ret_value[Integer.parseInt(date[1])]+=1;
+            //ret.put(date[1],ret.get(Integer.toString(Integer.parseInt(date[1])+1)));
+        }
+
+        return ret_value;
+
+//        List<Integer> returnvalue=new ArrayList<>();
+//        int num=0;
+//        for(Integer value:ret.values()){
+//            returnvalue.set(num++, value);
+//        }
+//        return returnvalue;
+    }
+
+
 
     @CrossOrigin
     @PostMapping(value = "/api/user/setborrow")

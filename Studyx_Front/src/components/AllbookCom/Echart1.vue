@@ -2,7 +2,9 @@
   <div style="width: 1000px; height: 600px;left:300px;margin-top:50px" id="main"></div>
 </template>
   
-  <script>
+<script>
+import global from '../../utils/global.js'
+
 //通过this.$echarts来使用
 export default {
   name: "page",
@@ -11,7 +13,9 @@ export default {
     this.echartsInit();
   },
   data() {
-    return {};
+    return {
+      chart_data:[]
+    };
   },
   methods: {
     //初始化echarts
@@ -20,6 +24,21 @@ export default {
       // 基于准备好的dom，初始化echarts实例  这个和上面的main对应
       //这里的所有echarts都需要改成this.$echarts
       let myChart = this.$echarts.init(document.getElementById("main"));
+      //let min=300,max=660;
+      
+      this.$axios({
+        url:"/user/countborrow",
+        method:"get",
+        params: {
+          id:global.nowuserid
+        }
+      }).then((res)=>{
+        for(let val of res.data){
+          this.chart_data.push(val*100+300);
+        }
+        // console.log(this.chart_data);
+      })
+
       var option = {
         title: {
           text: "借阅统计",
@@ -87,7 +106,8 @@ export default {
             type: "line",
             smooth: true,
             // prettier-ignore
-            data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
+            data: this.chart_data,
+            // data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
             markArea: {
               itemStyle: {
                 color: "rgba(255, 173, 177, 0.4)",
@@ -117,6 +137,8 @@ export default {
         ],
       };
       // 使用刚指定的配置项和数据显示图表。
+      console.log("not here?");
+      console.log(this.chart_data);
       myChart.setOption(option);
     },
   },

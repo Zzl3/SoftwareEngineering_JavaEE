@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,28 @@ public class CategoryController {
     public Category getcategoryinfo(@RequestBody String a) {
         Category category=categoryDAO.findByIsbn(a);
         return category;
+    }
+
+    @CrossOrigin
+    @GetMapping("/api/user/getcategorynum")
+    public Integer[] getcategorynum(){
+        Map<String,Integer> ret=new HashMap<>();
+        List<Category> categories=categoryDAO.findAll();
+        for(Category c:categories){
+            if(!ret.containsKey(c.getType())){
+                ret.put(c.getType(),1);
+            }
+            else{
+                ret.put(c.getType(),ret.get(c.getType())+1);
+            }
+        }
+
+        Integer[] returnvalue=new Integer[6];
+        int i=0;
+        for(int j=0;j<6;j++) returnvalue[j]=0;
+        for(Integer c:ret.values()){
+            returnvalue[i++]=c;
+        }
+        return returnvalue;
     }
 }
