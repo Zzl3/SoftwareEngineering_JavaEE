@@ -11,6 +11,7 @@
           @clear="handleEmpty">
       </el-input>
       <br>
+      <br>
       <el-button class="bn-flat" type="primary" round  @click="addRemark">保存</el-button>
 
     </el-form>
@@ -64,18 +65,18 @@ export default {
 </script>
 
 <style scoped>
-.bn-flat{
+
+.bn-flat1{
   font: 12px Helvetica,Arial,sans-serif;
   line-height: 1.62;
   font-size: 13px;
   display: inline-block;
   border-width: 1px;
   border-style: solid;
-  border-color: #bbb #bbb #999;
-  color: #444;
+  border-color: #111;
+  color: #111;
   -webkit-border-radius: 3px;
   overflow: hidden;
   vertical-align: middle;
-  float: right;
 }
 </style>
