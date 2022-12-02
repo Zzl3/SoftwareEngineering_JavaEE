@@ -34,10 +34,10 @@
                 />
               </div>
               <div id="kitabadi">
-                <h1>这是书名</h1>
+                <h1>理解媒介论人的延伸</h1>
               </div>
               <div id="kimindi">
-                <p>这是作者</p>
+                <p>[加拿大]马歇尔麦克卢汉</p>
               </div>
               <div id="reytinq">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
               </div>
               <div id="haqqinda">
-                <h3>这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介</h3>
+                <h3>从印刷术到互联网，媒介作为人器官与意识的延伸，长久以来与人类互相塑造，共同进化。</h3>
               </div>
             </div>
           </div>
