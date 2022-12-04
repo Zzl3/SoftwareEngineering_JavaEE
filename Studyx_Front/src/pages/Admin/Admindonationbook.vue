@@ -67,7 +67,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="addbook" style="float: left" v-if="state==0">同意</el-button>
-              <el-button @click="refuse" style="float: right" v-if="state==0">拒绝</el-button>
+              <el-button @click="refuse" style="float: right" type="danger" v-if="state==0">拒绝</el-button>
             </el-form-item>
           </el-form>
         </div>

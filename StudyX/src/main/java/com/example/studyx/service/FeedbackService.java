@@ -99,8 +99,8 @@ public class FeedbackService {
         feedback.setReplycontent("不好意思，您要捐赠的书籍不符合要求，已被拒绝");
         String mail=userDAO.getById(feedback.getUserid()).getMail();
         boolean result= smsCodeService.send_reply("不好意思，您要捐赠的书籍不符合要求，已被拒绝",mail);
-        if(result==false)
-            return false;
+        /*if(result==false)
+            return false;*/
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         feedback.setFeedbacktime(formatter.format(date));
