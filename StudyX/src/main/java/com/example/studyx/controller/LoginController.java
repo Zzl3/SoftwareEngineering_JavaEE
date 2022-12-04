@@ -48,7 +48,7 @@ LoginController {
         ;
         user = userService.get(mail, password);
         if (null == user) {
-            return ResultFactory.buildFailResult("账号不存在");
+            return ResultFactory.buildFailResult("账号或者密码错误");
         } else {
             session.setAttribute("user", user);
             return ResultFactory.buildSuccessResult(mail);
@@ -62,11 +62,11 @@ LoginController {
         int status = userService.register(user);
         switch (status) {
             case 0:
-                return ResultFactory.buildFailResult("电话号码或密码或用户名不能为空");
+                return ResultFactory.buildFailResult("邮箱或密码或用户名不能为空");
             case 1:
                 return ResultFactory.buildSuccessResult("注册成功");
             case 2:
-                return ResultFactory.buildFailResult("该手机号已注册");
+                return ResultFactory.buildFailResult("该邮箱已注册");
         }
         return ResultFactory.buildFailResult("未知错误");
     }

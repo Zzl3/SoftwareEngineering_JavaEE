@@ -14,12 +14,15 @@ public class SMSCodeController {
     @CrossOrigin
     @PostMapping(value = "/api/sms")
     public String getCode(@RequestBody String mail){
+        System.out.println("mail"+mail);
         String code=smsCodeService.sendCodeToSMS("11111111111");
+        System.out.println("code:"+code);
         //Map map = new HashMap();
         //map.put("code",code);
-        System.out.println(mail);
+        //System.out.println(mail);
         boolean result= smsCodeService.send(code,mail);
         if(result){
+
             return code;
         }
         return null;

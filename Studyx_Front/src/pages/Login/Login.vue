@@ -145,11 +145,11 @@
                   </button>
                 </div>
 
-                <input type="text" placeholder="昵称" v-model="regUser.regUsername" />
-                <input type="password" placeholder="密码" v-model="regUser.regPwd" />
+                <input type="text" placeholder="Nickname" v-model="regUser.regUsername" />
+                <input type="password" placeholder="Password" v-model="regUser.regPwd" />
                 <input
                   type="password"
-                  placeholder="再次输入密码"
+                  placeholder="Re-enter Password"
                   v-model="regUser.regRePwd"
                 />
               </div>
@@ -402,12 +402,12 @@ export default {
         },
       }).then((res) => {
         // console.log(res.data.code)
-        if (res.data != null) {
+        if (res.data != null&&res.data != "") {
           this.$message.success("验证码发送成功");
           this.regVerification = res.data;
         } else {
           console.log(res.data);
-          this.$message.error("验证码发送失败");
+          this.$message.error("验证码发送失败，请重试");
           return;
         }
       });
