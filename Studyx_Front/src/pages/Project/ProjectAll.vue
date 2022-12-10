@@ -138,7 +138,7 @@
               <br>
               <span class="my-content"> {{item.content}}</span>
             <div class="my-delete">
-              <i class="el-icon-delete" @click="deleteRemark(item.remarkid)">删除评论</i>
+              <i class="el-icon-delete" @click="deleteRemark(item.remarkid,item.userid)">删除评论</i>
             </div>
             <br>
           </div>
@@ -219,31 +219,37 @@ export default {
           })
           .catch(_ => {});
     },
-    deleteRemark(remarkid){
-      this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-            this.$axios
-                .post('/delete', {remarkid: remarkid}).then(resp => {
+    deleteRemark(remarkid,userid){
 
-              if (resp && resp.status === 200) {
-                this.loadRemarks()
-                this.$message({
-                  type: 'info',
-                  message: '已删除'
-                })
+      if(userid!=this.$myglobal.nowuserid)
+        ;
+      else {
+        this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+              this.$axios
+                  .post('/delete', {remarkid: remarkid}).then(resp => {
 
-              }
-            })
-          }
-      ).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
+                if (resp && resp.status === 200) {
+                  this.loadRemarks()
+                  this.$message({
+                    type: 'info',
+                    message: '已删除'
+                  })
+
+                }
+              })
+            }
+        ).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
         })
-      })
+      }
+
     },
     loadRemarks(){
       var _this = this
