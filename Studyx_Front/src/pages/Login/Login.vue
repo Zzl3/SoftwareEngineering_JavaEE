@@ -402,7 +402,7 @@ export default {
         },
       }).then((res) => {
         // console.log(res.data.code)
-        if (res.data != null&&res.data != "") {
+        if (res.data != null && res.data != "") {
           this.$message.success("验证码发送成功");
           this.regVerification = res.data;
         } else {
@@ -483,6 +483,7 @@ export default {
                     alert(res.data + ":" + that.$.nowuserid);
                     // console.log( _this.$myglobal.nowuserid)
                   });
+                that.$myglobal.setnowuserid(res.data); //改变全局nowusername
                 this.$router.push({
                   path: "/index",
                 });

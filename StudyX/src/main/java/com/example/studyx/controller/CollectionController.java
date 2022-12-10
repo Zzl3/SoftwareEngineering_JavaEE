@@ -6,6 +6,7 @@ import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Collection;
 import com.example.studyx.pojo.Collectiondir;
 import com.example.studyx.utils.GetNowTime;
+import com.example.studyx.utils.MyGlobal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class CollectionController {
     public long deletecollection(@RequestBody Map<String,String> datas) {
         Integer userid=Integer.valueOf(datas.get("userid").toString());
         String isbn=datas.get("isbn").toString();
+        userid= MyGlobal.getUserid();
         long a=collectionDAO.deleteByUseridAndIsbn(userid,isbn);
         return a;
     }
@@ -33,6 +35,7 @@ public class CollectionController {
     @PostMapping(value = "/api/user/getcollection")
     public List<Collection> getcollectionbydirname(@RequestBody Map<String,String> datas) {
         Integer userid=Integer.valueOf(datas.get("userid").toString());
+        userid=MyGlobal.getUserid();
         String dirname=datas.get("dirname").toString();
         List<Collection> collections=collectionDAO.findByUseridAndDirname(userid,dirname);
         return collections;
@@ -43,6 +46,7 @@ public class CollectionController {
     public int setcollection(@RequestBody Collection collection) {
         try {
             String createTime=GetNowTime.gettime().toString();//得到当前时间
+            collection.setUserid(MyGlobal.getUserid());
             collection.setCollectiontime(createTime);
             collectionDAO.save(collection);
             return 1;
