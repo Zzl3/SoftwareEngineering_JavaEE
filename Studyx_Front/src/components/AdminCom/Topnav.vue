@@ -3,7 +3,6 @@
     <body class="news">
       <header>
         <div class="nav">
-          <Search></Search>
           <ul>
             <li class="classroom" style="float:right">
               <el-dropdown
