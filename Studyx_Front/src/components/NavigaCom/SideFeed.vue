@@ -126,6 +126,7 @@ export default {
             .post("/addFeedback", {
               content: _this.feed_content,
               type: "反馈",
+              userid:_this.$myglobal.nowuserid
             })
             .then((res) => {
               //alert("res")
@@ -133,9 +134,11 @@ export default {
               if (res.data == "yes") {
                 this.$message.success("反馈成功，我们会尽快答复");
                 //alert(res.data)
-              } else {
+              } else if(res.data == "no"){
                 console.log(res.data);
                 this.$message.error("反馈失败，请重新反馈");
+              }else{
+                this.$message.error("系统繁忙，请稍后再试");
               }
             });
         //alert(res.data)
@@ -158,6 +161,7 @@ export default {
             .post("/addDonationbook", {
               content: _this.isbn,
               type: "捐书",
+              userid:_this.$myglobal.nowuserid
             })
             .then((res) => {
               //alert("res")
@@ -167,9 +171,11 @@ export default {
                 //alert(res.data)
                 _this.isbn = "";
                 _this.donationbook=false
-              } else {
+              } else if(res.data == "no"){
                 console.log(res.data);
                 this.$message.error("不存在有该ISBN的书籍，请输入正确的ISBN编码");
+              }else{
+                this.$message.error("系统繁忙，请稍后再试");
               }
             });
         //alert(res.data)
@@ -201,7 +207,7 @@ export default {
               if (result[0] == "yes") {
                 this.$message.success(result[1])
                 //this.pay();
-                window.open("http://localhost:8443/api/pay?subject=donation"+"&traceNo="+11+"&totalAmount="+_this.money);
+                window.open("http://localhost:8443/api/pay?subject="+this.$myglobal.nowuserid+"&traceNo="+Math.round(Math.random()*100000000)+"&totalAmount="+_this.money);
                 /*window.open('')*/
                 //this.$message.success("捐书成功，感谢您的捐赠！");
                 //alert(res.data)

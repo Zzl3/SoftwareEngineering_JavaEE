@@ -50,6 +50,7 @@ public class AliPayController {
             String tradeNo = params.get("out_trade_no");
             String gmtPayment = params.get("gmt_payment");
             String alipayTradeNo = params.get("trade_no");
+            String subject = params.get("subject");
             // 支付宝验签
             if (Factory.Payment.Common().verifyNotify(params)) {
                 // 验签通过
@@ -63,8 +64,8 @@ public class AliPayController {
                 System.out.println("买家付款金额: " + params.get("buyer_pay_amount"));
 
                 // 捐赠记录写入数据库
-                System.out.println("userid"+tradeNo);
-                //donationmoneyService.addDonationmoney(Double.parseDouble(params.get("buyer_pay_amount")),Integer.parseInt(tradeNo));
+                System.out.println("userid"+subject);
+                donationmoneyService.addDonationmoney(Double.parseDouble(params.get("buyer_pay_amount")),Integer.parseInt(subject));
                 //
             }
         }

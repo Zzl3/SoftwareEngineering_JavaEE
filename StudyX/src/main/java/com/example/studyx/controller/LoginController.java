@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 //有几点需要注意，postmapping对应前端 .post
@@ -22,6 +23,8 @@ public class
 LoginController {
     @Autowired
     UserService userService;
+    /*@Autowired
+    HttpServletRequest request;   //首先可以通过注解的方式  获取一个 request*/
 
     @CrossOrigin
     @PostMapping("/api/getuserid")
@@ -33,7 +36,7 @@ LoginController {
 
     @CrossOrigin
     @PostMapping(value = "/api/login")
-    public Result login(@RequestBody User requestUser, HttpSession session) {
+    public Result login(@RequestBody User requestUser,HttpServletRequest request) {
         String mail = requestUser.getMail();
         mail = HtmlUtils.htmlEscape(mail);
         //先得到salt加密的值
@@ -50,7 +53,9 @@ LoginController {
         if (null == user) {
             return ResultFactory.buildFailResult("账号或者密码错误");
         } else {
+            HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            System.out.println("set:"+user);
             return ResultFactory.buildSuccessResult(mail);
         }
     }
