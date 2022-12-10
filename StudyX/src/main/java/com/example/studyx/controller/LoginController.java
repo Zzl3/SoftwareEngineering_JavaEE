@@ -1,11 +1,13 @@
 package com.example.studyx.controller;
 
+import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Admin;
 import com.example.studyx.pojo.User;
 import com.example.studyx.result.Result;
 import com.example.studyx.result.ResultFactory;
 import com.example.studyx.service.AdminService;
 import com.example.studyx.service.UserService;
+import com.example.studyx.utils.MyGlobal;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,8 +57,8 @@ LoginController {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            System.out.println("set:"+user);
-            return ResultFactory.buildSuccessResult(mail);
+            MyGlobal.setUserid(user.getId());
+            return ResultFactory.buildSuccessResult(user.getId());
         }
     }
 
@@ -95,6 +97,7 @@ LoginController {
     @RequestMapping("/api/logout")
     public void logout(HttpSession session) {
         System.out.println("logout");
+        MyGlobal.setUserid(0);
         //session失效
         if (session.getAttribute("user") != null)
             session.removeAttribute("user");
@@ -124,6 +127,7 @@ LoginController {
         if (null == admin) {
             return ResultFactory.buildFailResult("账号不存在");
         } else {
+            MyGlobal.setUserid(admin.getId());
             session.setAttribute("admin", admin);
             return ResultFactory.buildSuccessResult(adminname);
         }

@@ -5,6 +5,7 @@ import com.example.studyx.dao.CollectiondirDAO;
 import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Collectiondir;
 import com.example.studyx.utils.GetNowTime;
+import com.example.studyx.utils.MyGlobal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class CollectiondirController {
     @PostMapping(value = "/api/user/deletecollectiondir")
     public long deletecollectiondir(@RequestBody Map<String,String> datas) {
         Integer userid=Integer.valueOf(datas.get("userid").toString());
+        userid=MyGlobal.getUserid();
         String title=datas.get("dirname").toString();
         long a=collectiondirDAO.deleteByUseridAndDirname(userid,title);
         return a;
@@ -31,7 +33,7 @@ public class CollectiondirController {
     @CrossOrigin
     @PostMapping(value = "/api/user/getcollectiondir")
     public List<Collectiondir> getcollectiondir(@RequestBody String id) {
-        List<Collectiondir> collectiondir = collectiondirDAO.findByUserid(Integer.valueOf(id));
+        List<Collectiondir> collectiondir = collectiondirDAO.findByUserid(MyGlobal.getUserid());
         return collectiondir;
     }
 
@@ -41,6 +43,7 @@ public class CollectiondirController {
         try {
             String createTime=GetNowTime.gettime().toString();//得到当前时间
             collectiondir.setCreatetime(createTime);
+            collectiondir.setUserid(MyGlobal.getUserid());
             collectiondirDAO.save(collectiondir);
             return 1;
         } catch (Exception e) {

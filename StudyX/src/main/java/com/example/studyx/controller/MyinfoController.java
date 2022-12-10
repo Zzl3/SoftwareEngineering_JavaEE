@@ -6,6 +6,7 @@ import com.example.studyx.pojo.User;
 import com.example.studyx.result.ResultFactory;
 import com.example.studyx.service.UserService;
 import com.example.studyx.utils.GiteeImgBedUtils;
+import com.example.studyx.utils.MyGlobal;
 import com.example.studyx.utils.StringUtils;
 import org.apache.catalina.Store;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -26,11 +27,16 @@ public class MyinfoController {
 
     @Autowired
     UserDAO userDAO;
-
+    @CrossOrigin
+    @PostMapping(value = "/api/user/getnowuserid")
+    public int getnowuserid(){
+        return MyGlobal.getUserid();
+    }
     @CrossOrigin
     @PostMapping(value = "/api/user/getuserinfo")
     public User getuserinfo(@RequestBody String a) {
         User user = userDAO.getById(Integer.valueOf(a));
+        user=userDAO.getById(MyGlobal.getUserid());
         return user;
     }
 
@@ -39,6 +45,7 @@ public class MyinfoController {
     public boolean edituserinfo(@RequestBody User user) {
         Integer id = Integer.valueOf(user.getId());
         User usera = userDAO.getById(id);
+        usera=userDAO.getById(MyGlobal.getUserid());
         if (user.getPassword() != "") {
             // 默认生成 16 位盐，干扰数据
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
@@ -110,6 +117,7 @@ public class MyinfoController {
     @PostMapping("/api/user/getImg")
     public String getImg(@RequestBody String a) throws Exception {
         User user = userDAO.getById(Integer.valueOf(a));
+        user=userDAO.getById(MyGlobal.getUserid());
         String url = user.getUrl();
         return url;
     }

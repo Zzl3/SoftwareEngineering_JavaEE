@@ -124,12 +124,9 @@ export default new Router({
       children: [{
         path: '/project/allproject',
         component: ProjectAll,
-      }, ],
-      props: true
-
-    },
-    //书籍界面
-    //书籍分类展示//这个界面已经不用了
+      }, 
+                 //书籍界面
+    //书籍分类展示
     {
       path: '/book',
       name: 'book',
@@ -140,7 +137,11 @@ export default new Router({
         component: BookParticulars,
       }, ],
       props: true
+    },],
+      props: true
+
     },
+   
     //书籍详情
     {
       path: '/bookparticulars',
