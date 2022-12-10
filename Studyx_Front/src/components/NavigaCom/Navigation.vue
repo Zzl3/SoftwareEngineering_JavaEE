@@ -53,8 +53,8 @@
                 <RankDetail> </RankDetail>
               </span>
             </el-drawer>
-            <li class="project">
-              <a href="/project/allproject">测试用例</a>
+           <li class="project">
+              <a href="/user/myinfo">个人中心</a>
             </li>
             <li class="punch"><a href="/book">图书大厅</a></li>
             <el-dropdown
