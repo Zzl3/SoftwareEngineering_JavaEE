@@ -17,8 +17,8 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 //设置端口
 Vue.prototype.$axios = axios
-//axios.defaults.baseURL ='http://1.15.177.18:8443/api'
-axios.defaults.baseURL = 'http://localhost:8443/api'
+axios.defaults.baseURL ='http://1.15.177.18:8443/api'
+//axios.defaults.baseURL = 'http://localhost:8443/api'
 
 /* eslint-disable no-new */
 new Vue({
