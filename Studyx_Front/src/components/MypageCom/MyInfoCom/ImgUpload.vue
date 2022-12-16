@@ -25,7 +25,7 @@
     </div> -->
     <el-upload
       class="upload-demo"
-      action="http://localhost:8443/api/user/covers"
+      action="http://1.15.177.18:8443/api/user/covers"
       :data="upload_data"
       :on-preview="handlePreview"
       :on-remove="handleRemove"
