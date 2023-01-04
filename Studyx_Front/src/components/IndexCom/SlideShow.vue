@@ -15,7 +15,7 @@ export default {
         { img: require("@/assets/book2.jpg") },
         { img: require("@/assets/book3.png") },
         { img: require("@/assets/book4.jpeg") },
-        { img: require("@/assets/book5.jpeg") },
+        { img: require("@/assets/book6.jpg") },
         { img: require("@/assets/book10.jpeg") },
       ],
     };
