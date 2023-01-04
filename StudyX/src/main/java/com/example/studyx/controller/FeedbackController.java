@@ -10,6 +10,7 @@ import com.example.studyx.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Locale;
@@ -27,16 +28,14 @@ public class FeedbackController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/addFeedback")
-    public String addFeedback(@RequestBody Feedback feedback1,HttpSession session){
+    public String addFeedback(@RequestBody Feedback feedback1){
         String content=feedback1.getContent();
         String type=feedback1.getType();
         System.out.println("content"+content);
         if(content==null||"".equals(content)){
             return "no";
         }else{
-            //User user=(User)session.getAttribute("user");
-            //Feedback feedback= feedbackService.addFeedback(content,user.getId());
-            Feedback feedback= feedbackService.addFeedback(content,type,8);
+            Feedback feedback= feedbackService.addFeedback(content,type,feedback1.getUserid());
             return "yes";
         }
     }
@@ -51,7 +50,7 @@ public class FeedbackController {
         }else{
             //User user=(User)session.getAttribute("user");
             //Feedback feedback= feedbackService.addFeedback(content,user.getId());
-            feedbackService.addFeedback(content,type,8);
+            feedbackService.addFeedback(content,type,feedback1.getUserid());
             return "yes";
         }
     }
