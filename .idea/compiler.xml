@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="StudyX" target="1.8" />
+      <module name="StudyX" target="18" />
       <module name="wj" target="1.8" />
     </bytecodeTargetLevel>
   </component>
