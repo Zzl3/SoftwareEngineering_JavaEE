@@ -16,7 +16,7 @@
         <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
                  bodyStyle="padding:10px" shadow="hover">
           <div class="cover">
-            <img :src="temcover" alt="封面">
+            <img :src="item.cover" alt="封面">
           </div>
           <div class="info">
             <div class="title" v-on:click="goDetail(item)">
@@ -47,7 +47,6 @@ export default {
   components: {SearchBar, ViewSwitch},
   data () {
     return {
-      temcover:"https://zjjjjjj_----zjjj.gitee.io/javaee/image/cover.png",
       books: [],
       currentPage: 1,
       pagesize: 18
@@ -64,7 +63,7 @@ export default {
           .then(resp => {
         if (resp && resp.data.code === 200) {
           _this.books = resp.data.result
-          this.$message.success("共"+_this.books.length+"条");
+          this.$message.error("共"+_this.books.length+"条");
         }
       })
           .catch(failResponse => {
@@ -92,7 +91,7 @@ export default {
     },
     goDetail(item) {
 
-      this.$router.push({path:'/project/allproject',query: {id:item.bookname}})
+      this.$router.push({path:'/bookparticulars',query: {id:item.bookname}})
 
     }
   }

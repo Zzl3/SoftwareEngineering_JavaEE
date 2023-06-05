@@ -1,14 +1,10 @@
 package com.example.studyx.service;
 
 import com.example.studyx.dao.CategoryDAO;
-import com.example.studyx.dao.UserDAO;
 import com.example.studyx.pojo.Category;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 

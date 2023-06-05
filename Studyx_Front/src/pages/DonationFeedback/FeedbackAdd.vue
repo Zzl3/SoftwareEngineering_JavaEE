@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!--      <textarea placeholder="请输入您要反馈的内容" v-model="content">
-      </textarea>
-      <div style="width: 90%;margin:auto;height: 40px">
-        <button style="display: inline;float: left"
-                @click="yes"
-        >确认</button>
-&lt;!&ndash;        <div style="width:50px;"></div>&ndash;&gt;
-        <button style="display: inline;float: right"
-                @click="no"
-        >取消</button>
-      </div>-->
     <el-form label-width="80px">
       <el-form-item label="反馈内容">
         <el-input

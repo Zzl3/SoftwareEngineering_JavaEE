@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SoftwareEngineering-JavaEE.iml" filepath="$PROJECT_DIR$/.idea/SoftwareEngineering-JavaEE.iml" />
       <module fileurl="file://$PROJECT_DIR$/StudyX/StudyX.iml" filepath="$PROJECT_DIR$/StudyX/StudyX.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Resources/White-Jotter-master/wj/wj.iml" filepath="$PROJECT_DIR$/Resources/White-Jotter-master/wj/wj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Studyx_Front/Studyx_Front.iml" filepath="$PROJECT_DIR$/Studyx_Front/Studyx_Front.iml" />
     </modules>
   </component>
 </project>

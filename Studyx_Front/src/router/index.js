@@ -30,7 +30,10 @@ import ProjectAll from '@/pages/Project/ProjectAll'
 //这里是书籍管理模块
 import BookDisplay from '@/pages/Book/BookDisplay'
 import BookParticulars from '@/pages/Book/BookParticulars'
-import library from '@/pages/Book/library'
+import DataTest from '@/pages/Book/DataTest'
+import test from '@/pages/Book/test'
+import testDisplay from '@/pages/Book/testDisplay'
+//import library from '@/pages/Book/library'
 
 //这里是总体书籍模块
 import BookAll from '@/pages/BookAll/bookall'
@@ -124,8 +127,11 @@ export default new Router({
       children: [{
         path: '/project/allproject',
         component: ProjectAll,
-      }, 
-                 //书籍界面
+      }, ],
+      props: true
+
+    },
+    //书籍界面
     //书籍分类展示
     {
       path: '/book',
@@ -137,22 +143,29 @@ export default new Router({
         component: BookParticulars,
       }, ],
       props: true
-    },],
-      props: true
-
     },
-   
     //书籍详情
     {
       path: '/bookparticulars',
       name: 'BookParticulars',
       component: BookParticulars,
     },
-   //书籍展示界面
-     {
-       path: '/library',
-       name: 'library',
-       component: library,
+    //书籍前后端测试
+    {
+      path: '/test',
+      name: 'test',
+      component: test,
     },
+    //书籍显示测试
+    {
+      path: '/testdis',
+      name: 'testDisplay',
+      component: testDisplay,
+    },
+    // {
+    //   path: '/library',
+    //   name: 'library',
+    //   component: library,
+    // },
   ]
 })

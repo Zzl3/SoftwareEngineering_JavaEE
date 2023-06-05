@@ -6,22 +6,21 @@
                 <el-breadcrumb-item><a href="/admin/admincategory">书籍管理</a></el-breadcrumb-item>
             </el-breadcrumb>
             <div class="search" style="height:50px">
-                <div style="height:5px">
+                <div>
                     <el-input v-model="search" size="mini" placeholder="输入isbn搜索"
-                        style="width: 60%;float:left;display:inline-block" />
+                        style="width: 60% ; float:left;display:inline-block" />
                     <el-button icon="el-icon-search" type="primary" circle size="mini" @click="searchcategory(search)"
                         style="float:left;display:inline-block">
                     </el-button>
-                </div>
-                <div style="white-space:nowrap; margin-left: 230px ; margin-top: -10px;"><button id="button1"
-                        @click="dialogFormVisible = true">添加书籍</button>
-                        <el-dialog :visible.sync="dialogFormVisible">
+                    <el-dialog :visible.sync="dialogFormVisible">
                         <Myform></Myform>
                     </el-dialog>
                 </div>
+                <div style="white-space:nowrap; margin-left: 230px ; margin-top: -10px;"><button id="button1"
+                        @click="dialogFormVisible = true">添加书籍</button></div>
             </div>
             <el-scrollbar>
-                <el-table stripe style="width: 100%" height=600 :data="tableData">
+                <el-table style="width: 100%" height=600 :data="tableData">
                     <el-table-column label="ISBN" prop="isbn" width="150">
                     </el-table-column>
                     <el-table-column label="BookName" prop="bookname" width="100">
@@ -38,13 +37,13 @@
                     </el-table-column>
                     <el-table-column label="Operation" align="right" width="200">
                         <template slot-scope="scope">
-                            <button class="custom-btn btn-13" @click="dialogFormVisible = true">修改书籍信息</button>
-                            <!-- <button color="#626aef" @click="dialogFormVisible = true">修改书籍信息</button> -->
+                            <button color="#626aef" @click="dialogFormVisible = true">修改书籍信息
+                            </button>
                             <el-dialog :visible.sync="dialogFormVisible">
                                 <Myform></Myform>
                             </el-dialog>
-                            <button class="custom-btn btn-5" @click="takedown(scope.row); refresh()"><span>下架此书籍</span></button>
-                            <!-- <el-button size="mini" type="danger" @click="takedown(scope.row); refresh()">下架此书籍</el-button> -->
+                            <el-button size="mini" type="danger" @click="takedown(scope.row); refresh()">下架此书籍
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -196,86 +195,4 @@ export default {
 #button1:active {
     transform: translateY(-1px);
 }
-
-/* 5 */
-.btn-5 {
-  width: 100px;
-  height: 40px;
-  line-height: 42px;
-  padding: 0;
-  border: none;
-  background: rgb(255,27,0);
-  background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
-}
-.btn-5:hover {
-  color: #f0094a;
-  background: rgb(238, 145, 145);
-  box-shadow:none;
-}
-/* .btn-5:before,
-.btn-5:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #f0094a;
-  box-shadow:
-   -1px -1px 5px 0px #fff,
-   7px 7px 20px 0px #0003,
-   4px 4px 5px 0px #0002;
-  transition:400ms ease all;
-} */
-/* .btn-5:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-/* 
-.btn-5:hover:before,
-.btn-5:hover:after{
-  width:100%;
-  transition:800ms ease all;
-} */
-
-/* 13 */
-.btn-13 {
-  background-color: #086af2;
-background-image: linear-gradient(315deg, #65bded 0%, #65a0ed 74%);
-  border: none;
-  z-index: 1;
-  height:40px;
-  width: 100px;
-  margin-bottom: 30px;
-}
-.btn-13:after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  border-radius: 5px;
-   background-color: #4dccc6;
-background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
-  box-shadow:
-   -7px -7px 20px 0px #fff9,
-   -4px -4px 5px 0px #fff9,
-   7px 7px 20px 0px #0002,
-   4px 4px 5px 0px #0001;
-  transition: all 0.3s ease;
-}
-.btn-13:hover {
-  color: #fff;
-}
-.btn-13:hover:after {
-  top: 0;
-  height: 100%;
-}
-.btn-13:active {
-  top: 2px;
-}
-
 </style>

@@ -73,7 +73,7 @@ export default {
     return {
       dialogFormVisible: false,
       formLabelWidth: "120px",
-      username: "",
+      username: "user",
       gender: "",
       mail: "",
       school: "",
@@ -82,7 +82,6 @@ export default {
       age: "",
       integration: "",
       status: "",
-      nowuserid:"",
     };
   },
   mounted() {
@@ -91,7 +90,6 @@ export default {
   methods: {
     getlist() {
       var _this = this;
-      //alert(_this.$myglobal.nowuserid)
       //this.username = this.$myglobal.nowuserid; //当前用户
       this.$axios({
         url: "/user/getuserinfo",

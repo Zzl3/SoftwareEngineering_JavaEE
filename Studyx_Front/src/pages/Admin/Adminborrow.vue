@@ -69,21 +69,12 @@
         </el-table-column>
         <el-table-column label="查看详情" width="100px">
           <template slot-scope="scope">
-            <el-popover
-              placement="top-start"
-              title="书本详情"
-              width="200"
-              trigger="click"
+            <el-button
+              type="info"
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)"
+              >查看详情</el-button
             >
-              <Bookcard :isbn="isbn" :donatetime="donatetime" :userid="userid"></Bookcard>
-              <el-button
-                slot="reference"
-                size="mini"
-                type="danger"
-                @click="viewbookdetail(scope.$index, scope.row)"
-                >查看详情</el-button
-              >
-            </el-popover>
           </template>
         </el-table-column>
       </el-table>
@@ -92,15 +83,11 @@
 </template>
 
 <script>
-import Bookcard from "@/components/MypageCom/MyBorrowCom/Bookcard.vue";
 import Contentfield from "../../components/AdminCom/Contentfield.vue";
 export default {
-  components: { Contentfield, Bookcard },
+  components: { Contentfield },
   data() {
     return {
-      userid: "",
-      isbn: "",
-      donatetime: "",
       tableData: [],
     };
   },
@@ -169,22 +156,6 @@ export default {
     },
     filterTag(value, row) {
       return row.status === value;
-    },
-    viewbookdetail(index, row) {
-      let _this = this;
-      this.$axios({
-        url: "/user/getbookdetail",
-        method: "post",
-        data: row.bookid,
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      }).then((res) => {
-        console.log(res);
-        _this.donatetime = res.data.donatetime;
-        _this.isbn = res.data.isbn;
-        _this.userid = res.data.userid;
-      });
     },
   },
 };

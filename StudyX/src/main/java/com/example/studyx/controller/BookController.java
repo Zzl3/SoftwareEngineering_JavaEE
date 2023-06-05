@@ -1,25 +1,16 @@
 package com.example.studyx.controller;
 
-import com.example.studyx.dao.BookDAO;
-import com.example.studyx.dao.UserDAO;
 import com.example.studyx.dao.CategoryDAO;
-import com.example.studyx.pojo.Book;
-import com.example.studyx.pojo.User;
 import com.example.studyx.pojo.Category;
 import com.example.studyx.result.Result;
 import com.example.studyx.service.BookService;
-import com.example.studyx.service.UserService;
 import com.example.studyx.result.ResultFactory;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,30 +21,7 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    @Autowired
-    BookDAO bookDAO;
 
-    //需要写三个接口
-    //1、getUserid//
-    //1、getBookid//借阅
-    @CrossOrigin
-    @PostMapping("/api/getbookid")
-    public Result getbookid(@RequestBody String isbn){
-
-        List<Book> book=bookDAO.findByIsbn(isbn);
-
-        //System.out.println("111"+isbn);
-        //根据书名显示所有内容
-        //bookDAO.findAllByBooknameLikeOrAuthorLike(booktest.getBookname(),author);
-        if (null!=book){
-            System.out.println("书籍搜索成功");
-            return new Result(200,"书籍搜索成功",book);
-        }
-        else
-            return new Result(400,"未搜索到书籍",book);
-    }
-
-    //1、getIsbn//收藏
     @CrossOrigin
     @GetMapping("/api/search/byauthor")
     public Result searchbyauthor(@RequestParam String author){
@@ -67,11 +35,10 @@ public class BookController {
         //根据书名显示所有内容
         //bookDAO.findAllByBooknameLikeOrAuthorLike(booktest.getBookname(),author);
         if (null!=booktest){
-
             return new Result(200,"书籍搜索成功",booktest);
         }
         else
-            return new Result(400,"未搜索到书籍",booktest);
+            return new Result(200,"未搜索到书籍",booktest);
         //bookService.searchByIsbn(book.getIsbn());
     }
 
@@ -153,12 +120,5 @@ public class BookController {
     public Result listDetail(@RequestParam String bookname) {
        //怎样带着信息跳转到新页面？
         return ResultFactory.buildSuccessResult(bookService.Search(bookname));
-    }
-
-    @CrossOrigin
-    @PostMapping(value = "/api/user/getbookdetail")
-    public Book getbookdetail(@RequestBody String bookid) {
-        Book book=bookDAO.findByBookid(Integer.valueOf(bookid));
-        return book;
     }
 }

@@ -7,7 +7,7 @@
         >确认</button>
         <!--        <div style="width:50px;"></div>-->
         <button style="display: inline;float: right"
-                @click="no"
+                @click="callback(false)"
         >取消</button>
       </div>
   </div>
@@ -28,10 +28,8 @@ export default {
   },
   methods: {
     no(){
-      this.$router.push({
-        path: "/index",
-      });
       this.content=""
+      this.$emit('no_m')
     },
     handleDialogClose(){
       this.no()

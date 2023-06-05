@@ -14,21 +14,10 @@ public class AdminService {
     AdminDAO adminDAO;
 
     public boolean isExist(String adminname) {
-        Admin admin = getByName(adminname);
+        Admin admin = adminDAO.findByAdminname(adminname);
         return null != admin;
     }
 
-    public Admin getByName(String adminname) {
-        return adminDAO.findByAdminname(adminname);
-    }
-
-    public Admin get(String adminname, String password) {
-        return adminDAO.getByAdminnameAndPassword(adminname, password);
-    }
-
-    public void add(Admin admin) {
-        adminDAO.save(admin);
-    }
 
     public int register(Admin admin) {
         String adminname = admin.getAdminname();
@@ -55,7 +44,4 @@ public class AdminService {
         return 1;
     }
 
-    public Admin findByUsername(String username) {
-        return adminDAO.findByAdminname(username);
-    }
 }

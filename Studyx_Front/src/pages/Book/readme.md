@@ -1,19 +1,17 @@
-书籍搜索、展示和详情页面介绍
-1、书籍搜索与展示：pages/library
-2、书籍详情页面：pages/BookParticulars
-3、实现的功能：
-  按作者/书名搜索
-  分类展示
-  点击书籍标题进入详情页
-  详情页信息展示
-  评论功能：发布、展示、删除 目前只能评论文本
-4、对应后端写在RemarkDAO/RemarkService/RemarkController和Bookservice/BookController
-5、待办：
-与收藏、借阅功能对接
-修饰前端页面
-评论可能会添加评分和上传图片功能
-在评论和删除评论之前对用户是否登录进行判断，获取userID
+待办：
+- 1、书籍展示页面
+- 一本书的图片、名称（都可以点击）
+- 2、书籍详情页面
+- 点击后跳转至详情页面，图片、名字、其他详细信息，收藏、借阅、评论按钮，返回按钮
 
-
-
+- 页面跳转改成点击图片/书名，跳转到对应详情页.考虑方式，以particulars为父组件，然后跳转到不同的particulars/id详情页中
+- 上面的导航栏
+- 页面布局同其他页统一起来
+- 收藏借阅评论功能
+- 详情页的布局设置
+- 书籍的图片从哪里得到
+- 下周搞后端
+- import SideMenu from '@/components/BookCom/SideMenu'
+  import Books from '@/components/BookCom/Books'
+  import ReturnButton from '@/components/BookCom/ReturnButton'
 

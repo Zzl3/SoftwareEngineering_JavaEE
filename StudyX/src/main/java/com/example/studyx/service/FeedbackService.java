@@ -28,22 +28,27 @@ public class FeedbackService {
     UserDAO userDAO;
     @Autowired
     BookDAO bookDAO;
-
-    public void add(Feedback feedback) {
-        feedbackDAO.save(feedback);
-    }
-    public Feedback addFeedback(String content,String type,Integer userid){
+    public boolean addFeedback(String content,Integer userid){
+        if(content==""||content==null||content.length()>200)
+            return false;
+        if(userDAO.getById(userid)==null){
+            return false;
+        }
         Feedback feedback=new Feedback();
-        //feedback.setId(3);
         feedback.setUserid(userid);
         feedback.setContent(content);
-        feedback.setType(type);
+        feedback.setType("未回复");
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(date));
         feedback.setFeedbacktime(formatter.format(date));
-        add(feedback);
-        return feedback;
+        try{
+            feedbackDAO.save(feedback);
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
     }
     public boolean isExist(String content){
         Category category=categoryDAO.findByIsbn(content);
@@ -75,21 +80,39 @@ public class FeedbackService {
     }
 
     public boolean addReply(String reply,Integer feedbackid){
-        Feedback feedback=feedbackDAO.getById(feedbackid);
-        if(feedback==null)
+        if(reply==""||reply==null||reply.length()>200)
             return false;
-        feedback.setReplycontent(reply);
-        String mail=userDAO.getById(feedback.getUserid()).getMail();
-        boolean result= smsCodeService.send_reply(reply,mail);
-        if(result==false)
+        try{
+            Feedback feedback= com.example.studyx.test.feedbackDAO.getById(feedbackid);
+            if(feedback==null){
+                return false;
+            }
+            feedback.setReplycontent(reply);
+            try{
+                User user= com.example.studyx.test.userDAO.getById(feedback.getUserid());
+                if(user==null){
+                    return false;
+                }
+                String mail=user.getMail();
+                boolean result= com.example.studyx.test.smsCodeService.send_reply(reply,mail);
+                if(result==false)
+                    return false;
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+                Date date = new Date(System.currentTimeMillis());
+                feedback.setFeedbacktime(formatter.format(date));
+                feedback.setReplytime(formatter.format(date));
+                com.example.studyx.test.feedbackDAO.save(feedback);
+                return true;
+            }
+            catch (Exception e){
+                System.out.println(e);
+                return false;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
             return false;
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(date));
-        feedback.setFeedbacktime(formatter.format(date));
-        feedback.setReplytime(formatter.format(date));
-        feedbackDAO.save(feedback);
-        return true;
+        }
     }
 
     public boolean refuse(Integer feedbackid){
@@ -98,9 +121,9 @@ public class FeedbackService {
             return false;
         feedback.setReplycontent("不好意思，您要捐赠的书籍不符合要求，已被拒绝");
         String mail=userDAO.getById(feedback.getUserid()).getMail();
-        boolean result= smsCodeService.send_reply("不好意思，您要捐赠的书籍不符合要求，已被拒绝",mail);
-        /*if(result==false)
-            return false;*/
+        boolean result= smsCodeService.send("不好意思，您要捐赠的书籍不符合要求，已被拒绝",mail,"反馈");
+        if(result==false)
+            return false;
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         feedback.setFeedbacktime(formatter.format(date));

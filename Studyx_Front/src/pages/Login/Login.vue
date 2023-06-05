@@ -145,11 +145,11 @@
                   </button>
                 </div>
 
-                <input type="text" placeholder="Nickname" v-model="regUser.regUsername" />
-                <input type="password" placeholder="Password" v-model="regUser.regPwd" />
+                <input type="text" placeholder="昵称" v-model="regUser.regUsername" />
+                <input type="password" placeholder="密码" v-model="regUser.regPwd" />
                 <input
                   type="password"
-                  placeholder="Re-enter Password"
+                  placeholder="再次输入密码"
                   v-model="regUser.regRePwd"
                 />
               </div>
@@ -402,12 +402,12 @@ export default {
         },
       }).then((res) => {
         // console.log(res.data.code)
-        if (res.data != null && res.data != "") {
+        if (res.data != null) {
           this.$message.success("验证码发送成功");
           this.regVerification = res.data;
         } else {
           console.log(res.data);
-          this.$message.error("验证码发送失败，请重试");
+          this.$message.error("验证码发送失败");
           return;
         }
       });
@@ -483,7 +483,6 @@ export default {
                     alert(res.data + ":" + that.$.nowuserid);
                     // console.log( _this.$myglobal.nowuserid)
                   });
-                that.$myglobal.setnowuserid(res.data); //改变全局nowusername
                 this.$router.push({
                   path: "/index",
                 });

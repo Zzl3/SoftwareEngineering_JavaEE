@@ -10,10 +10,7 @@ import com.example.studyx.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 public class FeedbackController {
@@ -29,19 +26,15 @@ public class FeedbackController {
     @CrossOrigin
     @RequestMapping(value = "/api/addFeedback")
     public String addFeedback(@RequestBody Feedback feedback1){
-        String content=feedback1.getContent();
-        String type=feedback1.getType();
-        System.out.println("content"+content);
-        if(content==null||"".equals(content)){
-            return "no";
-        }else{
-            Feedback feedback= feedbackService.addFeedback(content,type,feedback1.getUserid());
+        boolean result=feedbackService.addFeedback(feedback1.getContent(), feedback1.getUserid());
+        if(result){
             return "yes";
         }
+        return "no";
     }
     @CrossOrigin
     @RequestMapping(value = "/api/addDonationbook")
-    public String addDonationbook(@RequestBody Feedback feedback1,HttpSession session){
+    public String addDonationbook(@RequestBody Feedback feedback1){
         String content=feedback1.getContent();
         String type=feedback1.getType();
         System.out.println("content"+content);
@@ -50,13 +43,13 @@ public class FeedbackController {
         }else{
             //User user=(User)session.getAttribute("user");
             //Feedback feedback= feedbackService.addFeedback(content,user.getId());
-            feedbackService.addFeedback(content,type,feedback1.getUserid());
+            feedbackService.addFeedback(content,8);
             return "yes";
         }
     }
     @CrossOrigin
     @RequestMapping(value = "/api/Adminf_book")
-    public String Adminf_book(@RequestBody Feedback feedback1,HttpSession session){
+    public String Adminf_book(@RequestBody Feedback feedback1){
         Feedback feedback= feedbackDAO.getById(feedback1.getId());
         if(feedback==null){
             return "no";
@@ -79,18 +72,9 @@ public class FeedbackController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/addReply")
-    public String addReply(@RequestBody Feedback Reply,HttpSession session){
-        int feedbackid=Reply.getId();
-        String reply=Reply.getReplycontent();
-        /*Admin admin=(Admin) session.getAttribute("admin");
-        Integer adminid=admin.getId();*/
-        Integer adminid=1;
-        if("".equals(reply)||reply==null){
-            return "no";
-        }else {
-            boolean result = feedbackService.addReply(reply, feedbackid);
-            return result==true?"yes":"no";
-        }
+    public String addReply(@RequestBody Feedback Reply){
+        boolean result=feedbackService.addReply(Reply.getReplycontent(), Reply.getId());
+        return result==true?"yes":"no";
     }
     @CrossOrigin
     @RequestMapping("/api/getuserinfo")

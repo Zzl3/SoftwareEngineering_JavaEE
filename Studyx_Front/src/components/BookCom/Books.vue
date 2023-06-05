@@ -16,7 +16,7 @@
         <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
                  bodyStyle="padding:10px" shadow="hover">
           <div @click="goDetail" class="cover">
-            <img :src="temcover" alt="封面">
+            <img :src="item.cover" alt="封面">
           </div>
           <div class="info" @click="goDetail">
             <el-link :underline="false">{{item.bookname}}</el-link>
@@ -46,9 +46,8 @@ export default {
   components: {SearchBar, ViewSwitch},
   data () {
     return {
-      temcover:"https://zjjjjjj_----zjjj.gitee.io/javaee/image/cover.png",
       books: [{
-        cover: '',
+        cover: 'https://bkimg.cdn.bcebos.com/pic/e1fe9925bc315c601e2d30818eb1cb1349547727?x-bce-process=image/resize,m_lfit,w_536,limit_1',
         bookname: '',
         author: '',
         type: '',

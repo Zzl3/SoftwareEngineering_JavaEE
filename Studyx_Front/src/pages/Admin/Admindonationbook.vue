@@ -4,7 +4,7 @@
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/admin' }">管理员页面</el-breadcrumb-item>
         <el-breadcrumb-item style="display: flex">
-          <a href="/admin/admindonationbook" style="color: black">捐书管理</a>
+          <a href="/admin/admindonationbook">捐书管理</a>
         </el-breadcrumb-item>
         <el-breadcrumb-item style="display: flex">
           <a href="/admin/admindonationmoney">捐款管理</a>
@@ -67,7 +67,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="addbook" style="float: left" v-if="state==0">同意</el-button>
-              <el-button @click="refuse" style="float: right" type="danger" v-if="state==0">拒绝</el-button>
+              <el-button @click="refuse" style="float: right" v-if="state==0">拒绝</el-button>
             </el-form-item>
           </el-form>
         </div>

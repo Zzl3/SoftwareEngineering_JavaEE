@@ -11,10 +11,10 @@
         <a href="/user/myborrow" class="box">
           <span><i class="el-icon-user"></i></span><span>我的借阅</span></a
         >
-        <!-- <a href="/user/mydonation" class="box">
+        <a href="/user/mydonation" class="box">
           <span><i class="el-icon-remove-outline"></i></span
           ><span>我的捐赠</span></a
-        > -->
+        >
       </div>
     </el-col>
   </div>
